@@ -22,6 +22,8 @@
             <li><a id="link-index" href="index.php">Home</a></li>
             <li><a id="link-menu" href="menu.php">Menu</a></li>
             <li><a id="link-promotions" href="promotions.php">Promotions</a></li>
+
+            <li style="float: right"><a id="link-cart" href="cart.php">Cart</a></li>
         </ul>
     </nav>
 <!--    <hr>-->

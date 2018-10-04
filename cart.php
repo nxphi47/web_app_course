@@ -2,12 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
+ * Date: 10/4/18
+ * Time: 6:07 PM
  */
-
-// include libraries
-
 session_start()
 
 ?>
@@ -18,6 +15,7 @@ session_start()
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/cart.css">
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
@@ -31,26 +29,17 @@ session_start()
 
 include "header.php"
 ?>
-<script>document.getElementById("link-index").classList.add("active")</script>
+<script>document.getElementById("link-cart").classList.add("active")</script>
+
 
 <div class="content">
-
-    <div class="slideshow-wrapper" id="slideshow-wrapper"></div>
-
-    <div class="quote-slideshow-wrapper" id="quote-slideshow-wrapper"></div>
-
-    <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
-
-
-    <div class="item-list-wrapper" id="item-list-wrapper"></div>
-
-    <br>
 
 </div>
 
 <?php
 include "footer.php"
 ?>
+
 <!--JS-->
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/cart.js"></script>
 </html>

@@ -25,13 +25,9 @@ div.content {
     cursor: pointer;
 
     box-sizing: border-box;
-}
 
-/*.button2 {*/
-    /*background-color: white;*/
-    /*color: black;*/
-    /*border: 2px solid #008CBA;*/
-/*}*/
+    border-radius: 5%;
+}
 
 .button:hover {
     background-color: white;
@@ -48,6 +44,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 10;
 }
 
 nav ul.nav {
@@ -151,7 +148,8 @@ div.item-banner:hover {
 div.item-banner img {
     width: 98%;
     height: auto;
-    margin: 1%
+    margin: 1%;
+    border-radius: 5%;
 }
 
 div.item-banner {
@@ -311,7 +309,6 @@ div.modal-content-inside div.detail button {
 /* ------------------------- SLIDE SHOW ---------------------------*/
 
 div.slideshow-wrapper {
-
 }
 
 
@@ -321,7 +318,7 @@ div.slideshow {
     position: relative;
     margin: auto;
     height: 400px;
-    z-index: -10;
+
 }
 
 /* Hide the images by default */
@@ -416,4 +413,161 @@ span.dot {
 }
 
 
+/* ------------------------- SLIDE SHOW for QUOTES ---------------------------*/
 
+div.quote-slideshow-wrapper {
+
+}
+
+.quote-slideshow {
+    position: relative;
+    background: #f1f1f1f1;
+}
+
+/* Slides */
+.quote-slide {
+    display: none;
+    padding: 80px;
+    text-align: center;
+}
+
+/* Add a blue color to the author */
+.quote-slide .author {color: cornflowerblue;}
+
+/* Next & previous buttons */
+.quote-slide-prev, .quote-slide-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -30px;
+    padding: 16px;
+    color: #888;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.quote-slide-next {
+    position: absolute;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.quote-slide-prev:hover, .quote-slide-next:hover {
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+
+/* The dot/bullet/indicator container */
+.quote-slideshow-dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+/* The dots/bullets/indicators */
+.quote-slide-dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.quote-slide-dot.active, .quote-slide-dot:hover {
+    background-color: #717171;
+}
+
+
+/* Add an italic font style to all quotes */
+q {font-style: italic;}
+
+
+/* ------------------------- SLIDE SHOW for item banner ---------------------------*/
+
+
+div.item-slideshow-wrapper {
+
+}
+
+.item-slideshow {
+    position: relative;
+    /*background: #f1f1f1f1;*/
+    max-width: 1000px;
+    margin: auto;
+    height: 50%;
+}
+
+.item-slideshow-container {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+/* Slides */
+.item-slide {
+    display: none;
+    padding: 80px;
+    text-align: center;
+}
+
+
+/* Next & previous buttons */
+.item-slide-prev, .item-slide-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -30px;
+    padding: 16px;
+    color: #888;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.item-slide-next {
+    position: absolute;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.item-slide-prev:hover, .item-slide-next:hover {
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+
+/* The dot/bullet/indicator container */
+.item-slideshow-dot-container {
+    text-align: center;
+    padding: 20px;
+    background: #ddd;
+}
+
+/* The dots/bullets/indicators */
+.item-slide-dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the active dot/circle */
+.item-slide-dot.active, .item-slide-dot:hover {
+    background-color: #717171;
+}
