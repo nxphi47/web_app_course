@@ -33,7 +33,27 @@ include "header.php"
 
 
 <div class="content">
-
+    <div class="cart-wrapper">
+        <div class="cart-summary" id="cart-summary">
+            <h4>Order Summary</h4>
+            <table>
+                <tr>
+                    <td>Orders</td>
+                    <td id="orders_subtotal"></td>
+                </tr>
+                <tr>
+                    <td>Delivery</td>
+                    <td id="delivery_subtotal"></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="order_total"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="cart-content" id="cart-content-wrapper">
+        </div>
+    </div>
 </div>
 
 <?php

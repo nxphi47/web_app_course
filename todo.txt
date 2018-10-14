@@ -1,0 +1,7 @@
++ add quantity toggle in modal pane
+
++ cart design
+
++ confirmation
+
++ about

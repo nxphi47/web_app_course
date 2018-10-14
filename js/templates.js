@@ -1,6 +1,7 @@
 // ---------------- ITEM BANNER -------------------
 function templateItemBanner(
     item,
+    where_id,
     banner_temp = "item_banner",
     img_temp = "item_img",
     add_cart_temp = "add_cart",
@@ -12,9 +13,9 @@ function templateItemBanner(
     let {id, title, price, note, desc, thumbnail, img_url} = item;
 
     let template = `
-    <div class="responsive" id="${banner_temp}_${id}">
+    <div class="responsive" id="${where_id}_${banner_temp}_${id}">
         <div class="item-banner">
-            <a href="#" id="${img_temp}_${id}">
+            <a href="#" id="${where_id}_${img_temp}_${id}">
                 <img src="${thumbnail}" alt="Not found" width="600" height="400">
             </a>
             <div class="desc">
@@ -23,16 +24,16 @@ function templateItemBanner(
                     <span class="price">$${price}</span>
                     <span class="note">${note}</span>
                 </span>
-                <button class="button desc" id="${add_cart_temp}_${id}">Add to Cart</button>
+                <button class="button desc" id="${where_id}_${add_cart_temp}_${id}">Add to Cart</button>
             </div>
         </div>
     </div>
     <!--Pop up window here-->
-    <div id="${modal_temp}_${id}" class="modal" style="display: none;">
+    <div id="${where_id}_${modal_temp}_${id}" class="modal" style="display: none;">
 
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="close" id="${modal_close_temp}_${id}">&times;</span>
+            <span class="close" id="${where_id}_${modal_close_temp}_${id}">&times;</span>
             <div class="modal-content-inside">
                 <div class="image">
                     <img src="${img_url}" alt="Image Not found" width="600" height="400">
@@ -46,7 +47,7 @@ function templateItemBanner(
                             <span class="price">$${price}</span>
                             <span class="note">${note}</span>
                         </div>
-                        <button class="button" id="${modal_add_cart_temp}_${id}">Add to Cart</button>
+                        <button class="button" id="${where_id}_${modal_add_cart_temp}_${id}">Add to Cart</button>
                     </div>
                 </div>
                 
@@ -60,6 +61,7 @@ function templateItemBanner(
 
 function bindHandlersItemBanner(
     item,
+    where_id,
     banner_temp = "item_banner",
     img_temp = "item_img",
     add_cart_temp = "add_cart",
@@ -68,12 +70,12 @@ function bindHandlersItemBanner(
     modal_add_cart_temp = "add_cart_modal",
 ) {
     let onClickImg = function () {
-        const modal = document.getElementById(`${modal_temp}_${item.id}`);
+        const modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
         modal.style.display = "block"
     };
 
     let onModalClose = function () {
-        const modal = document.getElementById(`${modal_temp}_${item.id}`);
+        const modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
         modal.style.display = "none";
     };
 
@@ -81,16 +83,16 @@ function bindHandlersItemBanner(
         console.log(`click add on item ${item.id}`);
         console.log(item);
     };
-    // console.log(`get item ${img_temp}_${item.id}`);
-    // console.log(document.getElementById(`${img_temp}_${item.id}`));
-    document.getElementById(`${img_temp}_${item.id}`).onclick = onClickImg;
-    document.getElementById(`${add_cart_temp}_${item.id}`).onclick = onAdd;
-    document.getElementById(`${modal_add_cart_temp}_${item.id}`).onclick = onAdd;
-    document.getElementById(`${modal_close_temp}_${item.id}`).onclick = onModalClose;
+    document.getElementById(`${where_id}_${img_temp}_${item.id}`).onclick = onClickImg;
+    document.getElementById(`${where_id}_${add_cart_temp}_${item.id}`).onclick = onAdd;
+    document.getElementById(`${where_id}_${modal_add_cart_temp}_${item.id}`).onclick = onAdd;
+    document.getElementById(`${where_id}_${modal_close_temp}_${item.id}`).onclick = onModalClose;
 }
 
 function componentItemList(where_id, data_list) {
-    let itemHtmls = data_list.map(templateItemBanner).join("");
+    let itemHtmls = data_list.map(function (item) {
+        return templateItemBanner(item, where_id);
+    }).join("");
 
     let componentListTemplate = `
     <div class="item-list" id="main-item-list">
@@ -103,7 +105,7 @@ function componentItemList(where_id, data_list) {
     document.getElementById(where_id).innerHTML = componentListTemplate;
 
     // functions
-    data_list.forEach(bindHandlersItemBanner);
+    data_list.forEach(function (item) {return bindHandlersItemBanner(item, where_id)});
 
     return componentListTemplate;
 }
@@ -331,25 +333,26 @@ const slide_modal_temp = "slide_item_modal";
 const slide_modal_close_temp = "slide_item_modal_close";
 const slide_modal_add_cart_temp = "slide_add_cart_modal";
 
-function slideItemBanner(item) {
+function slideItemBanner(item, where_id) {
     return templateItemBanner(
-        item, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
+        item, where_id, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
         slide_modal_temp, slide_modal_close_temp, slide_modal_add_cart_temp
     );
 }
 
-function bindHandlersSlideItemBanner(item) {
+function bindHandlersSlideItemBanner(item, where_id) {
     // console.log(item);
     return bindHandlersItemBanner(
-        item, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
+        item, where_id, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
         slide_modal_temp, slide_modal_close_temp, slide_modal_add_cart_temp
     )
 }
 
-function templateSlideItemBanner(index, itemList) {
+function templateSlideItemBanner(where_id, index, itemList) {
 
-    let itemBanners = itemList.map(slideItemBanner).join("");
-
+    // console.log(itemList);
+    let itemBanners = itemList.map(function (item) {return slideItemBanner(item, where_id)}).join("");
+    // console.log(itemBanners);
     let template = `
     <div class="item-slide">
         ${itemBanners}
@@ -359,10 +362,10 @@ function templateSlideItemBanner(index, itemList) {
     return template
 }
 
-function templateSlideItemDot(index, slide) {
+function templateSlideItemDot(where_id, index, slide) {
     // let {id, author, quote} = slide;
     let template = `
-    <span class="item-slide-dot" id="item_dot_${index}"></span>
+    <span class="item-slide-dot" id="${where_id}_item_dot_${index}"></span>
     `;
 
     return template;
@@ -388,11 +391,12 @@ function itemBannersSlideShows(where_id, highlightItems) {
     }
 
     let itemSetSlideHtmls = itemSetSlides.map(function (itemSet, index) {
-        return templateSlideItemBanner(index, itemSet);
+
+        return templateSlideItemBanner(where_id, index, itemSet);
     }).join("");
 
     let itemSetSlideDotHtmls = itemSetSlides.map(function (itemSet, index) {
-        return templateSlideItemDot(index, itemSet);
+        return templateSlideItemDot(where_id, index, itemSet);
     }).join("");
 
 
@@ -417,6 +421,7 @@ function itemBannersSlideShows(where_id, highlightItems) {
     function showSlides(num) {
         let slides = document.getElementsByClassName("item-slide");
         let dots = document.getElementsByClassName("item-slide-dot");
+
 
         if (num > itemSetSlides.length - 1) {currentIndex = 0}
         if (num < 0) {currentIndex = itemSetSlides.length - 1}
@@ -444,6 +449,7 @@ function itemBannersSlideShows(where_id, highlightItems) {
 
     document.getElementById(where_id).innerHTML = slideShowHtml;
 
+
     showSlides(currentIndex);
 
 
@@ -456,7 +462,7 @@ function itemBannersSlideShows(where_id, highlightItems) {
         dots[i].onclick = function () {openCurrentSlide(i)};
     }
 
-    highlightItems.forEach(bindHandlersSlideItemBanner);
+    highlightItems.forEach(function (item) {return bindHandlersSlideItemBanner(item, where_id)});
 }
 
 
