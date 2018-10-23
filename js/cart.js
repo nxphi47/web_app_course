@@ -11,13 +11,8 @@ function templateOrderItem(
 
     const max_char_len = 200;
     let description = desc.substring(0, max_char_len) + (desc.length <= max_char_len? "" : "...");
-    // if (desc.length <= 200) {
-    //     description = desc;
-    // }
-    // else {
-    //     description = desc.substring(0, 200) + "...";
-    // }
 
+    let quantitySpinner = templateQuantitySpinner(id_temp);
     let template = `
     <li class="cart-item" id="item-${id_temp}">
         <img class="cart-item-img" src="${thumbnail}" alt="Not found" width="150" height="100">
@@ -30,41 +25,35 @@ function templateOrderItem(
             </div>
             <div class="cart-item-control">
                 <h2>$${price}</h2>
-                <div class="quantity">
-                    <input id="quantity-input-${id_temp}" type="number" min="1" max="9" step="1" value="${quantity}">
-                    <div class="quantity-nav">
-                        <div class="quantity-button quantity-up" id="quantity-up-${id_temp}">+</div>
-                        <div class="quantity-button quantity-down" id="quantity-down-${id_temp}">-</div>
-                    </div>
-                </div>
-
-                <button class="button remove-button" id="remove-button-${id_temp}">Remove</button>
+                ${quantitySpinner}
             </div>
         </div>
     </li>
     `;
 
     // handler should only be called once the dom created!
-    let bindingHandler = function () {
-        const quantity_up = document.getElementById(`quantity-up-${id_temp}`);
-        const quantity_down = document.getElementById(`quantity-down-${id_temp}`);
-        const quantity_input = document.getElementById(`quantity-input-${id_temp}`);
-        const remove_button = document.getElementById(`remove-button-${id_temp}`);
+    // let bindingHandler = function () {
+    //     const quantity_up = document.getElementById(`quantity-up-${id_temp}`);
+    //     const quantity_down = document.getElementById(`quantity-down-${id_temp}`);
+    //     const quantity_input = document.getElementById(`quantity-input-${id_temp}`);
+    //     const remove_button = document.getElementById(`remove-button-${id_temp}`);
+    //
+    //     quantity_up.onclick = function () {
+    //         quantity_input.stepUp(1);
+    //         onQuantityChange(quantity_input.value);
+    //     };
+    //     quantity_down.onclick = function () {
+    //         quantity_input.stepDown(1);
+    //         onQuantityChange(quantity_input.value);
+    //     };
+    //     quantity_input.onkeyup = function () {
+    //         onQuantityChange(quantity_input.value);
+    //     };
+    //
+    //     remove_button.onclick = onRemove;
+    // };
 
-        quantity_up.onclick = function () {
-            quantity_input.stepUp(1);
-            onQuantityChange(quantity_input.value);
-        };
-        quantity_down.onclick = function () {
-            quantity_input.stepDown(1);
-            onQuantityChange(quantity_input.value);
-        };
-        quantity_input.onkeyup = function () {
-            onQuantityChange(quantity_input.value);
-        };
-
-        remove_button.onclick = onRemove;
-    };
+    let bindingHandler = function () {quantitySpinnerHandler(id_temp, onQuantityChange, onRemove)};
 
     return {
         template: template,
