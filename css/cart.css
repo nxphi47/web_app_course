@@ -1,5 +1,4 @@
 
-
 .cart-wrapper {
 
 }
@@ -8,15 +7,30 @@
     display: inline-block;
     width: 20%;
     vertical-align: top;
-    border: 2px solid;
-
     /*margin-top: 20px;*/
 }
 
+
+.cart-summary .info {
+    vertical-align: top;
+    border: 2px solid;
+    border-radius: 15px;
+    margin-bottom: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+
 .cart-content {
     display: inline-block;
-    width: 77%;
+    width: 78%;
     border: 2px solid;
+    border-radius: 15px;
+    margin-left: 1%;
+    overflow: auto;
+    /*max-height: 600px;*/
+    max-height: 32em;
+    min-height: 24em;
 }
 
 .cart-item-img {
@@ -30,7 +44,6 @@
     width: 79%;
 }
 
-
 ul.cart-item-list {
     list-style-type: none;
     margin-top: 20px;
@@ -41,6 +54,7 @@ li.cart-item {
     border: 2px solid gray;
     height: 7em;
     margin-bottom: 5px;
+    border-radius: 15px;
 }
 
 li.cart-item:hover {
@@ -48,7 +62,7 @@ li.cart-item:hover {
 }
 
 li.cart-item img {
-
+    border-radius: 10px;
 }
 
 li.cart-item div.cart-item-content {
@@ -72,8 +86,6 @@ div.cart-item-description p {
     /*text-overflow: ellipsis;*/
     text-align: justify;
 }
-
-
 
 div.cart-item-control {
     display: inline-block;
@@ -100,4 +112,122 @@ div.cart-item-control .remove-button {
     /*width: 25%;*/
     vertical-align: middle;
 }
+
+div.cart-summary table {
+    font-size: large;
+}
+
+div.cart-summary table tr.total {
+    color: red;
+    font-weight: bold;
+}
+
+div.cart-summary .button {
+    display: block;
+    border-radius: 10px;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.item-slide {
+    padding: 40px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+.item-slideshow {
+    /*height: 18em;*/
+    height: 18em;
+    width: 60%;
+}
+
+div.responsive {
+    margin-bottom: 1px
+}
+
+/* testing horizontal banner*/
+div.item-banner {
+    padding: 10px;
+}
+
+div.item-banner a {
+    display: inline-block;
+    width: 49%;
+}
+
+div.item-banner div.desc {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+span.desc span.title {
+    font-size: large;
+}
+
+span.desc span.price {
+    font-size: large;
+    display: inline;
+}
+
+span.desc span.note {
+    display: inline;
+}
+
+span.desc {
+    display: block;
+    float: left;
+    vertical-align: top;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.item-slideshow {
+    height: 8em;
+    width: 90%;
+}
+
+
+
+form label {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+
+
+    padding: 12px 12px 12px 0;
+    padding-right: 2px;
+    display: inline-block;
+}
+
+form input {
+    float: left;
+    width: 74%;
+    margin-top: 6px;
+
+
+    /*width: 100%;*/
+    padding: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+
+/* Clear floats after the columns */
+/* FIXME: what is this!*/
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+form.payment .button {
+    display: inline;
+    float: left;
+}
+
 

@@ -1,5 +1,5 @@
 // ---------------- ITEM BANNER -------------------
-function templateQuantitySpinner(id_temp) {
+function templateQuantitySpinner(id_temp, quantity) {
     let template = `
     <div class="quantity">
         <input id="quantity-input-${id_temp}" type="number" min="1" max="9" step="1" value="${quantity}">

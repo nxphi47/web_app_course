@@ -14,7 +14,7 @@ session_start()
 
 <html>
 <head>
-    <title>Amino Pizza</title>
+    <title>Pizzarino</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/default.css">
@@ -40,7 +40,6 @@ include "header.php"
     <div class="quote-slideshow-wrapper" id="quote-slideshow-wrapper"></div>
 
     <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
-
 
     <div class="item-list-wrapper" id="item-list-wrapper"></div>
 

@@ -18,7 +18,7 @@
 <!--    </div>-->
     <nav class="navbar">
         <ul class="nav">
-            <li><a href="index.php" class="logo"><img style="width: 41px;" src="imgs/logo.gif"></a></li>
+            <li><a href="index.php" class="logo"><img style="width: 41px;" src="imgs/logo.png"></a></li>
             <li><a id="link-index" href="index.php">Home</a></li>
             <li><a id="link-menu" href="menu.php">Menu</a></li>
             <li><a id="link-promotions" href="promotions.php">Promotions</a></li>
