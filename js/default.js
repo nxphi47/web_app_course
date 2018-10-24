@@ -20,19 +20,28 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("txtHint").innerHTML = this.responseText;
+            // document.getElementById("txtHint").innerHTML = this.responseText;
             let repsonseObject = JSON.parse(this.responseText);
-            callback(repsonseObject);
-        }
-        else {
-            if (callback_error != null) {
-                callback_error(this.error);
+            if (repsonseObject.isSuccess) {
+                callback(repsonseObject.data);
             }
             else {
-                alert(`ERROR:...`);
+                console.log(`ERROR: ${repsonseObject.message}`);
             }
 
         }
+        // else {
+        //     // if (callback_error != null) {
+        //     //     callback_error(this.error);
+        //     // }
+        //     // else {
+        //     //     alert(`ERROR:...`);
+        //     // }
+        //     console.log("ERRORS");
+        //     console.log(this.responseText);
+        //     console.log(this.readyState);
+        //     console.log(this.status);
+        // // }
     };
 
     xmlhttp.open("POST", url, async);

@@ -453,7 +453,6 @@ function itemBannersSlideShows(where_id, highlightItems) {
         
         <a class="item-slide-next" id="item_next_button" >&#10095;</a>
     </div>
-    <br>
     <!-- The dots/circles -->
     <div style="text-align:center">
         ${itemSetSlideDotHtmls}

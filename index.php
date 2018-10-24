@@ -34,6 +34,13 @@ include "header.php"
 <script>document.getElementById("link-index").classList.add("active")</script>
 
 <div class="content">
+    <div>
+        <h2>Testing here</h2>
+        <div id="test">
+
+        </div>
+
+    </div>
 
     <div class="slideshow-wrapper" id="slideshow-wrapper"></div>
 
@@ -42,8 +49,6 @@ include "header.php"
     <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
 
     <div class="item-list-wrapper" id="item-list-wrapper"></div>
-
-    <br>
 
 </div>
 

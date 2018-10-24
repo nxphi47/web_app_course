@@ -76,3 +76,19 @@ quoteSlideShows(`quote-slideshow-wrapper`, generateFakeSlideQuotes(3));
 
 
 itemBannersSlideShows('item-slideshow-wrapper', generateFakeItemData(10));
+
+
+
+
+//
+print_call_back = function (res) {console.log(res)};
+
+console.log("default");
+ajax_post("default", {}, print_call_back);
+console.log();
+
+console.log("users");
+ajax_post("get_user", {}, print_call_back);
+console.log();
+
+

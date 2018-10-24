@@ -39,16 +39,16 @@ include "header.php"
                 <h3>Delivery</h3>
                 <form id="delivery" class="dev">
                     <div class="row">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your name">
+                        <label for="dev_name">Name</label>
+                        <input type="text" id="dev_name" name="dev_name" placeholder="Your name">
                     </div>
                     <div class="row">
-                        <label for="phone">Phone</label>
-                        <input type="number" id="phone" name="phone" placeholder="e.g: 12345678">
+                        <label for="dev_phone">Phone</label>
+                        <input type="number" id="dev_phone" name="dev_phone" placeholder="e.g: 12345678">
                     </div>
                     <div class="row">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="e.g: Block 39, NTU">
+                        <label for="dev_address">Address</label>
+                        <input type="text" id="dev_address" name="dev_address" placeholder="e.g: Block 39, NTU">
                     </div>
                     <div class="row">
                         <label for="postal">Postal</label>

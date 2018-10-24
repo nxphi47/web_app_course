@@ -72,7 +72,9 @@ li.cart-item div.cart-item-content {
 
 div.cart-item-description {
     display: inline-block;
-    width: 50%;
+    width: 40%;
+    height: 100%;
+    overflow: hidden;
 }
 
 div.cart-item-description h2, p {
@@ -85,11 +87,13 @@ div.cart-item-description p {
     /*white-space: nowrap;*/
     /*text-overflow: ellipsis;*/
     text-align: justify;
+
 }
 
 div.cart-item-control {
     display: inline-block;
     width: 42%;
+    float: right;
     vertical-align: top;
     margin-top: 20px;
     margin-left: 10px;

@@ -5,47 +5,12 @@
  * Date: 10/3/18
  * Time: 9:32 PM
  */
+
+require_once "php/db_connect.php";
+require_once "php/request.php";
 session_start();
 
 
-$GLOBALS['response'] = new stdClass();
-$GLOBALS['response']->isSuccess = true;
-$GLOBALS['response']->message = "";
-$GLOBALS['response']->data = new stdClass(); // this will contain all data response
-
-function errorResponse($mess)
-{
-    $GLOBALS['response']->isSuccess = false;
-    $GLOBALS['response']->message = $GLOBALS['response']->message . "||<error>" . $mess . "\n ";
-}
-
-function appendResponse($mess)
-{
-    if (is_array($mess)) {
-        $mess = json_encode($mess);
-    }
-    $GLOBALS['response']->message = $GLOBALS['response']->message . "||<info>" . $mess . "\n ";
-}
-
-function addDataResponse($data)
-{
-    $GLOBALS['response']->data = $data;
-}
-
-
-function outputResponseJSON()
-{
-    //for testing
-//	print_r($GLOBALS['response']);
-    echo json_encode($GLOBALS['response']);
-}
-
-function finishRequest($resData)
-{
-    addDataResponse($resData);
-    outputResponseJSON();
-    exit(1);
-}
 
 
 // ----- JSON POST REQUEST --------
@@ -64,6 +29,12 @@ if (is_array($jsonPost) && array_key_exists("request", $jsonPost)) {
     switch ($request) {
         case "default":
             finishRequest(['response' => "testing"]);
+            break;
+        case "get_user":
+            finishRequest([
+                ['id'=>1, 'name'=>'xuan phi'],
+                ['id'=>2, 'name'=>'xuaasdasdasdn phi']]);
+            break;
     }
 
 } else {

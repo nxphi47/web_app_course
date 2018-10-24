@@ -10,12 +10,6 @@
 ?>
 
 <header>
-<!--    <div class="header_logo">-->
-<!--        <a href="index.php"></a>-->
-<!--    </div>-->
-<!--    <div class="header_title">-->
-<!--        Amino Pizza<strong><em><br></em></strong>-->
-<!--    </div>-->
     <nav class="navbar">
         <ul class="nav">
             <li><a href="index.php" class="logo"><img style="width: 41px;" src="imgs/logo.png"></a></li>
@@ -24,8 +18,19 @@
             <li><a id="link-promotions" href="promotions.php">Promotions</a></li>
             <li><a id="link-about" href="about.php">About</a></li>
 
-            <li style="float: right"><a id="link-cart" href="cart.php">Cart</a></li>
+            <li><a id="link-about" href="test.php" target="_blank">Testing</a></li>
+
+            <li style="float: right">
+                <a id="link-account" href="account.php" class="logo">
+                    <img style="width: 41px;" src="imgs/user.png">
+                </a>
+            </li>
+            <li style="float: right">
+                <a id="link-cart" href="cart.php" class="logo">
+                    <img style="width: 41px;" src="imgs/cart.png">
+                    <span class="num-items" id="num_items">10</span>
+                </a>
+            </li>
         </ul>
     </nav>
-<!--    <hr>-->
 </header>

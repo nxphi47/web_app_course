@@ -8,11 +8,11 @@ div.content {
 
 .button {
     background-color: #008CBA; /* Green */
+    color: white;
 
     /*border: none;*/
     border: 2px solid #008CBA;
 
-    color: white;
     /*padding: 16px 32px;*/
     padding: 8px 16px;
     text-align: center;
@@ -33,9 +33,20 @@ div.content {
 .button:hover {
     background-color: white;
     color: black;
-    /*border: 2px solid #008CBA;*/
-    box-sizing: border-box;
 }
+
+.button:disabled {
+    /*background-color: #4CAF50;*/
+    opacity: 0.6;
+}
+
+.button:disabled:hover {
+    /*background-color: #4CAF50;*/
+    opacity: 0.6;
+    background-color: #008CBA; /* Green */
+    color: white;
+}
+
 
 /* Header footer CSS*/
 
@@ -76,6 +87,10 @@ nav ul.nav li a {
     text-decoration: none;
 
     border-radius: 10px;
+}
+
+nav ul.nav li a span {
+    vertical-align: top;
 }
 
 nav ul.nav li a.logo {
@@ -650,7 +665,7 @@ div.item-slideshow-wrapper {
     /*background: #f1f1f1f1;*/
     max-width: 1000px;
     margin: auto;
-    height: 50%;
+    height: 55%;
 }
 
 .item-slideshow-container {

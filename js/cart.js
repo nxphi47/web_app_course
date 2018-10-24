@@ -31,27 +31,6 @@ function templateOrderItem(
     </li>
     `;
 
-    // handler should only be called once the dom created!
-    // let bindingHandler = function () {
-    //     const quantity_up = document.getElementById(`quantity-up-${id_temp}`);
-    //     const quantity_down = document.getElementById(`quantity-down-${id_temp}`);
-    //     const quantity_input = document.getElementById(`quantity-input-${id_temp}`);
-    //     const remove_button = document.getElementById(`remove-button-${id_temp}`);
-    //
-    //     quantity_up.onclick = function () {
-    //         quantity_input.stepUp(1);
-    //         onQuantityChange(quantity_input.value);
-    //     };
-    //     quantity_down.onclick = function () {
-    //         quantity_input.stepDown(1);
-    //         onQuantityChange(quantity_input.value);
-    //     };
-    //     quantity_input.onkeyup = function () {
-    //         onQuantityChange(quantity_input.value);
-    //     };
-    //
-    //     remove_button.onclick = onRemove;
-    // };
 
     let bindingHandler = function () {
         quantitySpinnerHandler(id_temp, onQuantityChange, onRemove)
@@ -66,15 +45,15 @@ function templateOrderItem(
 function componentOrderItemList(where_id, cart, updateTotal) {
     let {cart_id, order_items} = cart;
 
-    let calculateTotal = function () {
+    let calculateTotal = function (cart) {
         let all_total = 0;
-        order_items.forEach(function (order_item, index) {
+        cart.order_items.forEach(function (order_item, index) {
             all_total += order_item.quantity * order_item.item.price;
         });
 
         console.log(`price = ${all_total}`);
         cart.orders_subtotal = all_total;
-        cart.total = cart.orders_subtotal + cart.delivery_subtotal;
+        cart.total = cart.orders_subtotal + (cart.order_items.length > 0 ? cart.delivery_subtotal : 0);
         console.log(`cart.orders_subtotal = ${cart.orders_subtotal}`);
         console.log(`cart.total = ${cart.total}`);
 
@@ -85,14 +64,16 @@ function componentOrderItemList(where_id, cart, updateTotal) {
         let {item, quantity} = order_item;
         let onQuantityChange = function (new_value) {
             order_item.quantity = new_value;
-            calculateTotal();
+            calculateTotal(cart);
         };
         let onRemove = function () {
+            console.log(cart);
             cart.order_items = cart.order_items.filter(function (_order, _index) {
-                return _order !== order_item;
+                return _order.item !== item;
             });
+            console.log(cart);
             componentOrderItemList(where_id, cart, updateTotal);
-            calculateTotal();
+            calculateTotal(cart);
         };
         return templateOrderItem(cart_id, item, quantity, onQuantityChange, onRemove);
     });
@@ -106,11 +87,19 @@ function componentOrderItemList(where_id, cart, updateTotal) {
 
     let allOrderListTemplate = orderListTemplates.join("");
 
-    let template = `
-    <ul class="cart-item-list">
-        ${allOrderListTemplate}
-    </ul>
-    `;
+    let template;
+    if (cart.order_items.length <= 0) {
+        template = `
+        <h2>You have no order items.</h2>
+        `
+    }
+    else {
+        template = `
+        <ul class="cart-item-list">
+            ${allOrderListTemplate}
+        </ul>
+        `;
+    }
 
     // actually binding
     document.getElementById(where_id).innerHTML = template;
@@ -120,15 +109,17 @@ function componentOrderItemList(where_id, cart, updateTotal) {
         return initHandler()
     });
 
-    calculateTotal();
+    calculateTotal(cart);
 }
 
 function componentCartInfo(where_id, cart) {
     let templateUpdateSummary = function () {
         document.getElementById(`orders_subtotal`).innerHTML = `$${cart.orders_subtotal}`;
-        document.getElementById(`delivery_subtotal`).innerHTML = `$${cart.delivery_subtotal}`;
+        document.getElementById(`delivery_subtotal`).innerHTML = `$${cart.order_items.length > 0 ? cart.delivery_subtotal : 0}`;
         document.getElementById(`order_total`).innerHTML = `$${cart.total}`;
         document.getElementById(`orders_item`).innerHTML = `${cart.order_items.length}`;
+        document.getElementById("checkout").disabled = (cart.order_items.length <= 0);
+
     };
 
     componentOrderItemList(`cart-content-wrapper`, cart, templateUpdateSummary);
