@@ -66,7 +66,7 @@ function generateFakeSlideQuotes(size) {
 
 
 const itemListWrapperId = `item-list-wrapper`;
-// componentItemList(itemListWrapperId, generateFakeItemData(10));
+// componentItemList(itemListWrapperId, generateFakeItemDataForCart(10));
 
 
 templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));

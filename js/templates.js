@@ -1,4 +1,48 @@
 // ---------------- ITEM BANNER -------------------
+function templateQuantitySpinner(id_temp, quantity) {
+    let template = `
+    <div class="quantity">
+        <input id="quantity-input-${id_temp}" type="number" min="1" max="9" step="1" value="${quantity}">
+        <div class="quantity-nav">
+            <div class="quantity-button quantity-up" id="quantity-up-${id_temp}">+</div>
+            <div class="quantity-button quantity-down" id="quantity-down-${id_temp}">-</div>
+        </div>
+    </div>
+
+    <button class="button remove-button" id="remove-button-${id_temp}">Remove</button>
+    `;
+
+    return template;
+}
+
+function quantitySpinnerHandler(id_temp, onQuantityChange=null, onRemove=null) {
+    const quantity_up = document.getElementById(`quantity-up-${id_temp}`);
+    const quantity_down = document.getElementById(`quantity-down-${id_temp}`);
+    const quantity_input = document.getElementById(`quantity-input-${id_temp}`);
+    const remove_button = document.getElementById(`remove-button-${id_temp}`);
+    if (!onQuantityChange) {
+        onQuantityChange = function (x) {}
+    }
+    if (!onRemove) {
+        onRemove = function (x) {}
+    }
+
+    quantity_up.onclick = function () {
+        quantity_input.stepUp(1);
+        onQuantityChange(quantity_input.value);
+    };
+    quantity_down.onclick = function () {
+        quantity_input.stepDown(1);
+        onQuantityChange(quantity_input.value);
+    };
+    quantity_input.onkeyup = function () {
+        onQuantityChange(quantity_input.value);
+    };
+
+    remove_button.onclick = onRemove;
+}
+
+
 function templateItemBanner(
     item,
     where_id,

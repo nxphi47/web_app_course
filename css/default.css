@@ -1,7 +1,7 @@
 /* General CSS */
 
 div.content {
-    margin-top: 55px;
+    margin-top: 80px;
     margin-bottom: 110px;
 }
 
@@ -26,7 +26,8 @@ div.content {
 
     box-sizing: border-box;
 
-    border-radius: 5%;
+    /*border-radius: 5%;*/
+    border-radius: 10px;
 }
 
 .button:hover {
@@ -53,7 +54,7 @@ nav ul.nav {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-
+    height: 70px;
     /*to on top*/
     /*position: fixed;*/
     /*top: 0;*/
@@ -62,6 +63,9 @@ nav ul.nav {
 
 nav ul.nav li {
     float: left;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 nav ul.nav li a {
@@ -70,6 +74,8 @@ nav ul.nav li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+
+    border-radius: 10px;
 }
 
 nav ul.nav li a.logo {
@@ -108,6 +114,7 @@ footer {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
+    border-radius: 15px;
 }
 
 /* Style the buttons inside the tab */
@@ -136,8 +143,8 @@ footer {
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+    /*border: 1px solid #ccc;*/
+    /*border-top: none;*/
 }
 
 /* QUANTITY SPINNER */
@@ -253,6 +260,7 @@ div.clearfix:after {
 div.item-banner {
     /* responsive */
     border: 3px solid #ccc;
+    border-radius: 20px;
 }
 
 div.item-banner:hover {
@@ -351,6 +359,7 @@ div.modal {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
     /*width: 51%; !* Could be more or less, depending on screen size *!*/
+    border-radius: 20px;
 }
 
 /* The Close Button */

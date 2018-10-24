@@ -14,11 +14,11 @@ session_start()
 
 <html>
 <head>
-    <title>Amino Pizza</title>
+    <title>Pizzarino</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/default.css">
-    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/about.css">
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
@@ -46,7 +46,10 @@ include "header.php"
 
         <div id="about_us" class="tabcontent">
 <!--            <div class="item-list-wrapper" id="item-list-wrapper-all"></div>-->
-            this is about us
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
         </div>
 
         <div id="faq" class="tabcontent">

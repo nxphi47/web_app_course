@@ -1,0 +1,8 @@
+.tabcontent {
+    border-radius: 15px;
+    border: #717171 solid;
+
+    width: 90%;
+    margin: 20px auto auto;
+    min-height: 500px;
+}

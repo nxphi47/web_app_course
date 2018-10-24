@@ -13,6 +13,6 @@
 <!--    <br>-->
 <!--    <br>-->
     <br>
-    © Amino Pizza<br>
+    © Pizzarino<br>
 
 </footer>

@@ -11,7 +11,7 @@ session_start()
 
 <html>
 <head>
-    <title>Amino Pizza</title>
+    <title>Pizzarino</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/default.css">
@@ -35,25 +35,58 @@ include "header.php"
 <div class="content">
     <div class="cart-wrapper">
         <div class="cart-summary" id="cart-summary">
-            <h4>Order Summary</h4>
-            <table>
-                <tr>
-                    <td>Orders</td>
-                    <td id="orders_subtotal"></td>
-                </tr>
-                <tr>
-                    <td>Delivery</td>
-                    <td id="delivery_subtotal"></td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td id="order_total"></td>
-                </tr>
-            </table>
+            <div class="info" id="deliver">
+                <h3>Delivery</h3>
+                <form id="delivery" class="dev">
+                    <div class="row">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name">
+                    </div>
+                    <div class="row">
+                        <label for="phone">Phone</label>
+                        <input type="number" id="phone" name="phone" placeholder="e.g: 12345678">
+                    </div>
+                    <div class="row">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="e.g: Block 39, NTU">
+                    </div>
+                    <div class="row">
+                        <label for="postal">Postal</label>
+                        <input type="text" id="postal" name="postal" placeholder="e.g: 637717">
+                    </div>
+                </form>
+
+            </div>
+            <div class="info" id="order">
+                <h3>Order Summary</h3>
+                <table>
+                    <tr>
+                        <td>Items</td>
+                        <td id="orders_item"></td>
+                    </tr>
+                    <tr>
+                        <td>Orders</td>
+                        <td id="orders_subtotal"></td>
+                    </tr>
+                    <tr>
+                        <td>Delivery</td>
+                        <td id="delivery_subtotal"></td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total</td>
+                        <td id="order_total"></td>
+                    </tr>
+                </table>
+                <button class="button" id="checkout">Checkout</button>
+            </div>
+
         </div>
         <div class="cart-content" id="cart-content-wrapper">
         </div>
     </div>
+
+    <div id="modal-wrapper"></div>
+    <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
 </div>
 
 <?php
