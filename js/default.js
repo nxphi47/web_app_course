@@ -30,18 +30,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
             }
 
         }
-        // else {
-        //     // if (callback_error != null) {
-        //     //     callback_error(this.error);
-        //     // }
-        //     // else {
-        //     //     alert(`ERROR:...`);
-        //     // }
-        //     console.log("ERRORS");
-        //     console.log(this.responseText);
-        //     console.log(this.readyState);
-        //     console.log(this.status);
-        // // }
     };
 
     xmlhttp.open("POST", url, async);

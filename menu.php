@@ -7,8 +7,12 @@
  */
 
 // include libraries
+require_once "php/db_connect.php";
+require_once "php/request.php";
+//require_once "php/ajax_gateway.php";
+session_start();
 
-session_start()
+
 
 ?>
 
@@ -30,7 +34,21 @@ session_start()
 
 <?php
 
-include "header.php"
+include "header.php";
+
+// get user information
+
+// load all menu here
+$accessMenu = new AccessMenu();
+$all_menus = $accessMenu->getAll();
+
+$root_data = array(
+        "menu"=>$all_menus
+);
+$json = json_encode($root_data);
+//echo $all_menus;
+echo "<script> var rootData = JSON.parse('". $json. "');</script>";
+
 ?>
 <script>document.getElementById("link-menu").classList.add("active")</script>
 

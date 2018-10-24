@@ -35,10 +35,7 @@ $user_del = "DELETE FROM `orders` WHERE cart_id=1";
 $user_update = "UPDATE `orders` SET `cart_id`=[value-1] WHERE 1";
 
 
-$menu_insert = "INSERT INTO `menu`(`id`, `title`, `type`, `unit`, `price`, `promoted_price`, 
-`note`, `desc`, `ingredients`, `thumbnail`, `images`) VALUES (
-[value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],
-[value-8],[value-9],[value-10],[value-11])";
+$menu_insert = "INSERT INTO menu(id, title, type, unit, price, promoted_price, note, desc, ingredients, thumbnail, images) VALUES ()";
 
 
 

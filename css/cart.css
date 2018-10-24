@@ -193,45 +193,4 @@ span.desc {
 
 
 
-form label {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-
-
-    padding: 12px 12px 12px 0;
-    padding-right: 2px;
-    display: inline-block;
-}
-
-form input {
-    float: left;
-    width: 74%;
-    margin-top: 6px;
-
-
-    /*width: 100%;*/
-    padding: 12px;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    resize: vertical;
-}
-
-
-/* Clear floats after the columns */
-/* FIXME: what is this!*/
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-
-form.payment .button {
-    display: inline;
-    float: left;
-}
-
 

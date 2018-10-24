@@ -5,13 +5,14 @@ function templateOrderItem(
     onQuantityChange,
     onRemove,
 ) {
-    let {id, title, price, note, desc, thumbnail, img_url} = item;
+    let {id, title, price, note, desc, thumbnail, images} = item;
 
     let id_temp = `cart_${cart_id}-id_${id}`;
 
     const max_char_len = 200;
     let description = desc.substring(0, max_char_len) + (desc.length <= max_char_len ? "" : "...");
 
+    thumbnail = `thumbnails/${thumbnail}`;
     let quantitySpinner = templateQuantitySpinner(id_temp, quantity);
     let template = `
     <li class="cart-item" id="item-${id_temp}">
@@ -254,18 +255,21 @@ function generateFakeItemData(size) {
 }
 
 
+
 let fakeCart = {
     cart_id: 1,
-    order_items: generateFakeItemDataForCart(10),
+    order_items: rootData.menu.map((x) => {return {item: x, quantity: 1}}),
     total: 0,
     delivery_subtotal: 1.2,
     orders_subtotal: 0,
 };
-
+console.log(fakeCart);
 
 function init() {
+
+
     componentCartInfo(`cart-wrapper`, fakeCart);
-    itemBannersSlideShows('item-slideshow-wrapper', generateFakeItemData(10));
+    // itemBannersSlideShows('item-slideshow-wrapper', generateFakeItemData(10));
 
 
     document.getElementById("checkout").onclick = function () {

@@ -66,7 +66,10 @@ function generateFakeSlideQuotes(size) {
 
 
 const itemListWrapperId = `item-list-wrapper`;
-// componentItemList(itemListWrapperId, generateFakeItemDataForCart(10));
+
+let main_menu = rootData.menu;
+
+// componentItemList(itemListWrapperId, main_menu);
 
 
 templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));
@@ -75,20 +78,20 @@ templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));
 quoteSlideShows(`quote-slideshow-wrapper`, generateFakeSlideQuotes(3));
 
 
-itemBannersSlideShows('item-slideshow-wrapper', generateFakeItemData(10));
+itemBannersSlideShows('item-slideshow-wrapper', main_menu);
 
 
 
 
 //
-print_call_back = function (res) {console.log(res)};
-
-console.log("default");
-ajax_post("default", {}, print_call_back);
-console.log();
-
-console.log("users");
-ajax_post("get_user", {}, print_call_back);
-console.log();
+// print_call_back = function (res) {console.log(res)};
+//
+// console.log("default");
+// ajax_post("default", {}, print_call_back);
+// console.log();
+//
+// console.log("users");
+// ajax_post("get_user", {}, print_call_back);
+// console.log();
 
 

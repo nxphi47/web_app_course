@@ -53,8 +53,11 @@ function templateItemBanner(
     modal_close_temp = "item_modal_close",
     modal_add_cart_temp = "add_cart_modal",
 ) {
-    // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.img_url,
-    let {id, title, price, note, desc, thumbnail, img_url} = item;
+    // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.images,
+    let {id, title, price, note, desc, unit, thumbnail, images} = item;
+
+    thumbnail = `thumbnails/${thumbnail}`;
+    images = images.split(";").map((x) => `images/${x}`);
 
     let template = `
     <div class="responsive" id="${where_id}_${banner_temp}_${id}">
@@ -66,7 +69,7 @@ function templateItemBanner(
                 <span class="desc">
                     <span class="title">${title}</span>
                     <span class="price">$${price}</span>
-                    <span class="note">${note}</span>
+                    <span class="note">per ${unit}</span>
                 </span>
                 <button class="button desc" id="${where_id}_${add_cart_temp}_${id}">Add to Cart</button>
             </div>
@@ -80,7 +83,7 @@ function templateItemBanner(
             <span class="close" id="${where_id}_${modal_close_temp}_${id}">&times;</span>
             <div class="modal-content-inside">
                 <div class="image">
-                    <img src="${img_url}" alt="Image Not found" width="600" height="400">
+                    <img src="${images[0]}" alt="Image Not found" width="600" height="400">
                 </div>
                 <div class="detail">
                     <span class="title">${title}</span>
@@ -239,7 +242,7 @@ function templateSlideShow(where_id, slideShows) {
         showSlides(currentIndex += n);
     }
 
-    // Thumbnail image controls
+    // Thumbnail images controls
     function currentSlide(n) {
         showSlides(currentIndex = n);
     }
@@ -344,7 +347,7 @@ function quoteSlideShows(where_id, quoteSlides) {
         showSlides(currentIndex += n);
     }
 
-    // Thumbnail image controls
+    // Thumbnail images controls
     function currentSlide(n) {
         showSlides(currentIndex = n);
     }
@@ -485,7 +488,7 @@ function itemBannersSlideShows(where_id, highlightItems) {
         showSlides(currentIndex += n);
     }
 
-    // Thumbnail image controls
+    // Thumbnail images controls
     function openCurrentSlide(n) {
         showSlides(currentIndex = n);
     }

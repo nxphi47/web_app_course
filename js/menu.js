@@ -55,10 +55,25 @@ function generateFakeItemData(size, type='Pizza') {
     return dataList;
 }
 
-componentItemList(`item-list-wrapper-all`, generateFakeItemData(10, 'Pizza & else'));
-componentItemList(`item-list-wrapper-pizza`, generateFakeItemData(10, 'Pizza'));
-componentItemList(`item-list-wrapper-pasta`, generateFakeItemData(10, 'Pasta'));
-componentItemList(`item-list-wrapper-beverage`, generateFakeItemData(10, 'Drink'));
+let all_menu = rootData.menu;
+let pizza_menu = all_menu.filter((x) => x.type.toLowerCase() == 'pizza');
+let pasta_menu = all_menu.filter((x) => x.type.toLowerCase() == 'pasta');
+let drink_menu = all_menu.filter((x) => x.type.toLowerCase() == 'beverage');
+
+
+// componentItemList(`item-list-wrapper-all`, generateFakeItemData(10, 'Pizza & else'));
+// componentItemList(`item-list-wrapper-pizza`, generateFakeItemData(10, 'Pizza'));
+// componentItemList(`item-list-wrapper-pasta`, generateFakeItemData(10, 'Pasta'));
+// componentItemList(`item-list-wrapper-beverage`, generateFakeItemData(10, 'Drink'));
+
+componentItemList(`item-list-wrapper-all`, all_menu);
+componentItemList(`item-list-wrapper-pizza`, pizza_menu);
+componentItemList(`item-list-wrapper-pasta`, pasta_menu);
+componentItemList(`item-list-wrapper-beverage`, drink_menu);
+
 
 document.getElementById("default-tab").click();
 // --- EXECUTION ---------
+
+
+console.log(rootData);

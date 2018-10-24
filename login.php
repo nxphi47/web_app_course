@@ -20,6 +20,8 @@ session_start()
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/login.css">
+
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
@@ -33,35 +35,38 @@ session_start()
 
 include "header.php";
 
-$accessMenu = new AccessMenu();
-$all_menus = $accessMenu->getAll();
+//$accessMenu = new AccessMenu();
+//$all_menus = $accessMenu->getAll();
 
-$root_data = array(
-    "menu"=>$all_menus
+$root_data = array(//    "menu"=>$all_menus
 );
 $json = json_encode($root_data);
 //echo $all_menus;
-echo "<script> var rootData = JSON.parse('". $json. "');</script>";
+echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
 
 ?>
 <script>document.getElementById("link-index").classList.add("active")</script>
 
 <div class="content">
-<!--    <div>-->
-<!--        <h2>Testing here</h2>-->
-<!--        <div id="test">-->
-<!---->
-<!--        </div>-->
-<!---->
-<!--    </div>-->
 
-    <div class="slideshow-wrapper" id="slideshow-wrapper"></div>
+    <div class="wrapper">
+        <div class="tab-wrapper">
+            <div class="tab-up-banner">
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'login')" id="default-tab">Login</button>
+                    <button class="tablinks" onclick="openTab(event, 'signup')">Sign up</button>
+                </div>
+            </div>
 
-    <div class="quote-slideshow-wrapper" id="quote-slideshow-wrapper"></div>
 
-    <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
+            <div class="tabcontent" id="tabcontent">
+                <div class="banner" id="banner">
 
-    <div class="item-list-wrapper" id="item-list-wrapper"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>
 
@@ -69,5 +74,6 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 include "footer.php"
 ?>
 <!--JS-->
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
 </html>
+

@@ -21,7 +21,8 @@
             <li><a id="link-about" href="test.php" target="_blank">Testing</a></li>
 
             <li style="float: right">
-                <a id="link-account" href="account.php" class="logo">
+<!--                <a id="link-account" href="account.php" class="logo">-->
+                <a id="link-account" href="login.php" class="logo">
                     <img style="width: 41px;" src="imgs/user.png">
                 </a>
             </li>

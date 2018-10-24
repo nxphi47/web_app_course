@@ -10,7 +10,7 @@
 // 	aly_instrument: ['Microscope','SEM','ICP','Microprobe','XRF','Other'],
 // 	dif_instrument: ['Microscope','SEM','ICP','Microprobe','XRF','Other'],
 // 	aly_type: ['Whole Rock','Glass','Mineral','inclusion melt-volatile','inclusion melt-element','inclusion mineral','Other'],
-// 	aly_feature: ['image','point','traverse','other'],
+// 	aly_feature: ['images','point','traverse','other'],
 // 	aly_elements: ['SiO2', 'TiO2', 'Al2O3',
 // 		'Fe2O3', 'FeO', 'MnO', 'MgO', 'CaO', 'Na2O', 'K2O', 'P2O5', 'lost_ignit', 'Cs', 'Rb', 'Ba', 'Th',
 // 		'U', 'Pb', 'Ta', 'Nb', 'Sr', 'Hf', 'Zr', 'Y', 'La', 'Ce', 'Pr', 'Nd', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho',

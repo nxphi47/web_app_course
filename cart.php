@@ -5,6 +5,10 @@
  * Date: 10/4/18
  * Time: 6:07 PM
  */
+
+require_once "php/db_connect.php";
+require_once "php/request.php";
+
 session_start()
 
 ?>
@@ -27,7 +31,18 @@ session_start()
 
 <?php
 
-include "header.php"
+include "header.php";
+
+$accessMenu = new AccessMenu();
+$all_menus = $accessMenu->getAll();
+
+$root_data = array(
+    "menu"=>$all_menus
+);
+$json = json_encode($root_data);
+//echo $all_menus;
+echo "<script> var rootData = JSON.parse('". $json. "');</script>";
+
 ?>
 <script>document.getElementById("link-cart").classList.add("active")</script>
 
