@@ -105,61 +105,63 @@ echo "<br><br><br>";
 
 
 $accessUser = new AccessUsers();
+//
+//$all = $accessUser->getAll();
+//
+//$accessUser->attrs = array(
+//    "fname"=>"fifi",
+//    "lname"=>"xuanxuan",
+//    "uname"=>"xuanphi001",
+//    "email"=>"xuanphi001@gmail.com",
+//    "password"=>"123456",
+//);
+//
+//echo "---All -- <br><br><br>";
+//var_dump($all);
+//
+//linebreak();
+//echo "--- test insert -- <br><br><br>";
+//
+////echo "sql {$accessUser->insert()}";
+//linebreak();
+//echo "respose";
+//var_dump($GLOBALS['response']);
+//
+//$all = $accessUser->getAll();
+//
+//linebreak();
+//echo "---All -- <br><br><br>";
+//var_dump($all);
+//
+//linebreak();
+//echo "---ID 1 -- <br><br><br>";
+//var_dump($accessUser->getAllById(1));
+//
+//
+//
+//linebreak();
+//echo "--- test update --";
+//$updates = array(
+//    "id"=>7,
+//    "fname"=>"Hello world fi",
+//    "lname"=>"xuan phi",
+//);
+//
+//echo $accessUser->updateById($updates['id'], $updates);
+//linebreak();
+//echo "---All -- <br><br><br>";
+//var_dump($all);
+//var_dump($GLOBALS['response']);
+//
+//
+//linebreak();
+//echo "--- GET constraint -- <br><br><br>";
+//var_dump($all);
+//var_dump($GLOBALS['response']);
 
-$all = $accessUser->getAll();
 
-$accessUser->attrs = array(
-    "fname"=>"fifi",
-    "lname"=>"xuanxuan",
-    "uname"=>"xuanphi001",
-    "email"=>"xuanphi001@gmail.com",
-    "password"=>"123456",
-);
-
-echo "---All -- <br><br><br>";
-var_dump($all);
-
-linebreak();
-echo "--- test insert -- <br><br><br>";
-
-//echo "sql {$accessUser->insert()}";
-linebreak();
-echo "respose";
-var_dump($GLOBALS['response']);
-
-$all = $accessUser->getAll();
-
-linebreak();
-echo "---All -- <br><br><br>";
-var_dump($all);
-
-linebreak();
-echo "---ID 1 -- <br><br><br>";
-var_dump($accessUser->getAllById(1));
-
-
-
-linebreak();
-echo "--- test update --";
-$updates = array(
-    "id"=>7,
-    "fname"=>"Hello world fi",
-    "lname"=>"xuan phi",
-);
-echo $accessUser->updateById($updates['id'], $updates);
-
-linebreak();
-echo "---All -- <br><br><br>";
-var_dump($all);
-var_dump($GLOBALS['response']);
-
-
-linebreak();
-echo "--- GET constraint -- <br><br><br>";
-var_dump($all);
-var_dump($GLOBALS['response']);
-
-
+$user = $accessUser->getAllById(1);
+var_dump($user);
 
 
 //$sql->close();

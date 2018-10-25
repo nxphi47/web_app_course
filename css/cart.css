@@ -8,6 +8,7 @@
     width: 20%;
     vertical-align: top;
     /*margin-top: 20px;*/
+    margin-bottom: 0.5em;
 }
 
 
@@ -26,22 +27,30 @@
     width: 78%;
     border: 2px solid;
     border-radius: 15px;
-    margin-left: 1%;
+    margin-right: 1%;
     overflow: auto;
     /*max-height: 600px;*/
     max-height: 32em;
     min-height: 24em;
+    margin-bottom: 0.5em;
 }
+
+
+
+
+
 
 .cart-item-img {
     display: inline-block;
-    width: 19%;
+    /*width: 1/9%;*/
+    width: 10em;
     margin: 5px 1px 5px 5px;
 }
 
 .cart-item-content {
     display: inline-block;
-    width: 79%;
+    /*width: 79%;*/
+    max-width: 40em;
 }
 
 ul.cart-item-list {
@@ -72,7 +81,8 @@ li.cart-item div.cart-item-content {
 
 div.cart-item-description {
     display: inline-block;
-    width: 40%;
+    /*width: 40%;*/
+    width: 16em;
     height: 100%;
     overflow: hidden;
 }
@@ -92,7 +102,7 @@ div.cart-item-description p {
 
 div.cart-item-control {
     display: inline-block;
-    width: 42%;
+    /*width: 42%;*/
     float: right;
     vertical-align: top;
     margin-top: 20px;
@@ -101,13 +111,14 @@ div.cart-item-control {
 
 div.cart-item-control h2 {
     display: inline-block;
-    width: 30%;
+    /*width: 30%;*/
+    width: 3em;
     vertical-align: middle;
 }
 
 div.cart-item-control div.quantity {
     display: inline-block;
-    width: 25%;
+    width: 4em;
     vertical-align: middle;
 }
 
@@ -148,6 +159,37 @@ div.cart-summary .button {
 div.responsive {
     margin-bottom: 1px
 }
+
+@media only screen and (max-width: 1000px) {
+    .cart-summary, .cart-content {
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+}
+
+@media only screen and (max-width: 777px) {
+    div.cart-item-description p {
+        /*overflow: hidden;*/
+        /*white-space: nowrap;*/
+        /*text-overflow: ellipsis;*/
+        display: none;
+    }
+
+    div.cart-item-description {
+        width: auto;
+    }
+
+    div.cart-item-description h2 {
+        display: inline;
+        position: absolute;
+        width: auto;
+    }
+
+
+}
+
+
 
 /* testing horizontal banner*/
 div.item-banner {

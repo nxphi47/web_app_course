@@ -16,18 +16,19 @@ function templateOrderItem(
     let quantitySpinner = templateQuantitySpinner(id_temp, quantity);
     let template = `
     <li class="cart-item" id="item-${id_temp}">
-        <img class="cart-item-img" src="${thumbnail}" alt="Not found" width="150" height="100">
         <div class="cart-item-content">
+            <img class="cart-item-img" src="${thumbnail}" alt="Not found" width="150" height="100">
             <div class="cart-item-description">
                 <h2>${title}</h2>
                 <p>
                     ${description}
                 </p>
             </div>
-            <div class="cart-item-control">
-                <h2>$${price}</h2>
-                ${quantitySpinner}
-            </div>
+            
+        </div>
+        <div class="cart-item-control">
+            <h2>$${price}</h2>
+            ${quantitySpinner}
         </div>
     </li>
     `;
@@ -47,16 +48,7 @@ function componentOrderItemList(where_id, cart, updateTotal) {
     let {cart_id, order_items} = cart;
 
     let calculateTotal = function (cart) {
-        let all_total = 0;
-        cart.order_items.forEach(function (order_item, index) {
-            all_total += order_item.quantity * order_item.item.price;
-        });
-
-        console.log(`price = ${all_total}`);
-        cart.orders_subtotal = all_total;
-        cart.total = cart.orders_subtotal + (cart.order_items.length > 0 ? cart.delivery_subtotal : 0);
-        console.log(`cart.orders_subtotal = ${cart.orders_subtotal}`);
-        console.log(`cart.total = ${cart.total}`);
+        updateCart(cart);
 
         updateTotal()
     };
@@ -64,8 +56,11 @@ function componentOrderItemList(where_id, cart, updateTotal) {
     let orderListTemplateBinds = order_items.map(function (order_item, index) {
         let {item, quantity} = order_item;
         let onQuantityChange = function (new_value) {
-            order_item.quantity = new_value;
+            order_item.quantity = parseInt(new_value);
             calculateTotal(cart);
+            updateCurrentCart(rootData.cart, () => {
+                componentCartInfo(`cart-wrapper`, cart)
+            });
         };
         let onRemove = function () {
             console.log(cart);
@@ -75,6 +70,9 @@ function componentOrderItemList(where_id, cart, updateTotal) {
             console.log(cart);
             componentOrderItemList(where_id, cart, updateTotal);
             calculateTotal(cart);
+            updateCurrentCart(cart, () => {
+                componentCartInfo(`cart-wrapper`, cart)
+            });
         };
         return templateOrderItem(cart_id, item, quantity, onQuantityChange, onRemove);
     });
@@ -116,9 +114,12 @@ function componentOrderItemList(where_id, cart, updateTotal) {
 function componentCartInfo(where_id, cart) {
     let templateUpdateSummary = function () {
         document.getElementById(`orders_subtotal`).innerHTML = `$${cart.orders_subtotal}`;
-        document.getElementById(`delivery_subtotal`).innerHTML = `$${cart.order_items.length > 0 ? cart.delivery_subtotal : 0}`;
+        document.getElementById(`delivery_subtotal`).innerHTML = `$${cart.delivery_subtotal}`;
         document.getElementById(`order_total`).innerHTML = `$${cart.total}`;
-        document.getElementById(`orders_item`).innerHTML = `${cart.order_items.length}`;
+        const num_items = cart.order_items.map((x) => x.quantity).reduce((a, b) => a + b, 0);
+        document.getElementById(`orders_item`).innerHTML = `${num_items}`;
+        document.getElementById(`num_items`).innerHTML = `${num_items}`;
+        document.getElementById(`total_price`).innerHTML = `$${cart.total}`;
         document.getElementById("checkout").disabled = (cart.order_items.length <= 0);
 
     };
@@ -136,7 +137,7 @@ function confirmModalTemplate(cart) {
             <span class="close" id="confirm_close">&times;</span>
             <div class="modal-content-inside">
                 <h2>Payment: $${cart.total}</h2>
-                <form id="payment" class="payment">
+                <form id="payment" class="payment" onsubmit="function() return false;">
                     <div class="row">
                         <label for="pay_name">Full Name</label>
                         <input type="text" id="pay_name" name="pay_name" placeholder="Your full name on card" required>
@@ -154,30 +155,70 @@ function confirmModalTemplate(cart) {
                         <input type="text" id="cv2" name="cv2" placeholder="e.g: 123" required>
                     </div>
                     <div class="row">
-                        <!--<label for="cv2">CV2</label>-->
-                        <!--<input type="text" id="cv2" name="cv2" placeholder="e.g: 123" required>-->
-                        <button class="button" id="place_order" >Place Order</button>
+                        <button type="button" class="button" id="place_order" disabled>Place Order</button>
                     </div>
                     
                 </form>
             </div>
         </div>
-
     </div>
     `;
+
+    let form_keys = ['pay_name', 'pay_card_num', 'pay_card_expire', 'cv2'];
 
     let onModalClose = function () {
         const modal = document.getElementById(`confirm`);
         modal.style.display = "none";
     };
     let onBuy = function () {
-        alert("You have placed the order");
+        // alert(`You have placed the order: ${JSON.stringify(cart)}`);
+        if (confirm("Are you sure to place this order?")) {
+            ajax_post("checkout", cart,
+                function (out_cart) {
+                    alert(`You have successfully place order number ${out_cart.cart_id}`);
+                    window.location.href = "index.php";
 
+                },
+                function (message) {
+                    alert(`ERROR occur: ${message}`);
+                }
+            )
+        }
     };
+
+    function validate() {
+        let valid = true;
+        form_keys.forEach((k) => {
+            if (k === "pay_card_expire") {
+                valid &= (cart[k] !== "0000-00-00");
+                valid &= (new Date(cart[k]) > new Date());
+            }
+        });
+        console.log(`valid ${valid}`);
+        document.getElementById("place_order").disabled = !valid;
+    }
+
+    let onKeyUp = function (form_name) {
+        cart[form_name] = document.getElementById(form_name).value;
+        validate();
+    };
+
 
     function bind() {
         document.getElementById("confirm_close").onclick = onModalClose;
         document.getElementById("place_order").onclick = onBuy;
+        form_keys.forEach((k) => {
+            if (k === "pay_card_expire") {
+                document.getElementById(k).onchange = () => {
+                    onKeyUp(k)
+                };
+            }
+            else {
+                document.getElementById(k).onkeyup = () => {
+                    onKeyUp(k)
+                };
+            }
+        });
     }
 
     return {
@@ -255,25 +296,30 @@ function generateFakeItemData(size) {
 }
 
 
+// let fakeCart = {
+//     cart_id: 1,
+//     order_items: rootData.menu.map((x) => {return {item: x, quantity: 1}}),
+//     total: 0,
+//     delivery_subtotal: 1.2,
+//     orders_subtotal: 0,
+// };
+// console.log(fakeCart);
 
-let fakeCart = {
-    cart_id: 1,
-    order_items: rootData.menu.map((x) => {return {item: x, quantity: 1}}),
-    total: 0,
-    delivery_subtotal: 1.2,
-    orders_subtotal: 0,
-};
-console.log(fakeCart);
+function onAddToCart(cart) {
+    componentCartInfo(`cart-wrapper`, cart);
+}
+
+function deliveryKeyup(form_name) {
+    rootData.cart[form_name] = document.getElementById(form_name).value;
+}
 
 function init() {
 
-
-    componentCartInfo(`cart-wrapper`, fakeCart);
-    itemBannersSlideShows('item-slideshow-wrapper', rootData.menu);
-
+    componentCartInfo(`cart-wrapper`, rootData.cart);
+    itemBannersSlideShows('item-slideshow-wrapper', rootData.menu, onAddToCart);
 
     document.getElementById("checkout").onclick = function () {
-        openModal(fakeCart);
+        openModal(rootData.cart);
         console.log("hello")
     };
 }

@@ -13,17 +13,28 @@ require_once "php/request.php";
 //session_start();
 
 $accessUser = new AccessUsers();
+$accessOrders = new AccessOrders();
 $user = $accessUser->autoLogin();
-
 
 $GLOBALS['user'] = $user;
 
-if (isset($_SESSION['cart'])) {
-    $GLOBALS['cart'] = $_SESSION['cart'];
+$user_id = ($user != null) ? $user['id'] : 0;
+
+if ($user_id != 0) {
+    $_SESSION['cart'] = $accessOrders->getUnpaidCartByUser($user_id);
 }
-
-
-
+else {
+    if (isset($_SESSION['cart'])) {
+        $cart_id = $_SESSION['cart']['cart_id'];
+        $cart = $accessOrders->getAllById($cart_id);
+    }
+    else {
+        $cart = $accessOrders->getUnpaidCartByUser($user_id);
+    }
+    $_SESSION['cart'] = $cart;
+}
+$GLOBALS['cart'] = $_SESSION['cart'];
+//var_dump($GLOBALS['cart']);
 ?>
 
 

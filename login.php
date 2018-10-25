@@ -14,6 +14,8 @@ session_start();
 
 session_unset();
 
+include "session_init.php";
+
 $accessUser = new AccessUsers();
 
 ?>
@@ -29,10 +31,6 @@ $accessUser = new AccessUsers();
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
-    <script type="text/javascript" src="js/default.js"></script>
-    <script type="text/javascript" src="js/globalParameter.js"></script>
-
-    <script type="text/javascript" src="js/templates.js"></script>
 </head>
 
 <?php
@@ -100,8 +98,12 @@ $template_login = '
 </form>
 ';
 
-
 ?>
+
+<script type="text/javascript" src="js/default.js"></script>
+<script type="text/javascript" src="js/globalParameter.js"></script>
+<script type="text/javascript" src="js/templates.js"></script>
+
 <script>document.getElementById("link-account").classList.add("active")</script>
 
 <div class="content">

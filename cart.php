@@ -9,7 +9,9 @@
 require_once "php/db_connect.php";
 require_once "php/request.php";
 
-session_start()
+session_start();
+
+include "session_init.php";
 
 ?>
 
@@ -23,53 +25,56 @@ session_start()
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
-    <script type="text/javascript" src="js/default.js"></script>
-    <script type="text/javascript" src="js/globalParameter.js"></script>
-
-    <script type="text/javascript" src="js/templates.js"></script>
 </head>
 
 <?php
 
-include "session_init.php";
-include "header.php";
 
+include "header.php";
 
 $accessMenu = new AccessMenu();
 $all_menus = $accessMenu->getAll();
 
 $root_data = array(
-    "menu"=>$all_menus
+    "user"=>$GLOBALS['user'],
+    "menu"=>$all_menus,
+    "cart"=>$GLOBALS['cart']
 );
 $json = json_encode($root_data);
 //echo $all_menus;
 echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 
 ?>
+
+<script type="text/javascript" src="js/default.js"></script>
+<script type="text/javascript" src="js/globalParameter.js"></script>
+<script type="text/javascript" src="js/templates.js"></script>
+
 <script>document.getElementById("link-cart").classList.add("active")</script>
 
 
 <div class="content">
     <div class="cart-wrapper">
+        <div class="cart-content" id="cart-content-wrapper"></div>
         <div class="cart-summary" id="cart-summary">
             <div class="info" id="deliver">
                 <h3>Delivery</h3>
                 <form id="delivery" class="dev">
                     <div class="row">
                         <label for="dev_name">Name</label>
-                        <input type="text" id="dev_name" name="dev_name" placeholder="Your name">
+                        <input type="text" id="dev_name" name="dev_name" onkeyup="deliveryKeyup('dev_name')" placeholder="Your name">
                     </div>
                     <div class="row">
                         <label for="dev_phone">Phone</label>
-                        <input type="number" id="dev_phone" name="dev_phone" placeholder="e.g: 12345678">
+                        <input type="number" id="dev_phone" name="dev_phone" onkeyup="deliveryKeyup('dev_phone')" placeholder="e.g: 12345678">
                     </div>
                     <div class="row">
                         <label for="dev_address">Address</label>
-                        <input type="text" id="dev_address" name="dev_address" placeholder="e.g: Block 39, NTU">
+                        <input type="text" id="dev_address" name="dev_address" onkeyup="deliveryKeyup('dev_address')" placeholder="e.g: Block 39, NTU">
                     </div>
                     <div class="row">
                         <label for="postal">Postal</label>
-                        <input type="text" id="postal" name="postal" placeholder="e.g: 637717">
+                        <input type="text" id="postal" name="postal" onkeyup="deliveryKeyup('postal')" placeholder="e.g: 637717">
                     </div>
                 </form>
 
@@ -98,8 +103,7 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             </div>
 
         </div>
-        <div class="cart-content" id="cart-content-wrapper">
-        </div>
+
     </div>
 
     <div id="modal-wrapper"></div>

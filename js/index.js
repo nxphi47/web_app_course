@@ -38,7 +38,7 @@ function generateFakeSlideData(size) {
             id: i,
             caption: `Pizza Caption ${i} good good!`,
             price: i * 10 + 1,
-            img_url: `imgs/pizza_test.jpg`,
+            img_url: (i % 2 === 0?`imgs/pizza_test.jpg`:`imgs/pizza_test_2.jpeg`),
             link: `www.google.com`
         };
 
@@ -72,26 +72,18 @@ let main_menu = rootData.menu;
 // componentItemList(itemListWrapperId, main_menu);
 
 
-templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));
+let auto_slide = templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));
 
 
-quoteSlideShows(`quote-slideshow-wrapper`, generateFakeSlideQuotes(3));
+quoteSlideShows(`quote-slideshow-wrapper`, rootData.feedback);
 
+function onAddToCart(cart) {
+    // componentCartInfo(`cart-wrapper`, cart);
+    const num_items = cart.order_items.map((x) => x.quantity).reduce((a, b) => a + b, 0);
+    document.getElementById(`num_items`).innerHTML = `${num_items}`;
+    document.getElementById(`total_price`).innerHTML = `$${cart.total}`;
+}
 
-itemBannersSlideShows('item-slideshow-wrapper', main_menu);
-
-
-
-
-//
-// print_call_back = function (res) {console.log(res)};
-//
-// console.log("default");
-// ajax_post("default", {}, print_call_back);
-// console.log();
-//
-// console.log("users");
-// ajax_post("get_user", {}, print_call_back);
-// console.log();
+itemBannersSlideShows('item-slideshow-wrapper', main_menu, onAddToCart);
 
 

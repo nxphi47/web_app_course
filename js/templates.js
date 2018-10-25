@@ -54,7 +54,7 @@ function templateItemBanner(
     modal_add_cart_temp = "add_cart_modal",
 ) {
     // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.images,
-    let {id, title, price, note, desc, unit, thumbnail, images} = item;
+    let {id, title, price, desc, unit, thumbnail, images} = item;
 
     thumbnail = `thumbnails/${thumbnail}`;
     images = images.split(";").map((x) => `images/${x}`);
@@ -62,7 +62,7 @@ function templateItemBanner(
     let template = `
     <div class="responsive" id="${where_id}_${banner_temp}_${id}">
         <div class="item-banner">
-            <a href="#" id="${where_id}_${img_temp}_${id}">
+            <a id="${where_id}_${img_temp}_${id}">
                 <img src="${thumbnail}" alt="Not found" width="600" height="400">
             </a>
             <div class="desc">
@@ -76,7 +76,7 @@ function templateItemBanner(
         </div>
     </div>
     <!--Pop up window here-->
-    <div id="${where_id}_${modal_temp}_${id}" class="modal" style="display: none;">
+    <div id="${where_id}_${modal_temp}_${id}" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
@@ -92,7 +92,7 @@ function templateItemBanner(
                     <div class="control">
                         <div class="pricing">
                             <span class="price">$${price}</span>
-                            <span class="note">${note}</span>
+                            <span class="note">per ${unit}</span>
                         </div>
                         <button class="button" id="${where_id}_${modal_add_cart_temp}_${id}">Add to Cart</button>
                     </div>
@@ -106,6 +106,64 @@ function templateItemBanner(
     return template
 }
 
+function updateCart(cart) {
+    let all_total = 0;
+    cart.order_items.forEach(function (order_item, index) {
+        all_total += order_item.quantity * order_item.item.price;
+    });
+
+    cart.orders_subtotal = all_total;
+    cart.delivery_subtotal = (cart.order_items.length > 0) ? 1.2 : 0;
+    cart.total = cart.orders_subtotal + cart.delivery_subtotal;
+}
+
+function updateCartLabel() {
+    let currentCart = rootData.cart;
+    let num_items = 0;
+    currentCart.order_items.forEach((order, index) => {
+       num_items += order.quantity;
+    });
+    updateCart(currentCart);
+    document.getElementById("num_items").innerHTML = num_items.toString();
+    document.getElementById("total_price").innerHTML = `$${currentCart.total}`;
+}
+
+function updateCurrentCart(cart=null, callback=null) {
+    cart = cart || rootData.cart;
+    let all_total = 0;
+    cart.order_items.forEach(function (order_item, index) {
+        all_total += order_item.quantity * order_item.item.price;
+    });
+
+    cart.orders_subtotal = all_total;
+    cart.total = cart.orders_subtotal + cart.delivery_subtotal;
+
+    ajax_post("add_to_cart", cart, function (new_cart) {
+        rootData.cart = new_cart;
+        if (callback != null) {
+            callback(rootData.cart);
+        }
+    })
+}
+
+function addToCart(item, callback=null) {
+    let currentCart = rootData.cart;
+    let menu = rootData.menu;
+    if (currentCart.order_items.map((x) => x.item.id).includes(item.id)) {
+        // exists
+        currentCart.order_items.filter((x) => x.item.id == item.id)[0].quantity += 1;
+        console.log(currentCart);
+    }
+    else {
+        currentCart.order_items.push({
+            item: item,
+            quantity: 1,
+        })
+    }
+    updateCartLabel();
+    updateCurrentCart(rootData.cart, callback);
+}
+
 function bindHandlersItemBanner(
     item,
     where_id,
@@ -115,20 +173,28 @@ function bindHandlersItemBanner(
     modal_temp = "item_modal",
     modal_close_temp = "item_modal_close",
     modal_add_cart_temp = "add_cart_modal",
+    on_add_cart=null,
 ) {
     let onClickImg = function () {
-        const modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
-        modal.style.display = "block"
+        let modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
+        // document.getElementsByTagName("body")[0].classList.add("modal-open");
+        // document.getElementsByTagName("html")[0].classList.add("modal-open");
+        // modal.style.display = "block";
+        modal.classList.add("display");
     };
 
     let onModalClose = function () {
-        const modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
-        modal.style.display = "none";
+        let modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
+        // document.getElementsByTagName("body")[0].classList.remove("modal-open");
+        // document.getElementsByTagName("html")[0].classList.remove("modal-open");
+        // modal.style.display = "none";
+        modal.classList.remove("display");
     };
 
     let onAdd = function (e) {
         console.log(`click add on item ${item.id}`);
         console.log(item);
+        addToCart(item, on_add_cart);
     };
     document.getElementById(`${where_id}_${img_temp}_${item.id}`).onclick = onClickImg;
     document.getElementById(`${where_id}_${add_cart_temp}_${item.id}`).onclick = onAdd;
@@ -159,6 +225,11 @@ function componentItemList(where_id, data_list) {
 
 
 // -------------- COMMENT SLIDE SHOWS -------------------
+
+function autoSlide(nextSlide, interval = 5000) {
+    let auto = setInterval(nextSlide, interval);
+    return auto;
+}
 
 // Slide show for promotions
 function templateSlide(index, slide, totalSlides) {
@@ -204,7 +275,7 @@ function templateSlideShow(where_id, slideShows) {
     </div>
     <br>
     <!-- The dots/circles -->
-    <div style="text-align:center">
+    <div class="dot-line">
         ${slideDotHtmls}
     </div>
     `;
@@ -215,8 +286,6 @@ function templateSlideShow(where_id, slideShows) {
         let slides = document.getElementsByClassName("slide");
         let dots = document.getElementsByClassName("dot");
 
-        // console.log(slides);
-        // console.log(dots);
         if (num > totalSlides - 1) {
             currentIndex = 0;
         }
@@ -224,7 +293,6 @@ function templateSlideShow(where_id, slideShows) {
             currentIndex = totalSlides - 1;
         }
 
-        // slides.forEach(function (slide) {});
         for (let slide of slides) {
             slide.style.display = "none";
         }
@@ -258,22 +326,25 @@ function templateSlideShow(where_id, slideShows) {
 
     let dots = document.getElementsByClassName("dot");
     for (let i = 0; i < dots.length; i++) {
-        dots[i].onclick = function () {
-            currentSlide(i)
-        };
+        // console.log(dots[i]);
+        dots[i].onclick = function () {currentSlide(i);};
     }
 
     showSlides(currentIndex);
+    let auto_slide = autoSlide(() => {plusSlides(1)}, 5000);
+    return auto_slide;
 }
 
 // Slide show for Quotes
 function templateQuoteSlide(index, slide, totalSlides) {
-    let {id, author, quote} = slide;
+    // let {id, author, quote} = slide;
+    // let {id, user_id, }
+    let {id, user_id, stars, note} = slide;
 
     let template = `
     <div class="quote-slide">
-        <q>${quote}</q>
-        <p class="author">- ${author}</p>
+        <q>${note}</q>
+        <p class="author">- ${user_id.uname}</p>
     </div>
     `;
 
@@ -309,7 +380,7 @@ function quoteSlideShows(where_id, quoteSlides) {
     </div>
     <br>
     <!-- The dots/circles -->
-    <div style="text-align:center">
+    <div class="dot-line">
         ${slideDotHtmls}
     </div>
     `;
@@ -320,8 +391,6 @@ function quoteSlideShows(where_id, quoteSlides) {
         let slides = document.getElementsByClassName("quote-slide");
         let dots = document.getElementsByClassName("quote-slide-dot");
 
-        // console.log(slides);
-        // console.log(dots);
         if (num > totalSlides - 1) {
             currentIndex = 0;
         }
@@ -329,14 +398,12 @@ function quoteSlideShows(where_id, quoteSlides) {
             currentIndex = totalSlides - 1;
         }
 
-        // slides.forEach(function (slide) {});
         for (let slide of slides) {
             slide.style.display = "none";
         }
         for (let dot of dots) {
             dot.className = dot.className.replace(" active", "");
         }
-        // dots.forEach(function (dot) {dot.className = dot.className.replace(" active", "")});
 
         slides[currentIndex].style.display = "block";
         dots[currentIndex].className += " active";
@@ -361,7 +428,7 @@ function quoteSlideShows(where_id, quoteSlides) {
         plusSlides(1)
     };
 
-    let dots = document.getElementsByClassName("dot");
+    let dots = document.getElementsByClassName("quote-slide-dot");
     for (let i = 0; i < dots.length; i++) {
         dots[i].onclick = function () {
             currentSlide(i)
@@ -387,11 +454,11 @@ function slideItemBanner(item, where_id) {
     );
 }
 
-function bindHandlersSlideItemBanner(item, where_id) {
+function bindHandlersSlideItemBanner(item, where_id, on_add_cart=null) {
     // console.log(item);
     return bindHandlersItemBanner(
         item, where_id, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
-        slide_modal_temp, slide_modal_close_temp, slide_modal_add_cart_temp
+        slide_modal_temp, slide_modal_close_temp, slide_modal_add_cart_temp, on_add_cart
     )
 }
 
@@ -418,7 +485,7 @@ function templateSlideItemDot(where_id, index, slide) {
     return template;
 }
 
-function itemBannersSlideShows(where_id, highlightItems) {
+function itemBannersSlideShows(where_id, highlightItems, on_add_cart=null) {
 
     let itemSetSlides = [];
     let currentSlide = [];
@@ -426,8 +493,6 @@ function itemBannersSlideShows(where_id, highlightItems) {
         currentSlide.push(item);
 
         if (currentSlide.length === 3) {
-            // finish 1 set
-            // console.log(`finish set in index ${index}`);
             itemSetSlides.push(currentSlide);
             currentSlide = [];
         }
@@ -457,7 +522,7 @@ function itemBannersSlideShows(where_id, highlightItems) {
         <a class="item-slide-next" id="item_next_button" >&#10095;</a>
     </div>
     <!-- The dots/circles -->
-    <div style="text-align:center">
+    <div class="dot-line">
         ${itemSetSlideDotHtmls}
     </div>
     `;
@@ -508,9 +573,9 @@ function itemBannersSlideShows(where_id, highlightItems) {
         dots[i].onclick = function () {openCurrentSlide(i)};
     }
 
-    highlightItems.forEach(function (item) {return bindHandlersSlideItemBanner(item, where_id)});
+    highlightItems.forEach(function (item) {return bindHandlersSlideItemBanner(item, where_id, on_add_cart)});
 }
 
 
-
+updateCartLabel();
 

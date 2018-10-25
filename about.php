@@ -10,7 +10,8 @@
 require_once "php/db_connect.php";
 require_once "php/request.php";
 
-session_start()
+session_start();
+include "session_init.php";
 
 ?>
 
@@ -24,18 +25,26 @@ session_start()
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
-    <script type="text/javascript" src="js/default.js"></script>
-    <script type="text/javascript" src="js/globalParameter.js"></script>
-
-    <script type="text/javascript" src="js/templates.js"></script>
 </head>
 
 <?php
 
-include "session_init.php";
 include "header.php";
+$accessMenu = new AccessMenu();
+$all_menus = $accessMenu->getAll();
 
+$root_data = array(
+    "menu"=>$all_menus,
+    "cart"=>$GLOBALS['cart']
+);
+$json = json_encode($root_data);
+echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 ?>
+
+<script type="text/javascript" src="js/default.js"></script>
+<script type="text/javascript" src="js/globalParameter.js"></script>
+<script type="text/javascript" src="js/templates.js"></script>
+
 <script>document.getElementById("link-about").classList.add("active")</script>
 
 <div class="content">

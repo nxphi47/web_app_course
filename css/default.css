@@ -1,7 +1,8 @@
 /* General CSS */
 
 div.content {
-    margin-top: 80px;
+    /*margin-top: 80px;*/
+    margin-top: 7em;
     margin-bottom: 110px;
 }
 
@@ -47,6 +48,20 @@ div.content {
     color: white;
 }
 
+.button.to-top {
+    display: none;
+    position: fixed;
+    bottom: 5em;
+    right: 1em;
+    z-index: 120;
+    font-size: 18px;
+    /*border: none;*/
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 100%;
+}
+
 
 /* Header footer CSS*/
 
@@ -63,18 +78,21 @@ nav ul.nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    padding-top: 2em;
     overflow: hidden;
     background-color: #333;
-    height: 70px;
+    /*height: 70px;*/
+    height: 4em;
     /*to on top*/
     /*position: fixed;*/
     /*top: 0;*/
     /*width: 100%;*/
+    border-bottom: 2px solid red;
 }
 
 nav ul.nav li {
     float: left;
-    margin-top: 10px;
+    /*margin-top: 2em;*/
     margin-left: 15px;
     margin-right: 15px;
 }
@@ -89,9 +107,37 @@ nav ul.nav li a {
     border-radius: 10px;
 }
 
-nav ul.nav li a span {
+nav ul.nav li a img {
+    /*display: block;*/
+}
+
+div.cart-label-info {
+    display: inline-block;
+    margin-top: 10px;
     vertical-align: top;
 }
+
+nav ul.nav li a span.num-items {
+    /*vertical-align: top;*/
+}
+
+nav ul.nav li a span.total-price {
+    /*vertical-align: bottom;*/
+}
+
+nav ul.nav li a .acc-info {
+    vertical-align: top;
+    margin-top: 10px;
+}
+
+nav ul.nav li a div.acc-info {
+    vertical-align: top;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+
+
 
 nav ul.nav li a.logo {
     padding: 2px 2px;
@@ -102,8 +148,69 @@ nav ul.nav li a:hover:not(.active) {
 }
 
 .active {
-    background-color: #4CAF50;
+    /*background-color: #4CAF50;*/
+    background-color: #008CBA;;
 }
+
+nav ul.nav li.icon {
+    display: none;
+}
+
+nav ul.nav .link-right {
+    float: right;
+}
+
+@media screen and (max-width: 900px) {
+    nav.navbar ul.nav li:not(:first-child) {
+        display: none;
+    }
+    nav.navbar ul.nav li.icon {
+        float: right;
+        display: block;
+        /*margin-top: 0.5em;*/
+
+    }
+    nav.navbar ul.nav li.icon a {
+        padding: 5px 5px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    nav.navbar.nav-responsive {
+        position: relative;
+    }
+    nav.navbar.nav-responsive ul.nav li.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-top: 2em;
+    }
+    nav.navbar.nav-responsive ul.nav li.nav-logo {
+        float: left;
+        display: block;
+        text-align: left;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-top: 0.7em;
+    }
+    nav.navbar.nav-responsive ul.nav li.nav-link {
+        float: none;
+        display: block;
+        text-align: left;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-top: 0.2em;
+    }
+    nav.navbar.nav-responsive ul.nav {
+        height: 28em;
+    }
+
+    .link-right {
+        float: none;
+    }
+}
+
+
 
 footer {
     text-align: center;
@@ -160,6 +267,57 @@ footer {
     padding: 6px 12px;
     /*border: 1px solid #ccc;*/
     /*border-top: none;*/
+}
+
+form.search {
+    float: right;
+    margin: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+form.search input[type=text] {
+    padding: 5px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+    border-radius: 0;
+    margin: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+form.search button {
+    float: left;
+    display: inline-block;
+    width: 20%;
+    height: auto;
+    margin: 0;
+    padding: 5px;
+    /*background: #2196F3;*/
+    /*color: white;*/
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+form.search button img {
+    height: auto;
+}
+/*form.search button:hover {*/
+    /*background: #0b7dda;*/
+/*}*/
+
+form.search::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 /* QUANTITY SPINNER */
@@ -251,17 +409,33 @@ div.responsive {
     width: 31%;
 }
 
+.dot-line {
+    text-align:center
+}
+
+
 @media only screen and (max-width: 700px) {
     div.responsive {
         width: 47.99999%;
         /*margin: 6px 0;*/
-
+    }
+    .dot-line {
+        display: none;
+    }
+    div.content {
+        margin-bottom: 30em;
     }
 }
 
 @media only screen and (max-width: 500px) {
     div.responsive {
         width: 100%;
+    }
+    .dot-line {
+        display: none;
+    }
+    div.content {
+        margin-bottom: 55em;
     }
 }
 
@@ -291,7 +465,8 @@ div.item-banner img {
 }
 
 div.item-banner {
-    padding: 15px;
+    padding: 5px;
+
     text-align: center;
 }
 
@@ -314,6 +489,7 @@ span.desc {
     vertical-align: middle;
     margin-bottom: 10px;
     margin-top: 10px;
+    width: 100%;
     /*border: 2px solid transparent;*/
     /*padding: 8px 16px;*/
     /*margin: 4px 2px;*/
@@ -354,14 +530,36 @@ button.button.desc {
 div.modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 20; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
+    /*overflow: hidden; !* Enable scroll if needed *!*/
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+    /*-webkit-transition-duration: 0.4s; !* Safari *!*/
+    /*transition-duration: 0.4s;*/
+
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 0.2s;
+    animation-name: fade;
+    animation-duration: 0.2s;
+}
+
+div.modal.display {
+    display: block;
+    /*overflow: auto;/*/
+    /*position: fixed;*/
+}
+
+.modal-open {
+    overflow: visible;
+    position: absolute;
+    width: 100%;
+    height:100%;
 }
 
 
@@ -378,6 +576,9 @@ div.modal {
     width: 80%; /* Could be more or less, depending on screen size */
     /*width: 51%; !* Could be more or less, depending on screen size *!*/
     border-radius: 20px;
+
+    /*-webkit-transition-duration: 0.4s; !* Safari *!*/
+    /*transition-duration: 0.4s;*/
 }
 
 /* The Close Button */
@@ -557,7 +758,7 @@ span.dot {
     transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover {
+.dot.active, .dot:hover {
     background-color: #717171;
 }
 
@@ -741,7 +942,30 @@ div.item-slideshow-wrapper {
 }
 
 
-/* Forms */
+@media only screen and (max-width: 1028px) {
+
+    div.modal-content-inside div.detail {
+        /*width: 46%;*/
+        width: 90%;
+    }
+    div.modal-content-inside div.image {
+        /*width: 46%;*/
+        width: 90%;
+    }
+
+    .modal-content {
+        /*width: 51%;*/
+        width: 80%;
+    }
+
+
+
+}
+
+
+
+
+/* ------------------------------------Forms ------------------------------------------------*/
 form label {
     float: left;
     width: 25%;

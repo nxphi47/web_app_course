@@ -66,10 +66,33 @@ let drink_menu = all_menu.filter((x) => x.type.toLowerCase() == 'beverage');
 // componentItemList(`item-list-wrapper-pasta`, generateFakeItemData(10, 'Pasta'));
 // componentItemList(`item-list-wrapper-beverage`, generateFakeItemData(10, 'Drink'));
 
+
 componentItemList(`item-list-wrapper-all`, all_menu);
 componentItemList(`item-list-wrapper-pizza`, pizza_menu);
 componentItemList(`item-list-wrapper-pasta`, pasta_menu);
 componentItemList(`item-list-wrapper-beverage`, drink_menu);
+
+// function onEnterSearch(e) {
+//     {if (e.keyCode === 13) {onSearch()
+// }
+
+function onSearch() {
+    const string = document.getElementById("search_input").value;
+    // console.log("perform search");
+    let items;
+    if (string === "") {
+        // componentItemList(`item-list-wrapper-all`, all_menu);
+        items = all_menu;
+    }
+    else {
+        items = all_menu.filter((v) => {
+            return v.title.toLowerCase().match(string) != null;
+        });
+    }
+
+    componentItemList(`item-list-wrapper-all`, items);
+    document.getElementById("default-tab").click();
+}
 
 
 document.getElementById("default-tab").click();

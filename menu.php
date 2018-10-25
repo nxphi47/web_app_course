@@ -12,7 +12,7 @@ require_once "php/request.php";
 
 session_start();
 
-
+include "session_init.php";
 
 ?>
 
@@ -26,15 +26,10 @@ session_start();
 
     <link rel="shortcut icon" href="imgs/favicon.ico">
 
-    <script type="text/javascript" src="js/default.js"></script>
-    <script type="text/javascript" src="js/globalParameter.js"></script>
-
-    <script type="text/javascript" src="js/templates.js"></script>
 </head>
 
 <?php
 
-include "session_init.php";
 include "header.php";
 
 
@@ -45,13 +40,19 @@ $accessMenu = new AccessMenu();
 $all_menus = $accessMenu->getAll();
 
 $root_data = array(
-        "menu"=>$all_menus
+    "user"=>$GLOBALS['user'],
+    "menu"=>$all_menus,
+    "cart"=>$GLOBALS['cart']
 );
 $json = json_encode($root_data);
-//echo $all_menus;
 echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 
 ?>
+
+<script type="text/javascript" src="js/default.js"></script>
+<script type="text/javascript" src="js/globalParameter.js"></script>
+<script type="text/javascript" src="js/templates.js"></script>
+
 <script>document.getElementById("link-menu").classList.add("active")</script>
 
 <div class="content">
@@ -62,6 +63,15 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             <button class="tablinks" onclick="openTab(event, 'pizza')">Pizza</button>
             <button class="tablinks" onclick="openTab(event, 'pasta')">Pasta</button>
             <button class="tablinks" onclick="openTab(event, 'beverage')">Beverage</button>
+
+            <form class="search" onsubmit="return false;">
+                <input type="text" id="search_input" placeholder="Search.." name="search"
+                       onkeyup="onSearch()"
+                >
+                <button type="button" class="button" onclick="onSearch()">
+                    <img src="imgs/search.png" alt="Search" width="20">
+                </button>
+            </form>
         </div>
 
         <div id="all" class="tabcontent">

@@ -6,8 +6,12 @@
  * Time: 9:32 PM
  */
 
-require_once "php/db_connect.php";
-require_once "php/request.php";
+//require_once "php/db_connect.php";
+//require_once "php/request.php";
+
+require_once "db_connect.php";
+require_once "request.php";
+
 session_start();
 
 
@@ -35,6 +39,23 @@ if (is_array($jsonPost) && array_key_exists("request", $jsonPost)) {
                 ['id'=>1, 'name'=>'xuan phi'],
                 ['id'=>2, 'name'=>'xuaasdasdasdn phi']]);
             break;
+        case "add_to_cart":
+            $accessOrder = new AccessOrders();
+            $accessUser = new AccessUsers();
+            $cart = $accessOrder->updateCurrentCart($data);
+            $_SESSION['cart'] = $cart;
+            finishRequest($cart);
+            break;
+        case "checkout":
+            $accessOrder = new AccessOrders();
+            $accessUser = new AccessUsers();
+            $out = $accessOrder->checkout($data);
+            if ($GLOBALS['response']->isSuccess) {
+                unset($_SESSION['cart']);
+            }
+            finishRequest($out);
+            break;
+
     }
 
 } else {
