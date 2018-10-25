@@ -7,6 +7,8 @@
  */
 
 // include libraries
+require_once "php/db_connect.php";
+require_once "php/request.php";
 
 session_start()
 
@@ -30,7 +32,9 @@ session_start()
 
 <?php
 
-include "header.php"
+include "session_init.php";
+include "header.php";
+
 ?>
 <script>document.getElementById("link-about").classList.add("active")</script>
 

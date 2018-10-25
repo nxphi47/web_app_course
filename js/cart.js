@@ -269,7 +269,7 @@ function init() {
 
 
     componentCartInfo(`cart-wrapper`, fakeCart);
-    // itemBannersSlideShows('item-slideshow-wrapper', generateFakeItemData(10));
+    itemBannersSlideShows('item-slideshow-wrapper', rootData.menu);
 
 
     document.getElementById("checkout").onclick = function () {

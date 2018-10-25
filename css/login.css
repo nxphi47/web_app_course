@@ -18,3 +18,31 @@
     display: table;
     margin: 0 auto;
 }
+
+.tab a {
+    text-decoration: none;
+    color: black;
+}
+.tab a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.tab a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.tab a:active {
+    text-decoration: none;
+    color: black;
+}
+
+
+.tabcontent {
+    display: block;
+}
+
+input[type=submit] {
+    width: 100%;
+}

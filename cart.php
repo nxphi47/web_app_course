@@ -31,7 +31,9 @@ session_start()
 
 <?php
 
+include "session_init.php";
 include "header.php";
+
 
 $accessMenu = new AccessMenu();
 $all_menus = $accessMenu->getAll();

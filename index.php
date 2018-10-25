@@ -31,29 +31,26 @@ session_start()
 
 <?php
 
+include "session_init.php";
 include "header.php";
 
 $accessMenu = new AccessMenu();
 $all_menus = $accessMenu->getAll();
 
 $root_data = array(
-    "menu"=>$all_menus
+    "menu" => $all_menus
 );
 $json = json_encode($root_data);
-//echo $all_menus;
-echo "<script> var rootData = JSON.parse('". $json. "');</script>";
+
+echo "
+<script>
+    var rootData = JSON.parse('{$json}');
+</script>";
 
 ?>
 <script>document.getElementById("link-index").classList.add("active")</script>
 
 <div class="content">
-<!--    <div>-->
-<!--        <h2>Testing here</h2>-->
-<!--        <div id="test">-->
-<!---->
-<!--        </div>-->
-<!---->
-<!--    </div>-->
 
     <div class="slideshow-wrapper" id="slideshow-wrapper"></div>
 

@@ -6,6 +6,31 @@
  * Time: 8:52 PM
  */
 
+$user = $GLOBALS['user'];
+
+if ($user != null) {
+    $template = '
+    <li style="float: right">
+        <a id="link-logout" href="logout.php">Logout</a>
+    </li>
+    <li style="float: right">
+        <a id="link-account" href="account.php" class="logo">
+            <img style="width: 41px;" src="imgs/user.png">
+            <span class="acc-info">'.$user['uname'].'</span>
+        </a>
+    </li>
+    ';
+}
+else {
+    $template = '
+    <li style="float: right">
+        <a id="link-account" href="login.php" class="logo">
+            <img style="width: 41px;" src="imgs/user.png">
+            <span class="acc-info">Login/Signup</span>
+        </a>
+    </li>
+    ';
+}
 
 ?>
 
@@ -20,12 +45,7 @@
 
             <li><a id="link-about" href="test.php" target="_blank">Testing</a></li>
 
-            <li style="float: right">
-<!--                <a id="link-account" href="account.php" class="logo">-->
-                <a id="link-account" href="login.php" class="logo">
-                    <img style="width: 41px;" src="imgs/user.png">
-                </a>
-            </li>
+            <?php echo $template ?>
             <li style="float: right">
                 <a id="link-cart" href="cart.php" class="logo">
                     <img style="width: 41px;" src="imgs/cart.png">

@@ -9,7 +9,7 @@
 // include libraries
 require_once "php/db_connect.php";
 require_once "php/request.php";
-//require_once "php/ajax_gateway.php";
+
 session_start();
 
 
@@ -34,7 +34,9 @@ session_start();
 
 <?php
 
+include "session_init.php";
 include "header.php";
+
 
 // get user information
 

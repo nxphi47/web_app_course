@@ -1,6 +1,6 @@
 function templateLogin() {
     let template = `
-    <form>
+    <form action="login.php" method="post">
         <div class="row">
             <label for="uname">User Name</label>
             <input type="text" id="uname" name="uname" placeholder="User name" required onkeyup="validateLogin()">
@@ -32,7 +32,7 @@ function templateLogin() {
 
 function templateSignup() {
     let template = `
-    <form>
+    <form action="login.php" method="post">
         <div class="row">
             <label for="fname">First name</label>
             <input type="text" id="fname" name="fname" placeholder="First name" required onkeyup="validateSignup()">
@@ -109,8 +109,10 @@ function validateLogin() {
     let password = document.getElementById("password").value;
     let button = document.getElementById("login_button");
 
-    let valid = (uname.length > 4 && password.length > 6);
+    let valid = (uname.length >= 4 && password.length >= 6);
     button.disabled = !valid;
+
+    console.log("hello");
     return valid;
 }
 
@@ -120,7 +122,7 @@ function validateSignup() {
     let password = document.getElementById("password").value;
     let button = document.getElementById("signup_button");
 
-    let valid = (uname.length > 4 && password.length > 6);
+    let valid = (uname.length >= 4 && password.length >= 6);
     button.disabled = !valid;
     return valid;
 }
@@ -145,8 +147,10 @@ function openTab(event, tabName) {
     html_obj.bindHandler();
 }
 
-document.getElementById("default-tab").click();
+// document.getElementById("default-tab").click();
 
+// validateLogin();/*
+// validateSignup();*/
 
 
 

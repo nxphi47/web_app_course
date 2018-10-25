@@ -166,7 +166,9 @@ div.item-banner div.desc {
 }
 
 span.desc span.title {
-    font-size: large;
+    font-size: medium;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 span.desc span.price {

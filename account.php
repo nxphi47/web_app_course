@@ -5,7 +5,12 @@
  * Date: 10/4/18
  * Time: 6:07 PM
  */
-session_start()
+
+// include libraries
+require_once "php/db_connect.php";
+require_once "php/request.php";
+
+session_start();
 
 ?>
 

@@ -10,7 +10,11 @@
 require_once "php/db_connect.php";
 require_once "php/request.php";
 
-session_start()
+session_start();
+
+session_unset();
+
+$accessUser = new AccessUsers();
 
 ?>
 
@@ -35,17 +39,70 @@ session_start()
 
 include "header.php";
 
-//$accessMenu = new AccessMenu();
-//$all_menus = $accessMenu->getAll();
+
+$errors = array();
+
+function validate($uname, $password) {
+//    $error = "";
+    $errors = array();
+    if (strlen($uname) < 4) {
+        array_push($errors, "User name must be >= 4 character");
+    }
+    if (strlen($password) < 6) {
+        array_push($errors, "Password must be > 6");
+    }
+    return $errors;
+}
+
+$sucesss = false;
+if (isset($_POST['login'])) {
+    $uname = mysqli_real_escape_string($GLOBALS['conn'], $_POST['uname']);
+    $password = mysqli_real_escape_string($GLOBALS['conn'], $_POST['password']);
+    $errors = validate($uname, $password);
+    if (count($errors) == 0) {
+        if ($accessUser->loginWithUnamePass($uname, $password)) {
+            $success = true;
+            header("Location: index.php");
+            die();
+        } else {
+            $errors = array("Username or Password incorrect!: {$uname}, {$password}");
+        }
+    }
+}
+else {
+    session_reset();
+}
+
 
 $root_data = array(//    "menu"=>$all_menus
 );
 $json = json_encode($root_data);
+
 //echo $all_menus;
 echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
 
+$error = implode(", ", $errors);
+
+$template_login = '
+<form action="login.php" method="post">
+    <div class="row">
+        <label for="uname">User Name</label>
+        <input type="text" id="uname" name="uname" placeholder="User name" required onkeyup="validateLogin()">
+    </div>
+    <div class="row">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required  onkeyup="validateLogin()">
+    </div>
+    '.$error.'
+    <div class="row">
+        <input type="submit" class="button" name="login" id="login_button" value="Login">
+    </div>
+</form>
+';
+
+
 ?>
-<script>document.getElementById("link-index").classList.add("active")</script>
+<script>document.getElementById("link-account").classList.add("active")</script>
 
 <div class="content">
 
@@ -53,16 +110,19 @@ echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
         <div class="tab-wrapper">
             <div class="tab-up-banner">
                 <div class="tab">
-                    <button class="tablinks" onclick="openTab(event, 'login')" id="default-tab">Login</button>
-                    <button class="tablinks" onclick="openTab(event, 'signup')">Sign up</button>
+<!--                    <button class="tablinks" onclick="openTab(event, 'login')" id="default-tab">Login</button>-->
+<!--                    <button class="tablinks" onclick="openTab(event, 'signup')">Sign up</button>-->
+                    <a href="login.php" class="tablinks active">Login</a>
+                    <a href="signup.php" class="tablinks" >Sign up</a>
                 </div>
             </div>
 
-
             <div class="tabcontent" id="tabcontent">
                 <div class="banner" id="banner">
-
-                </div>
+                    <?php
+                        echo $template_login;
+                    ?>
+                </div
             </div>
         </div>
 
