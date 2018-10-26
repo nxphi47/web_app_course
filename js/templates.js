@@ -54,10 +54,12 @@ function templateItemBanner(
     modal_add_cart_temp = "add_cart_modal",
 ) {
     // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.images,
-    let {id, title, price, desc, unit, thumbnail, images} = item;
+    let {id, title, price, desc, unit, thumbnail, images, promoted_price} = item;
 
     thumbnail = `thumbnails/${thumbnail}`;
     images = images.split(";").map((x) => `images/${x}`);
+
+    console.log(`promoted price: ${promoted_price}`);
 
     let template = `
     <div class="responsive" id="${where_id}_${banner_temp}_${id}">
@@ -68,7 +70,11 @@ function templateItemBanner(
             <div class="desc">
                 <span class="desc">
                     <span class="title">${title}</span>
-                    <span class="price">$${price}</span>
+                    <div class="price-tag">
+                        <span class="price${promoted_price > 0 ? ' minus': ''}">$${price}</span>
+                        <span class="promoted-price" style="display: ${promoted_price > 0 ? 'inline-block' : 'none'};">$${promoted_price}</span>
+                    </div>
+                    
                     <span class="note">per ${unit}</span>
                 </span>
                 <button class="button desc" id="${where_id}_${add_cart_temp}_${id}">Add to Cart</button>
@@ -113,7 +119,7 @@ function templateItemBanner(
 function updateCart(cart) {
     let all_total = 0;
     cart.order_items.forEach(function (order_item, index) {
-        all_total += order_item.quantity * order_item.item.price;
+        all_total += order_item.quantity * (order_item.item.promoted_price > 0 ? order_item.item.promoted_price : order_item.item.price);
     });
 
     cart.orders_subtotal = all_total;
@@ -133,14 +139,15 @@ function updateCartLabel() {
 }
 
 function updateCurrentCart(cart=null, callback=null) {
-    cart = cart || rootData.cart;
-    let all_total = 0;
-    cart.order_items.forEach(function (order_item, index) {
-        all_total += order_item.quantity * order_item.item.price;
-    });
-
-    cart.orders_subtotal = all_total;
-    cart.total = cart.orders_subtotal + cart.delivery_subtotal;
+    // cart = cart || rootData.cart;
+    // let all_total = 0;
+    // cart.order_items.forEach(function (order_item, index) {
+    //     all_total += order_item.quantity * order_item.item.price;
+    // });
+    //
+    // cart.orders_subtotal = all_total;
+    // cart.total = cart.orders_subtotal + cart.delivery_subtotal;
+    updateCart(cart);
 
     ajax_post("add_to_cart", cart, function (new_cart) {
         rootData.cart = new_cart;

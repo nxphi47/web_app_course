@@ -46,7 +46,7 @@ if (is_array($jsonPost) && array_key_exists("request", $jsonPost)) {
             $user = $accessUser->autoLogin();
 
             $cart = $accessOrder->updateCurrentCart($data, $user);
-//            $_SESSION['cart'] = $cart;
+            $_SESSION['cart'] = $cart;
             finishRequest($cart);
             break;
         case "checkout":

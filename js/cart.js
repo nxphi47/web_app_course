@@ -19,7 +19,7 @@ function templateOrderItem(
     onRemove,
 ) {
     let {item, quantity, comment} = order_item;
-    let {id, title, price, note, desc, thumbnail, images} = item;
+    let {id, title, price, note, desc, thumbnail, images, promoted_price} = item;
 
     let id_temp = `cart_${cart_id}-id_${id}`;
 
@@ -30,6 +30,24 @@ function templateOrderItem(
     let quantitySpinner = templateQuantitySpinner(id_temp, quantity);
 
     let placeholder = getPlaceHolder(item);
+
+    let price_tag = null;
+    if (promoted_price > 0) {
+        price_tag = `
+        <div class="price-label">
+            <span class="price-tag cart price-minus">$${price}</span>
+            <span class="price-tag cart">$${promoted_price}</span>
+        </div>
+        
+        `;
+    }
+    else {
+        price_tag = `
+        <div class="price-label">
+            <span class="price-tag cart">$${price}</span>
+        </div>
+        `;
+    }
 
     let template = `
     <li class="cart-item" id="item-${id_temp}">
@@ -47,7 +65,7 @@ function templateOrderItem(
             
         </div>
         <div class="cart-item-control">
-            <h2>$${price}</h2>
+            ${price_tag}
             ${quantitySpinner}
         </div>
     </li>

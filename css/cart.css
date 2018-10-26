@@ -214,7 +214,41 @@ span.desc span.price {
     display: inline;
 }
 
+span.desc span.price.minus {
+    text-decoration: line-through;
+    font-size: smaller;
+}
+
+span.desc span.promoted-price {
+    font-size: medium;
+}
+
 span.desc span.note {
+    display: inline;
+}
+
+.price-label {
+    display: inline-block;
+    width: 4em;
+    vertical-align: middle;
+}
+
+.price-tag.cart {
+    display: inline;
+    color: #008CBA;
+    font-size: xx-large;
+    float: right;
+}
+
+.price-tag.cart.price-minus {
+    font-size: medium;
+    text-decoration: line-through;
+    color: black;
+    float: left;
+    margin-top: 1em;
+}
+
+.price-tag {
     display: inline;
 }
 
@@ -245,5 +279,8 @@ span.desc {
     /*border-radius: 10px;*/
     resize: vertical;
 }
+
+
+
 
 

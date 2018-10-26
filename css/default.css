@@ -507,10 +507,28 @@ span.desc span.title {
 }
 
 span.desc span.price {
-    display: block;
+    display: inline-block;
     font-size: xx-large;
     text-align: left;
     font-weight: bold;
+}
+
+span.desc .price-tag {
+    text-align: left;
+}
+
+span.desc span.price.minus {
+    text-decoration: line-through;
+    font-size: medium;
+}
+
+
+span.desc span.promoted-price {
+    display: inline-block;
+    font-size: xx-large;
+    text-align: left;
+    font-weight: bold;
+    color: red;
 }
 
 span.desc span.note {

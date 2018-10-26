@@ -76,7 +76,19 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 
         <div id="sales" class="tabcontent">
             <div class="admin-tab" id="admin-tab-sales">
-                sale..
+                <ul>
+                    <li>Sales by products</li>
+                    <li>Sales by types by products</li>
+                    <li>Sales by pizza flavours</li>
+                    <li>Mean add</li>
+                </ul>
+                todo list
+                <ul>
+                    <li>Admin page</li>
+                    <li>Search by categories</li>
+                    <li>Promotions</li>
+                </ul>
+
             </div>
         </div>
 
