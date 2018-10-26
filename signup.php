@@ -12,6 +12,9 @@ require_once "php/request.php";
 
 session_start();
 $accessUser = new AccessUsers();
+session_destroy();
+
+include "session_init.php";
 ?>
 
 <html>
@@ -46,8 +49,6 @@ echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
 function validate($data) {
     $errors = [];
     if (strlen($data['uname']) <= 4) {
-//        $error = "{$error} User name must be >= 4 character";
-//        return $error;
         array_push($errors, "Username must be >= 4 characters");
     }
     if (strlen($data['password']) <= 6) {
@@ -61,14 +62,10 @@ $user = null;
 $success = false;
 if (isset($_POST['signup'])) {
 
-    var_dump($_POST);
     $data = array();
-    foreach ($accessUser->allKeys as $key) {
-        if (in_array($key, array_keys($_POST))) {
-            $data[$key] = mysqli_real_escape_string($GLOBALS['conn'], $_POST[$key]);
-        }
+    foreach ($_POST as $key=>$value) {
+        $data[$key] = mysqli_real_escape_string($GLOBALS['conn'], $value);
     }
-    var_dump($data);
 
     $val_errors = validate($data);
 
@@ -79,6 +76,8 @@ if (isset($_POST['signup'])) {
             $user = $accessUser->getAllById($accessUser->insertedID);
             $accessUser->loginWithData($user);
             $success = true;
+            header("Location: {$_SERVER['PHP_SELF']}?success=1");
+            exit();
         }
         else {
             // server error!
@@ -94,10 +93,22 @@ else {
     session_reset();
 }
 
+if (isset($_GET['success'])) {
+    $success = true;
+}
+else {
+    $success = false;
+}
+
 $template_success = '
 
 <div class="noti">
-    Sign-up success
+    Sign-up success. Redirect to login page in 3 seconds....
+    <script>
+        setTimeout(function() {
+            window.location.href = "login.php";
+        }, 3000);
+    </script>
 </div>>
 ';
 

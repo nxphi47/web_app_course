@@ -10,9 +10,14 @@
 require_once "php/db_connect.php";
 require_once "php/request.php";
 
+//session_destroy();
+
 session_start();
 
-session_unset();
+if (!isset($_POST['login'])) {
+    session_unset();
+    session_destroy();
+}
 
 include "session_init.php";
 

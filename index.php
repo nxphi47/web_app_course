@@ -64,6 +64,7 @@ echo "
 
     <div class="slideshow-wrapper" id="slideshow-wrapper"></div>
 
+
     <div class="quote-slideshow-wrapper" id="quote-slideshow-wrapper"></div>
 
     <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>

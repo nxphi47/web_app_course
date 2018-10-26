@@ -36,10 +36,6 @@
 }
 
 
-
-
-
-
 .cart-item-img {
     display: inline-block;
     /*width: 1/9%;*/
@@ -236,5 +232,18 @@ span.desc {
 }
 
 
+.item-comment {
+    float: left;
+    width: 74%;
+    margin-top: 6px;
+
+    /*width: 100%;*/
+    padding: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #ccc;
+    /*border-radius: 10px;*/
+    resize: vertical;
+}
 
 

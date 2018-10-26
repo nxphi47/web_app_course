@@ -25,16 +25,18 @@ if ($user_id != 0) {
 }
 else {
     if (isset($_SESSION['cart'])) {
-        $cart_id = $_SESSION['cart']['cart_id'];
-        $cart = $accessOrders->getAllById($cart_id);
+//        $cart_id = $_SESSION['cart']['cart_id'];
+//        $cart = $accessOrders->getAllById($cart_id);
     }
     else {
-        $cart = $accessOrders->getUnpaidCartByUser($user_id);
+//        $cart = $accessOrders->getUnpaidCartByUser($user_id);
+        $cart = $accessOrders->createNew(0);
+        $cart['user_id'] = $user_id;
+        $_SESSION['cart'] = $cart;
     }
-    $_SESSION['cart'] = $cart;
+
 }
 $GLOBALS['cart'] = $_SESSION['cart'];
-//var_dump($GLOBALS['cart']);
 ?>
 
 

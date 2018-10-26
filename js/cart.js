@@ -1,10 +1,24 @@
+function getPlaceHolder(item) {
+    switch (item.type.toLowerCase()) {
+        case "pizza":
+            return "Thickness, add chili, ....";
+        case 'beverage':
+            return "Hot or normal...";
+        default:
+            return "Comment...";
+    }
+}
+
+
 function templateOrderItem(
     cart_id,
-    item,
-    quantity,
+    // item,
+    // quantity,
+    order_item,
     onQuantityChange,
     onRemove,
 ) {
+    let {item, quantity, comment} = order_item;
     let {id, title, price, note, desc, thumbnail, images} = item;
 
     let id_temp = `cart_${cart_id}-id_${id}`;
@@ -14,15 +28,21 @@ function templateOrderItem(
 
     thumbnail = `thumbnails/${thumbnail}`;
     let quantitySpinner = templateQuantitySpinner(id_temp, quantity);
+
+    let placeholder = getPlaceHolder(item);
+
     let template = `
     <li class="cart-item" id="item-${id_temp}">
         <div class="cart-item-content">
             <img class="cart-item-img" src="${thumbnail}" alt="Not found" width="150" height="100">
             <div class="cart-item-description">
                 <h2>${title}</h2>
-                <p>
-                    ${description}
-                </p>
+                <input type="text" 
+                        id="comment-item-${id_temp}" 
+                        name="item-comment"
+                        class="item-comment"
+                        value="${comment}" 
+                        placeholder="${placeholder}">
             </div>
             
         </div>
@@ -33,9 +53,23 @@ function templateOrderItem(
     </li>
     `;
 
+    let onKeyUpComment = function (e) {
+        order_item.comment = document.getElementById(`comment-item-${id_temp}`).value;
+    };
+
+    let onKeyDownComment = function (e) {
+        var regex = new RegExp("^(=|#|@)$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    };
 
     let bindingHandler = function () {
-        quantitySpinnerHandler(id_temp, onQuantityChange, onRemove)
+        quantitySpinnerHandler(id_temp, onQuantityChange, onRemove);
+        document.getElementById(`comment-item-${id_temp}`).onkeyup = onKeyUpComment;
+        document.getElementById(`comment-item-${id_temp}`).onkeypress = onKeyDownComment;
     };
 
     return {
@@ -74,7 +108,8 @@ function componentOrderItemList(where_id, cart, updateTotal) {
                 componentCartInfo(`cart-wrapper`, cart)
             });
         };
-        return templateOrderItem(cart_id, item, quantity, onQuantityChange, onRemove);
+        // return templateOrderItem(cart_id, item, quantity, onQuantityChange, onRemove);
+        return templateOrderItem(cart_id, order_item, onQuantityChange, onRemove);
     });
 
     let orderListTemplates = orderListTemplateBinds.map(function (x) {

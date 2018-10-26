@@ -14,6 +14,7 @@ require_once "request.php";
 
 session_start();
 
+require_once "../session_init.php";
 
 
 
@@ -42,8 +43,10 @@ if (is_array($jsonPost) && array_key_exists("request", $jsonPost)) {
         case "add_to_cart":
             $accessOrder = new AccessOrders();
             $accessUser = new AccessUsers();
-            $cart = $accessOrder->updateCurrentCart($data);
-            $_SESSION['cart'] = $cart;
+            $user = $accessUser->autoLogin();
+
+            $cart = $accessOrder->updateCurrentCart($data, $user);
+//            $_SESSION['cart'] = $cart;
             finishRequest($cart);
             break;
         case "checkout":
@@ -55,7 +58,18 @@ if (is_array($jsonPost) && array_key_exists("request", $jsonPost)) {
             }
             finishRequest($out);
             break;
-
+        case "update_user_info":
+            $user = $accessUser->autoLogin();
+            if ($user['id'] == $data['id']) {
+                unset($data['id']);
+                $accessUser->updateById($user['id'], $data);
+                finishRequest($accessUser->getAllById($user['id']));
+            }
+            else {
+                errorResponse("User info invalid");
+                finishRequest(false);
+            }
+            break;
     }
 
 } else {

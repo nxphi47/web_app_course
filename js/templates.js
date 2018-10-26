@@ -103,8 +103,12 @@ function templateItemBanner(
     
     </div>
     `;
+    // let templates = [....];
+    // all_templates = templates.join(" ");
+    // document.getElementById("slideshow-wrapper").innerHTML = template;
     return template
 }
+
 
 function updateCart(cart) {
     let all_total = 0;
@@ -158,6 +162,7 @@ function addToCart(item, callback=null) {
         currentCart.order_items.push({
             item: item,
             quantity: 1,
+            comment: "",
         })
     }
     updateCartLabel();

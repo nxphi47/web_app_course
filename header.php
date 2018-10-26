@@ -8,6 +8,7 @@
 
 $user = $GLOBALS['user'];
 
+
 if ($user != null) {
     $template = '
     <li class="nav-link link-right">
@@ -23,6 +24,8 @@ if ($user != null) {
         </a>
     </li>
     ';
+
+    $template_admin = '<li class="nav-link"><a id="link-admin" href="admin.php">Admin</a></li>';
 } else {
     $template = '
     <li class="nav-link link-right">
@@ -32,6 +35,7 @@ if ($user != null) {
         </a>
     </li>
     ';
+    $template_admin = '';
 }
 
 ?>
@@ -45,7 +49,9 @@ if ($user != null) {
             <li class="nav-link"><a id="link-promotions" href="promotions.php">Promotions</a></li>
             <li class="nav-link"><a id="link-about" href="about.php">About</a></li>
 
-            <!--            <li><a id="link-about" href="test.php" target="_blank">Testing</a></li>-->
+
+
+            <?php echo $template_admin ?>
             <?php echo $template ?>
             <li class="nav-link link-right">
                 <a id="link-cart" href="cart.php" class="logo">
