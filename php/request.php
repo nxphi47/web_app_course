@@ -84,7 +84,8 @@ class AccessDB
         $this->insertedID = $insertedID;
     }
 
-    public function createNew($user_id) {
+    public function createNew($user_id)
+    {
         // create empty
         return array();
     }
@@ -98,29 +99,29 @@ class AccessDB
         }
     }
 
-    public function normalize_key($key) {
+    public function normalize_key($key)
+    {
         return "`$key`";
     }
 
-    public function normalize_value($key, $value) {
+    public function normalize_value($key, $value)
+    {
         if (is_numeric($value)) {
             $out = $value + 0;
-        }
-        else if (is_array($value)) {
+        } else if (is_array($value)) {
             $out = implode(",", $value);
-        }
-        else {
+        } else {
             $out = "'{$value}'";
         }
         return $out;
     }
 
-    public function denormalize_value($key, $value) {
+    public function denormalize_value($key, $value)
+    {
         if (is_numeric($value)) {
             if ($key == $this->idName) {
-                $value = (int) $value;
-            }
-            else {
+                $value = (int)$value;
+            } else {
                 $value = $value + 0;
             }
         } else {
@@ -143,7 +144,7 @@ class AccessDB
                 return null;
             }
             $out = [];
-            foreach ($item as $key=>$value) {
+            foreach ($item as $key => $value) {
                 $out[$key] = $this->denormalize_value($key, $value);
             }
 
@@ -162,7 +163,7 @@ class AccessDB
                 return null;
             }
             $out = [];
-            foreach ($item as $key=>$value) {
+            foreach ($item as $key => $value) {
                 $out[$key] = $this->denormalize_value($key, $value);
             }
             return $out;
@@ -183,7 +184,7 @@ class AccessDB
                     return null;
                 }
                 $out = [];
-                foreach ($item as $key=>$value) {
+                foreach ($item as $key => $value) {
                     $out[$key] = $this->denormalize_value($key, $value);
                 }
                 array_push($dataArray, $out);
@@ -203,7 +204,7 @@ class AccessDB
         $values = array();
         foreach ($this->attrs as $key => $value) {
             if (in_array($key, $this->requiredKeys) && ($value === "" || $value === null)) {
-                $error = "SQL_INSERT: require key: {$key} = {$value}, ".($value == "");
+                $error = "SQL_INSERT: require key: {$key} = {$value}, " . ($value == "");
                 errorResponse($error);
 //                throw new Exception($error);
             }
@@ -228,7 +229,8 @@ class AccessDB
         }
     }
 
-    public function insertMany() {
+    public function insertMany()
+    {
         // attrs is arrays of array
         $sql_rows = array();
         foreach ($this->attrs as $row) {
@@ -270,7 +272,7 @@ class AccessDB
     public function updateByConstraint($constraint, $arr)
     {
         $atts = [];
-        foreach ($arr as $key=>$value) {
+        foreach ($arr as $key => $value) {
             if (in_array($key, $this->allKeys) && $key != $this->idName) {
                 array_push($atts, "{$this->normalize_key($key)}={$this->normalize_value($key, $value)}");
             }
@@ -298,7 +300,8 @@ class AccessDB
 }
 
 
-class AccessCreditCard extends AccessDB {
+class AccessCreditCard extends AccessDB
+{
     public function __construct()
     {
         $this->tableName = "credit_cards";
@@ -308,12 +311,14 @@ class AccessCreditCard extends AccessDB {
         $this->hiddenKeys = ['cv2'];
     }
 
-    public static function validateCard($card) {
+    public static function validateCard($card)
+    {
         return true;
     }
 }
 
-class AccessAddress extends AccessDB {
+class AccessAddress extends AccessDB
+{
     public function __construct()
     {
         $this->tableName = "addresses";
@@ -323,7 +328,8 @@ class AccessAddress extends AccessDB {
         $this->hiddenKeys = [];
     }
 
-    public static function validateAddress($address) {
+    public static function validateAddress($address)
+    {
         return true;
     }
 }
@@ -373,12 +379,14 @@ class AccessUsers extends AccessDB
         return $out;
     }
 
-    public function loginWithData($data) {
+    public function loginWithData($data)
+    {
         $_SESSION['user'] = $data;
         $this->currentUser = $data;
     }
 
-    public function loginWithUnamePass($uname, $password) {
+    public function loginWithUnamePass($uname, $password)
+    {
         $pass = md5($password);
         $users = $this->getAllByConstraint("uname='{$uname}' AND password='{$pass}'");
 
@@ -393,17 +401,18 @@ class AccessUsers extends AccessDB
         }
     }
 
-    public function autoLogin() {
+    public function autoLogin()
+    {
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
-        }
-        else {
+        } else {
             $user = null;
         }
         return $user;
     }
 
-    public function extractByKeys($data, $keys) {
+    public function extractByKeys($data, $keys)
+    {
         $out = array();
         foreach ($data as $key => $value) {
             if (in_array($key, $keys)) {
@@ -416,7 +425,7 @@ class AccessUsers extends AccessDB
     public function insert()
     {
         $ok = parent::insert(); // TODO: Change the autogenerated stub
-        echo "ok = $ok";
+//        echo "ok = $ok";
 //        if ($ok) {
         $card = $this->extractByKeys($this->attrs, $this->cardKeys);
         $address = $this->extractByKeys($this->attrs, $this->addressKeys);
@@ -439,7 +448,8 @@ class AccessUsers extends AccessDB
 }
 
 
-class AccessMenu extends AccessDB {
+class AccessMenu extends AccessDB
+{
     public function __construct()
     {
         $this->idName = "id";
@@ -456,7 +466,7 @@ class AccessMenu extends AccessDB {
     public function normalize_value($key, $value)
     {
         if (in_array($key, ['price', 'promoted_price'])) {
-            $value = (float) $value;
+            $value = (float)$value;
         }
         return parent::normalize_value($key, $value); // TODO: Change the autogenerated stub
     }
@@ -465,7 +475,7 @@ class AccessMenu extends AccessDB {
     {
         $value = parent::denormalize_value($key, $value); // TODO: Change the autogenerated stub
         if (in_array($key, ['price', 'promoted_price'])) {
-            $value = (float) $value;
+            $value = (float)$value;
         }
 //        var_dump(array($key=>$value));
         return $value;
@@ -473,13 +483,17 @@ class AccessMenu extends AccessDB {
 
 }
 
-class AccessOrderItems extends AccessDB {
+class AccessOrderItems extends AccessDB
+{
+    public $accessMenu = null;
+
     public function __construct()
     {
         $this->tableName = "order_items";
         $this->idName = 'id';
         $this->allKeys = ['user_id', 'cart_id', 'item_id', 'quantity', 'comment'];
         $this->requiredKeys = ['user_id', 'cart_id', 'item_id', 'quantity'];
+        $this->accessMenu = new AccessMenu();
     }
 
     public function normalize_value($key, $value)
@@ -491,26 +505,89 @@ class AccessOrderItems extends AccessDB {
     {
         $value = parent::denormalize_value($key, $value); // TODO: Change the autogenerated stub
         if (in_array($value, ['user_id', 'cart_id', 'item_id', 'quantity'])) {
-            $value = (int) $value;
+            $value = (int)$value;
         }
         return $value;
     }
+
+    public function getAllByConstraintWithItem($constraint)
+    {
+        $query_keys = array("{$this->tableName}.{$this->idName}");
+        foreach ($this->allKeys as $k) {
+            array_push($query_keys, "{$this->tableName}.{$k}");
+        }
+        foreach ($this->accessMenu->allKeys as $k) {
+            array_push($query_keys, "{$this->accessMenu->tableName}.{$k}");
+        }
+
+        $query_str = implode(", ", $query_keys);
+        $sql = "SELECT {$query_str} FROM {$this->tableName} INNER JOIN {$this->accessMenu->tableName} ON {$this->tableName}.item_id={$this->accessMenu->tableName}.{$this->accessMenu->idName} WHERE {$constraint}";
+
+        $result = mysqli_query($GLOBALS['conn'], $sql);
+        if ($result) {
+            $dataArray = array();
+            foreach ($result as $item) {
+                if (!$item) {
+                    return null;
+                }
+                $out = [];
+                $out['item'] = array();
+                foreach ($item as $key => $value) {
+                    if ($key == "item_id") {
+                        $out['item']['id'] = $value;
+                    } else if (in_array($key, $this->accessMenu->allKeys)) {
+                        $out['item'][$key] = $value;
+                    } else {
+                        $out[$key] = $this->denormalize_value($key, $value);
+                    }
+                }
+                array_push($dataArray, $out);
+            }
+            return $dataArray;
+        } else {
+            errorResponse("SQL: getAllByConstraint " . $this->tableName . " constraint: " . $constraint . " failed:[ " . mysqli_error($GLOBALS['conn']) . ']');
+            return null;
+        }
+    }
+
+    public function reportOnSales()
+    {
+        $response = array(
+            'type_report'=>array()
+        );
+        $query_type = "SELECT menu.type, 
+          COUNT(order_items.quantity) as item_count, 
+          SUM(order_items.quantity * 0.5 * ((menu.price + menu.promoted_price) + ABS(menu.price - menu.promoted_price))) as sale, 
+          FROM order_items INNER JOIN menu ON order_items.item_id=menu.id GROUP BY menu.type";
+        $query_type_result = mysqli_query($GLOBALS['conn'], $query_type);
+        if ($query_type_result) {
+            $response['type_report'] = array();
+            foreach ($query_type_result as $item) {
+                array_push($response['type_report'], $item);
+            }
+        }
+        else {
+
+        }
+    }
 }
 
-class AccessOrders extends AccessDB {
+class AccessOrders extends AccessDB
+{
     public $accessMenu = null;
     public $accessUser = null;
     public $accessOrderItems = null;
+
     public function __construct()
     {
         $this->idName = "cart_id";
         $this->tableName = 'orders';
-        $this->requiredKeys = ['user_id', 'order_items', 'total', 
+        $this->requiredKeys = ['user_id', 'order_items', 'total',
             'delivery_subtotal', 'orders_subtotal'];
         $this->hiddenKeys = ['cv2'];
         $this->allKeys = [
-            'user_id', 'order_items', 'note', 'total', 'delivery_subtotal', 'orders_subtotal', 
-            'dev_name', 'dev_phone', 'dev_address', 'postal', 
+            'user_id', 'order_items', 'note', 'total', 'delivery_subtotal', 'orders_subtotal',
+            'dev_name', 'dev_phone', 'dev_address', 'postal',
             'pay_name', 'pay_card_num', 'pay_card_expire', 'cv2', "is_paid"
         ];
         $this->accessMenu = new AccessMenu();
@@ -518,7 +595,8 @@ class AccessOrders extends AccessDB {
         $this->accessOrderItems = new AccessOrderItems();
     }
 
-    public function item_to_key($item) {
+    public function item_to_key($item)
+    {
         return $item['id'];
     }
 
@@ -545,8 +623,7 @@ class AccessOrders extends AccessDB {
         $out = parent::denormalize_value($key, $value); // TODO: Change the autogenerated stub
         if ($key == 'cv2') {
             $out = "";
-        }
-        else if ($key == 'order_items') {
+        } else if ($key == 'order_items') {
             if ($out == "") {
                 return array();
             }
@@ -558,9 +635,8 @@ class AccessOrders extends AccessDB {
                 foreach ($atts as $kvpair) {
                     $pair = explode("=", $kvpair);
                     if (is_numeric($pair[1]) or $pair[0] == "item") {
-                        $order[$pair[0]] = (int) $pair[1];
-                    }
-                    else {
+                        $order[$pair[0]] = (int)$pair[1];
+                    } else {
                         $order[$pair[0]] = $pair[1];
                     }
                 }
@@ -593,20 +669,21 @@ class AccessOrders extends AccessDB {
         return $data;
     }
 
-    public function getUnpaidCartByUser($user_id) {
+    public function getUnpaidCartByUser($user_id)
+    {
         $query = "user_id={$user_id}";
         $carts = $this->getAllByConstraint($query);
         if (count($carts) > 0) {
             $cart = $carts[0];
             return $cart;
-        }
-        else {
+        } else {
             $cart = $this->createNew($user_id);
             return $cart;
         }
     }
 
-    public function updateCurrentCart($cart, $user) {
+    public function updateCurrentCart($cart, $user)
+    {
         $_SESSION['card'] = $cart;
         return $cart;
     }
@@ -631,7 +708,8 @@ class AccessOrders extends AccessDB {
     }
 
 
-    public function updateCurrentCartWithAccount($cart, $user) {
+    public function updateCurrentCartWithAccount($cart, $user)
+    {
         $user_id = $user['id'];
         $cart_id = $cart['cart_id'];
         unset($cart['cart_id']);
@@ -641,8 +719,7 @@ class AccessOrders extends AccessDB {
             if ($this->insert()) {
                 $inserted_cart = $this->getAllById($this->insertedID);
                 $out_cart = $inserted_cart;
-            }
-            else {
+            } else {
                 errorResponse("DB add new cart error.!");
                 $out_cart = null;
             }
@@ -655,17 +732,18 @@ class AccessOrders extends AccessDB {
         return $out_cart;
     }
 
-    public function updateCurrentCartNoAccount($cart) {
+    public function updateCurrentCartNoAccount($cart)
+    {
         if (isset($_SESSION['cart'])) {
             $_SESSION['cart'] = $cart;
-        }
-        else {
+        } else {
             $_SESSION['cart'] = $this->createNew(0);
         }
         return $_SESSION['cart'];
     }
 
-    public function verifyCartPay($cart) {
+    public function verifyCartPay($cart)
+    {
         $valid = true;
 //        'pay_name', 'pay_card_num', 'pay_card_expire', 'cv2', "is_paid"
         $valid &= (strlen($cart['cv2']) > 0 && is_numeric($cart['cv2']));
@@ -675,7 +753,8 @@ class AccessOrders extends AccessDB {
         return $valid;
     }
 
-    public function verifyDeliver($cart) {
+    public function verifyDeliver($cart)
+    {
 //        'dev_name', 'dev_phone', 'dev_address', 'postal',
         $valid = true;
         $valid &= (strlen($cart['dev_name']) > 0);
@@ -685,7 +764,8 @@ class AccessOrders extends AccessDB {
         return $valid;
     }
 
-    public function checkout($cart) {
+    public function checkout($cart)
+    {
         // here verify the card number and stuff
         if (!$this->verifyDeliver($cart)) {
             errorResponse("Delivery Info invalid!");
@@ -695,14 +775,6 @@ class AccessOrders extends AccessDB {
         }
 
         $cart['is_paid'] = 1;
-//        $cart_id = $cart['cart_id'];
-//        unset($cart['cart_id']);
-//        $this->attrs = $cart;
-//        $this->updateById($cart_id, $cart);
-//        $inserted_cart = $this->getAllById($cart_id);
-//        $out_cart = $inserted_cart;
-        // do insert
-//        var_dump($cart);
         $this->attrs = $cart;
         $ok = $this->insert();
         $cart['card_id'] = $this->insertedID;
@@ -710,7 +782,8 @@ class AccessOrders extends AccessDB {
         return $cart;
     }
 
-    public function retrieveOrderItems($cart) {
+    public function retrieveOrderItems($cart)
+    {
         $order_items = $this->accessOrderItems->getAllByConstraint("cart_id={$cart['cart_id']}");
         return $order_items;
     }
@@ -762,9 +835,8 @@ class AccessOrders extends AccessDB {
 }
 
 
-
-
-class AccessHighLights extends AccessDB {
+class AccessHighLights extends AccessDB
+{
     /*
      * INSERT INTO 'highlights'('id', 'item_id', 'notes') VALUES ([value-1],[value-2],[value-3])
      * */
@@ -776,7 +848,8 @@ class AccessHighLights extends AccessDB {
     }
 }
 
-class AccessFeedbacks extends AccessDB {
+class AccessFeedbacks extends AccessDB
+{
     public function __construct()
     {
 //        INSERT INTO 'feedbacks'('id', 'user_id', 'stars', 'note') VALUES ([value-1],[value-2],[value-3],[value-4])
@@ -807,7 +880,8 @@ class AccessFeedbacks extends AccessDB {
 
 }
 
-class AccessJobApp extends AccessDB {
+class AccessJobApp extends AccessDB
+{
 //INSERT INTO 'job_app'('id', 'fname', 'lname', 'ic', 'note', 'experience', 'phone', 'email') VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])
     public function __construct()
     {
@@ -819,7 +893,8 @@ class AccessJobApp extends AccessDB {
     }
 }
 
-class AccessPromotions extends AccessDB {
+class AccessPromotions extends AccessDB
+{
     public function __construct()
     {
         // INSERT INTO 'promotions'('id', 'title', 'note', 'item_id', 'itemset', 'price') VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])
@@ -831,7 +906,8 @@ class AccessPromotions extends AccessDB {
     }
 }
 
-class AccessQuestions extends AccessDB {
+class AccessQuestions extends AccessDB
+{
     public function __construct()
     {
         // INSERT INTO 'questions'('id', 'user_id', 'name', 'question') VALUES ([value-1],[value-2],[value-3],[value-4])
@@ -843,7 +919,6 @@ class AccessQuestions extends AccessDB {
     }
 
 }
-
 
 
 ?>

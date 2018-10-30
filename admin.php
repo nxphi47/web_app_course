@@ -42,10 +42,6 @@ $accessOrders = new AccessOrders();
 $accessAddress = new AccessAddress();
 $accessCards = new AccessCreditCard();
 
-
-
-
-
 $all_menus = $accessMenu->getAll();
 $all_carts = $accessOrders->getAll();
 
@@ -77,16 +73,18 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
         <div id="sales" class="tabcontent">
             <div class="admin-tab" id="admin-tab-sales">
                 <ul>
-                    <li>Sales by products</li>
+                    <li>
+                        Sales by products
+                        <?php
+                        $accessOrderItem = new AccessOrderItems();
+                        $results = $accessOrderItem->getAllByConstraintWithItem("1");
+                        echo "<br>";
+                        var_dump($results);
+                        ?>
+                    </li>
                     <li>Sales by types by products</li>
                     <li>Sales by pizza flavours</li>
                     <li>Mean add</li>
-                </ul>
-                todo list
-                <ul>
-                    <li>Admin page</li>
-                    <li>Search by categories</li>
-                    <li>Promotions</li>
                 </ul>
 
             </div>

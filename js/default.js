@@ -20,6 +20,8 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
         data: obj
     };
 
+    console.log(requestObject);
+
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             // document.getElementById("txtHint").innerHTML = this.responseText;

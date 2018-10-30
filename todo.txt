@@ -5,3 +5,19 @@
 + confirmation
 
 + about
+
+
+
+31/10
+todo list
++ admin report
++ admin price change
++ categories of food
++ Search by categories
++ promotions
++ highlight when click on cart
+
++ contact
++ job app
+
+

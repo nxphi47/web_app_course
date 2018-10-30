@@ -19,7 +19,7 @@ if (!isset($_POST['login'])) {
     session_destroy();
 }
 
-include "session_init.php";
+//include "session_init.php";
 
 $accessUser = new AccessUsers();
 
