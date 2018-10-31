@@ -6,18 +6,17 @@
 
 + about
 
-
-
 31/10
 todo list
-+ admin report
-+ admin price change
-+ categories of food
-+ Search by categories
-+ promotions
-+ highlight when click on cart
+=+ admin report
+=+ admin price change
+=+ categories of food
+=+ Search by categories
++ promotions -> add to menu all
+=+ highlight when click on cart
 
-+ contact
-+ job app
+=+ contact
+=+ job app
+=+ email! sort of, need to check with real system
 
 

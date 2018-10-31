@@ -61,20 +61,11 @@ let pasta_menu = all_menu.filter((x) => x.type.toLowerCase() == 'pasta');
 let drink_menu = all_menu.filter((x) => x.type.toLowerCase() == 'beverage');
 
 
-// componentItemList(`item-list-wrapper-all`, generateFakeItemData(10, 'Pizza & else'));
-// componentItemList(`item-list-wrapper-pizza`, generateFakeItemData(10, 'Pizza'));
-// componentItemList(`item-list-wrapper-pasta`, generateFakeItemData(10, 'Pasta'));
-// componentItemList(`item-list-wrapper-beverage`, generateFakeItemData(10, 'Drink'));
-
-
 componentItemList(`item-list-wrapper-all`, all_menu);
 componentItemList(`item-list-wrapper-pizza`, pizza_menu);
 componentItemList(`item-list-wrapper-pasta`, pasta_menu);
-componentItemList(`item-list-wrapper-beverage`, drink_menu);
+componentItemList(`item-list-wrapper-beverage`, drink_menu, false);
 
-// function onEnterSearch(e) {
-//     {if (e.keyCode === 13) {onSearch()
-// }
 
 function onSearch() {
     const string = document.getElementById("search_input").value;

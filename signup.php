@@ -74,7 +74,8 @@ if (isset($_POST['signup'])) {
         $accessUser->attrs = $data;
         if ($accessUser->insert()) {
             $user = $accessUser->getAllById($accessUser->insertedID);
-            $accessUser->loginWithData($user);
+//            $accessUser->loginWithData($user);
+            sendSignupConfirmEmail($user);
             $success = true;
             header("Location: {$_SERVER['PHP_SELF']}?success=1");
             exit();
@@ -103,7 +104,9 @@ else {
 $template_success = '
 
 <div class="noti">
-    Sign-up success. Redirect to login page in 3 seconds....
+    Sign-up success. <br>
+    Please confirm your sign up in your email box!. <br>
+    Redirect to login page in 3 seconds....
     <script>
         setTimeout(function() {
             window.location.href = "login.php";

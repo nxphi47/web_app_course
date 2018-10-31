@@ -46,7 +46,7 @@ if ($user != null) {
             <li class="nav-link"><a href="index.php" class="logo"><img style="width: 41px;" src="imgs/logo.png"></a></li>
             <li class="nav-link"><a id="link-index" href="index.php">Home</a></li>
             <li class="nav-link"><a id="link-menu" href="menu.php">Menu</a></li>
-            <li class="nav-link"><a id="link-promotions" href="promotions.php">Promotions</a></li>
+<!--            <li class="nav-link"><a id="link-promotions" href="promotions.php">Promotions</a></li>-->
             <li class="nav-link"><a id="link-about" href="about.php">About</a></li>
 
 

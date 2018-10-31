@@ -14,3 +14,16 @@ function openTab(event, tabName) {
 
 
 document.getElementById("default-tab").click();
+
+
+
+function onsubmitItemChange(item_id) {
+    let item = rootData.menu.filter((x) => x.id === item_id)[0];
+    return confirm(`Do you want to change information of item ${item.title}`);
+}
+
+
+
+
+
+

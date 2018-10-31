@@ -10,10 +10,15 @@ $DB_HOST = "localhost"; // MySQL server hostname
 $DB_PORT = "3306";      // MySQL server port number (default 3306)
 $DB_NAME = "pizza"; // MySQL database name
 
-//$DB_USER = "petrology"; // MySQL username
 $DB_USER = "root";
-//$DB_PASS = "petrology"; // password
 $DB_PASS = "";
+
+
+//$DB_USER = "f38ee";
+//$DB_PASS = "f38ee";
+$EMAIL_SENDER= "f38ee@localhost";
+
+$GLOBALS['email_sender'] = $EMAIL_SENDER;
 
 $sql_connection = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, $DB_PORT);
 if (mysqli_connect_errno()) {

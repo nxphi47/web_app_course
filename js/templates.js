@@ -54,12 +54,29 @@ function templateItemBanner(
     modal_add_cart_temp = "add_cart_modal",
 ) {
     // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.images,
-    let {id, title, price, desc, unit, thumbnail, images, promoted_price} = item;
+    let {id, title, price, desc, unit, thumbnail, images, promoted_price, diet} = item;
 
     thumbnail = `thumbnails/${thumbnail}`;
     images = images.split(";").map((x) => `images/${x}`);
 
-    console.log(`promoted price: ${promoted_price}`);
+
+    let diet_url;
+    switch (diet) {
+        case 1:
+            diet_url = 'imgs/vegan.jpeg';
+            break;
+        case 2:
+            diet_url = 'imgs/halal.png';
+            break;
+        default:
+            diet_url = '';
+    }
+
+    let dietTemp = (diet !== 0) ? `
+    <span class="diet">
+        <img src="${diet_url}" width="50" height="50">
+    </span>
+    ` : '';
 
     let template = `
     <div class="responsive" id="${where_id}_${banner_temp}_${id}">
@@ -69,7 +86,10 @@ function templateItemBanner(
             </a>
             <div class="desc">
                 <span class="desc">
-                    <span class="title">${title}</span>
+                    <span class="title">
+                        ${title}
+                        ${dietTemp}
+                    </span>
                     <div class="price-tag">
                         <span class="price${promoted_price > 0 ? ' minus': ''}">$${price}</span>
                         <span class="promoted-price" style="display: ${promoted_price > 0 ? 'inline-block' : 'none'};">$${promoted_price}</span>
@@ -136,17 +156,10 @@ function updateCartLabel() {
     updateCart(currentCart);
     document.getElementById("num_items").innerHTML = num_items.toString();
     document.getElementById("total_price").innerHTML = `$${currentCart.total}`;
+
 }
 
 function updateCurrentCart(cart=null, callback=null) {
-    // cart = cart || rootData.cart;
-    // let all_total = 0;
-    // cart.order_items.forEach(function (order_item, index) {
-    //     all_total += order_item.quantity * order_item.item.price;
-    // });
-    //
-    // cart.orders_subtotal = all_total;
-    // cart.total = cart.orders_subtotal + cart.delivery_subtotal;
     updateCart(cart);
 
     ajax_post("add_to_cart", cart, function (new_cart) {
@@ -157,11 +170,18 @@ function updateCurrentCart(cart=null, callback=null) {
     })
 }
 
+function displayCartUpdate() {
+    document.getElementById("link-cart").classList.add("active");
+    setTimeout(() => {
+        document.getElementById("link-cart").classList.remove("active");
+    }, 1000);
+}
+
+
 function addToCart(item, callback=null) {
     let currentCart = rootData.cart;
     let menu = rootData.menu;
     if (currentCart.order_items.map((x) => x.item.id).includes(item.id)) {
-        // exists
         currentCart.order_items.filter((x) => x.item.id == item.id)[0].quantity += 1;
         console.log(currentCart);
     }
@@ -174,6 +194,7 @@ function addToCart(item, callback=null) {
     }
     updateCartLabel();
     updateCurrentCart(rootData.cart, callback);
+    displayCartUpdate();
 }
 
 function bindHandlersItemBanner(
@@ -214,25 +235,80 @@ function bindHandlersItemBanner(
     document.getElementById(`${where_id}_${modal_close_temp}_${item.id}`).onclick = onModalClose;
 }
 
-function componentItemList(where_id, data_list) {
-    let itemHtmls = data_list.map(function (item) {
-        return templateItemBanner(item, where_id);
-    }).join("");
-
-    let componentListTemplate = `
-    <div class="item-list" id="main-item-list">
-        ${itemHtmls}
+function componentItemList(where_id, data_list, display_diet=true) {
+    let itemListTemplate = `
+    <div>
+    <div class="menu-filter" ${!display_diet ? 'style="display: none;"': ''}>
+        <span class="menu-filter-label">Filter:</span>
+        <button class="button button-menu-filter" id="${where_id}-filter-veg">
+            Vegetarian
+            <img src="imgs/vegan.jpeg" width="20" height="20">
+        </button>
+        <button class="button button-menu-filter" id="${where_id}-filter-halal">
+            Halal
+            <img src="imgs/halal.png" width="20" height="20">
+        </button>
     </div>
-    <div class="clearfix"></div>
+    </div>
+    
+    <div id="${where_id}-item-list"></div>
     `;
+    let currentIndex = 0;
+
+    let bindFilterButton = function(element, filter_index, remove_active_elements) {
+        element.onclick = function () {
+            console.log(`filter: ${filter_index}, current = ${currentIndex}`);
+            if (currentIndex === filter_index) {
+                currentIndex = 0;
+                element.classList.remove('active');
+            }
+            else {
+                currentIndex = filter_index;
+                element.classList.add('active');
+                remove_active_elements.forEach((x) => x.classList.remove('active'));
+            }
+            generateItemList(currentIndex);
+        };
+    };
+
+    let filterHanlder = function() {
+        let veg_button = document.getElementById(`${where_id}-filter-veg`);
+        let halal_button = document.getElementById(`${where_id}-filter-halal`);
+        bindFilterButton(veg_button, 1, [halal_button]);
+        bindFilterButton(halal_button, 2, [veg_button]);
+    };
+
+    let generateItemList = function(filter_index) {
+        let filteredMenu;
+        if (filter_index === 0) {
+            filteredMenu = data_list;
+        }
+        else {
+            // veg
+            filteredMenu = data_list.filter((x) => x.diet === filter_index);
+        }
+        let itemHtmls = filteredMenu.map(function (item) {
+            return templateItemBanner(item, where_id);
+        }).join("");
+
+        let componentListTemplate = `
+        <div class="item-list" id="main-item-list">
+            ${itemHtmls}
+        </div>
+        <div class="clearfix"></div>
+        `;
+        document.getElementById(`${where_id}-item-list`).innerHTML = componentListTemplate;
+        filteredMenu.forEach(function (item) {return bindHandlersItemBanner(item, where_id)});
+    };
+
 
     // actually binding
-    document.getElementById(where_id).innerHTML = componentListTemplate;
-
+    document.getElementById(where_id).innerHTML = itemListTemplate;
     // functions
-    data_list.forEach(function (item) {return bindHandlersItemBanner(item, where_id)});
+    filterHanlder();
+    generateItemList(currentIndex);
 
-    return componentListTemplate;
+    // return componentListTemplate;
 }
 
 

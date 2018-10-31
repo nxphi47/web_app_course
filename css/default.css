@@ -6,6 +6,9 @@ div.content {
     margin-bottom: 110px;
 }
 
+*:focus {
+    outline:none;
+}
 
 .button {
     background-color: #008CBA; /* Green */
@@ -61,6 +64,8 @@ div.content {
     padding: 15px;
     border-radius: 100%;
 }
+
+
 
 
 /* Header footer CSS*/
@@ -543,6 +548,35 @@ button.button.desc {
     margin: 0;
 }
 
+span.diet {
+    float: right;
+}
+span.diet img {
+    display: inline;
+    width: 1.1em;
+}
+
+.button.button-menu-filter {
+    background-color: white;
+    color: black;
+}
+
+
+.button.button-menu-filter.active {
+    background-color: #008CBA; /* Green */
+    color: white;
+}
+
+div.menu-filter {
+    margin: auto;
+    width: 20em;
+}
+
+span.menu-filter-label {
+    font-size: x-large;
+    font-weight: bold;
+    color: #008CBA;
+}
 
 /* The Modal (background) */
 div.modal {
@@ -995,7 +1029,7 @@ form label {
     display: inline-block;
 }
 
-form input {
+form input, textarea {
     float: left;
     width: 74%;
     margin-top: 6px;
@@ -1022,4 +1056,30 @@ form .row:after {
     content: "";
     display: table;
     clear: both;
+}
+
+
+
+/*------------- TABLE ------------*/
+table {
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+table td, th {
+    text-align: left;
+    padding: 8px;
+    color: black;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+table th {
+    background-color: #008CBA;
+    color: white;
 }

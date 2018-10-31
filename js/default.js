@@ -41,8 +41,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
                 console.log(this.responseText);
                 throw e;
             }
-
-
         }
     };
 
@@ -53,27 +51,39 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 }
 
 
-// cookie
-// let user = rootData.user;
-// let cookies = document.cookie.split("; ");
-// let cart_cookie = cookies.filter((v) => v.split("=") === "cart");
-//
-// if (cart_cookie.length === 0) {
-//     // create new cookie
-//     'user_id', 'order_items', 'note', 'total', 'delivery_subtotal',
-//     'orders_subtotal',
-//     'dev_name', 'dev_phone', 'dev_address', 'postal',
-//     'pay_name', 'pay_card_num', 'pay_card_expire', 'cv2'
-//     cart_cookie = {
-//         cart_id: 0,
-//         user_id: user.id,
-//
-//     }
-// }
-// else {
-//     cart_cookie = cart_cookie[0];
-//
-// }
-//
+
+function validateEmail(email) {
+    var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
+    return emailRegex.test(email);
+}
+
+function validateIc(ic) {
+    var regex = /^[STFG]\d{7}[A-Z]$/;
+    return regex.test(ic);
+}
+
+function validateUname(uname) {
+    return uname.length >= 4;
+}
+
+function validatePassword(password) {
+    return password.length >= 6;
+}
+
+function validateRealName(name) {
+    return name.length > 0;
+}
+
+function validateDateFuture(date) {
+    return new Date(date) > new Date();
+}
+
+function validatePhone(phone) {
+    return phone.toString().length >= 8;
+}
+
+function validateExperience(exp) {
+    return exp.length > 1;
+}
 
 

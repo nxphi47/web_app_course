@@ -145,7 +145,6 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 
         <div id="credit_cards" class="tabcontent">
             <div class="user-info-tab" id="user-tab-credit_cards">
-
             </div>
         </div>
 

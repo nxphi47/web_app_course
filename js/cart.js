@@ -243,8 +243,8 @@ function confirmModalTemplate(cart) {
         let valid = true;
         form_keys.forEach((k) => {
             if (k === "pay_card_expire") {
-                valid &= (cart[k] !== "0000-00-00");
-                valid &= (new Date(cart[k]) > new Date());
+                valid = valid && (cart[k] !== "0000-00-00");
+                valid = valid && (new Date(cart[k]) > new Date());
             }
         });
         console.log(`valid ${valid}`);

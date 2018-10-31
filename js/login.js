@@ -109,20 +109,29 @@ function validateLogin() {
     let password = document.getElementById("password").value;
     let button = document.getElementById("login_button");
 
-    let valid = (uname.length >= 4 && password.length >= 6);
+    let valid = true;
+    valid = valid && validateUname(uname);
+    valid = valid && validatePassword(password);
     button.disabled = !valid;
 
-    console.log("hello");
     return valid;
 }
 
 
 function validateSignup() {
+    let fname = document.getElementById("fname").value;
+    let lname = document.getElementById("lname").value;
     let uname = document.getElementById("uname").value;
+    let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let button = document.getElementById("signup_button");
 
-    let valid = (uname.length >= 4 && password.length >= 6);
+    let valid = true;
+    valid = valid && validateRealName(fname);
+    valid = valid && validateRealName(lname);
+    valid = valid && validateUname(uname);
+    valid = valid && validateEmail(email);
+    valid = valid && validatePassword(password);
     button.disabled = !valid;
     return valid;
 }

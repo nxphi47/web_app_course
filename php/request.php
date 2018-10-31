@@ -33,8 +33,6 @@ function addDataResponse($data)
 
 function outputResponseJSON()
 {
-    //for testing
-//	print_r($GLOBALS['response']);
     echo json_encode($GLOBALS['response']);
 }
 
@@ -43,6 +41,27 @@ function finishRequest($resData)
     addDataResponse($resData);
     outputResponseJSON();
     exit(1);
+}
+
+function sendSignupConfirmEmail($user)
+{
+    $to = $user['email'];
+    $from = $GLOBALS['email_sender'];
+    $subject = "Pizzarino: Signup confirmation";
+
+    $md_email = md5($user['email']);
+    $md_uname = md5($user['uname']);
+
+    $url = "confirm.php?id={$user['id']}&email={$md_email}&uname=" . $md_uname;
+    $content = "Thank you for signing up with Pizzarino. Please click on the following link to confirm your account!\n
+    {$url}\n
+    \n
+    Best regards,
+    Pizzarino Team
+    ";
+
+    $headers = 'From: '.$from."\r\n".'Reply-To: '.$from."\r\n".'X-Mailer: PHP/'.phpversion();
+    mail($to, $subject, $content, $headers, "-{$from}");
 }
 
 
@@ -60,21 +79,9 @@ class AccessDB
     public $hiddenKeys = array();
     public $allKeys = array();
 
-//    public $allKeys = ['sp_id', 'img_id', 'bc_id', 'ref_id', 'ref_type', 'pos_x', 'pos_y', 'pos_z', 'aly_type', 'aly_type_other', 'aly_instrument',
-//        'aly_instrument_other', 'aly_analyst', 'aly_analyst_other', 'aly_feature', 'aly_cond', 'aly_comment', 'ele_list',
-//        'ele_unit', 'ele_value', 'SiO2',
-//        'TiO2', 'Al2O3', 'Fe2O3', 'FeO', 'MnO', 'MgO', 'CaO', 'Na2O', 'K2O', 'P2O5', 'lost_ignit', 'Cs', 'Rb', 'Ba', 'Th',
-//        'U', 'Pb', 'Ta', 'Nb', 'Sr', 'Hf', 'Zr', 'Y', 'La', 'Ce', 'Pr', 'Nd', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho',
-//        'Er', 'Tm', 'Yb', 'Lu', 'Cu', 'Zn', 'Sc', 'V', 'Cr', 'Co', 'Ni', 'H2O', 'CO2', 'Cl', 'S', '18O', '87Sr_86Sr',
-//        '87Rb_86Sr', '143Nd_144Nd', '147Sm_144Nd', '206Pb_204Pb', '207Pb_204Pb', '208Pb_204Pb', '176Hf_177Hf',
-//        '238U_232Th', '238U_230Th', '230Th_238U', '230Th_232Th', '234U_238U', '231Pa_235U', '226Ra_230Th',
-//        '226Ra', '226Ra_210Po', '210Po', '10Be_9Be'];
-
     function __construct()
     {
-        // sub-class have to define there own attrs, required key
         $this->idName = "id";
-//		$this->fileUploader = new FileUploader();
         $this->response = $GLOBALS['response'];
         $this->attrs = array();
     }
@@ -276,9 +283,6 @@ class AccessDB
             if (in_array($key, $this->allKeys) && $key != $this->idName) {
                 array_push($atts, "{$this->normalize_key($key)}={$this->normalize_value($key, $value)}");
             }
-//            else {
-//                echo "discard key = {$key}, {$value}";
-//            }
         }
         $att_sql = implode(", ", $atts);
         $sql = "UPDATE {$this->tableName} SET {$att_sql} WHERE {$constraint}";
@@ -553,22 +557,52 @@ class AccessOrderItems extends AccessDB
     public function reportOnSales()
     {
         $response = array(
-            'type_report'=>array()
+            'type_report' => array()
         );
-        $query_type = "SELECT menu.type, 
-          COUNT(order_items.quantity) as item_count, 
-          SUM(order_items.quantity * 0.5 * ((menu.price + menu.promoted_price) + ABS(menu.price - menu.promoted_price))) as sale, 
-          FROM order_items INNER JOIN menu ON order_items.item_id=menu.id GROUP BY menu.type";
+        $query_type = "SELECT 
+          menu.type,
+          SUM(coalesce(order_items.quantity, 0)) as item_count, 
+          SUM(coalesce(order_items.quantity, 0) * 0.5 * ((menu.price + menu.promoted_price) + ABS(menu.price - menu.promoted_price))) as sale 
+          FROM order_items RIGHT JOIN menu ON order_items.item_id=menu.id GROUP BY menu.type ORDER BY sale DESC ";
         $query_type_result = mysqli_query($GLOBALS['conn'], $query_type);
         if ($query_type_result) {
             $response['type_report'] = array();
             foreach ($query_type_result as $item) {
                 array_push($response['type_report'], $item);
             }
+            // add total
         }
-        else {
 
+        $query_total = "SELECT 
+            SUM(coalesce(order_items.quantity, 0)) as item_count,
+            SUM(coalesce(order_items.quantity, 0) * 0.5 * ((menu.price + menu.promoted_price) + ABS(menu.price - menu.promoted_price))) as sale
+            FROM order_items RIGHT JOIN menu ON order_items.item_id=menu.id
+            ";
+        $total_result = mysqli_query($GLOBALS['conn'], $query_total);
+        if ($total_result) {
+            $response['total_report'] = array();
+            foreach ($total_result as $item) {
+                array_push($response['total_report'], $item);
+            }
         }
+
+        // product report
+        $query_product = "SELECT 
+          menu.id, menu.title, menu.price, menu.promoted_price, menu.type, 
+          SUM(coalesce(order_items.quantity, 0)) as item_count, 
+          SUM(coalesce(order_items.quantity, 0) * 0.5 * ((menu.price + menu.promoted_price) + ABS(menu.price - menu.promoted_price))) as sale 
+          FROM order_items RIGHT JOIN menu ON order_items.item_id=menu.id GROUP BY menu.id ORDER BY sale DESC ";
+
+        $query_product_result = mysqli_query($GLOBALS['conn'], $query_product);
+        if ($query_product_result) {
+            $response['product_report'] = array();
+            foreach ($query_product_result as $item) {
+                array_push($response['product_report'], $item);
+            }
+        }
+
+        return $response;
+
     }
 }
 
@@ -887,9 +921,8 @@ class AccessJobApp extends AccessDB
     {
         $this->idName = "id";
         $this->tableName = 'job_app';
-        $this->allKeys = ['fname', 'lname', 'ic'];
-        $this->requiredKeys = [
-            'fname', 'lname', 'ic', 'note', 'experience', 'phone', 'email'];
+        $this->requiredKeys = ['fname', 'lname', 'ic'];
+        $this->allKeys = ['fname', 'lname', 'ic', 'note', 'experience', 'phone', 'email'];
     }
 }
 
@@ -914,8 +947,7 @@ class AccessQuestions extends AccessDB
         $this->idName = "id";
         $this->tableName = 'questions';
         $this->allKeys = ['question'];
-        $this->requiredKeys = [
-            'user_id', 'name', 'question'];
+        $this->requiredKeys = ['user_email', 'name', 'question'];
     }
 
 }

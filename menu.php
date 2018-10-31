@@ -60,9 +60,9 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
     <div class="tab-wrapper">
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'all')" id="default-tab">All</button>
-            <button class="tablinks" onclick="openTab(event, 'pizza')">Pizza</button>
-            <button class="tablinks" onclick="openTab(event, 'pasta')">Pasta</button>
-            <button class="tablinks" onclick="openTab(event, 'beverage')">Beverage</button>
+            <button class="tablinks" onclick="openTab(event, 'pizza')" id="pizza-tab">Pizza</button>
+            <button class="tablinks" onclick="openTab(event, 'pasta')" id="pasta-tab">Pasta</button>
+            <button class="tablinks" onclick="openTab(event, 'beverage')" id="beverage-tab">Beverage</button>
 
             <form class="search" onsubmit="return false;">
                 <input type="text" id="search_input" placeholder="Search.." name="search"
@@ -100,4 +100,11 @@ include "footer.php"
 ?>
 <!--JS-->
 <script type="text/javascript" src="js/menu.js"></script>
+
+<?php
+if (isset($_GET['tab']) && in_array($_GET['tab'], ['default', 'pizza', 'pasta', 'beverage'])) {
+    echo "<script>document.getElementById(\"{$_GET['tab']}-tab\").click();</script>";
+}
+?>
+
 </html>
