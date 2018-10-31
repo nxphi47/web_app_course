@@ -1,0 +1,17 @@
+.admin-carts {
+
+}
+
+table.admin-order-items tr:nth-child(even) {
+    background-color: #aaaaaa;
+}
+
+table.admin-order-items tr:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+
+table.admin-order-items th {
+    background-color: #00b5ec;
+    color: white;
+}

@@ -1029,7 +1029,7 @@ form label {
     display: inline-block;
 }
 
-form input, textarea {
+form input, textarea, td input {
     float: left;
     width: 74%;
     margin-top: 6px;

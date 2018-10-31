@@ -24,8 +24,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            // document.getElementById("txtHint").innerHTML = this.responseText;
-            // console.log(this.responseText);
             let responseObject = null;
             try {
                 responseObject = JSON.parse(this.responseText);
@@ -39,6 +37,7 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
                 }
             } catch (e) {
                 console.log(this.responseText);
+                alert(`Sorry! Error happened!`);
                 throw e;
             }
         }

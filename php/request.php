@@ -244,8 +244,8 @@ class AccessDB
             $atts = array();
             $vals = array();
             foreach ($row as $key => $value) {
-                if (in_array($key, $this->requiredKeys) && ($value == "" || $value === null)) {
-                    $error = "SQL_INSERT: require key: " . $key;
+                if (in_array($key, $this->requiredKeys) && ($value === "" || $value === null)) {
+                    $error = "SQL_INSERT: require key: " . $key . ", value = {$value}";
                     errorResponse($error);
                     throw new Exception($error);
                 }
@@ -818,7 +818,7 @@ class AccessOrders extends AccessDB
 
     public function retrieveOrderItems($cart)
     {
-        $order_items = $this->accessOrderItems->getAllByConstraint("cart_id={$cart['cart_id']}");
+        $order_items = $this->accessOrderItems->getAllByConstraintWithItem("cart_id={$cart['cart_id']}");
         return $order_items;
     }
 

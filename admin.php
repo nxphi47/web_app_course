@@ -104,6 +104,7 @@ if (!$update_item_ok) {
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'sales')" id="default-tab">Sales</button>
             <button class="tablinks" onclick="openTab(event, 'menu')" id="menu-tab">Menu</button>
+            <button class="tablinks" onclick="openTab(event, 'carts')" id="carts-tab">Carts</button>
         </div>
 
         <div id="sales" class="tabcontent">
@@ -118,12 +119,12 @@ if (!$update_item_ok) {
                                 <th>Sales ($) (Descending)</th>
                             </tr>
                             <?php
-                            foreach ($report['type_report'] as $item) {
+                            foreach ($report['type_report'] as $order) {
                                 echo "
                                 <tr>
-                                    <td>{$item['type']}</td>                           
-                                    <td>{$item['item_count']}</td>                           
-                                    <td>{$item['sale']}</td>                           
+                                    <td>{$order['type']}</td>                           
+                                    <td>{$order['item_count']}</td>                           
+                                    <td>{$order['sale']}</td>                           
                                 </tr>
                                 ";
                             }
@@ -147,13 +148,13 @@ if (!$update_item_ok) {
                                 <th>Sales ($) (Descending)</th>
                             </tr>
                             <?php
-                            foreach ($report['product_report'] as $item) {
+                            foreach ($report['product_report'] as $order) {
                                 echo "
-                                <tr id=\"product-{$item['id']}\">
-                                    <td>{$item['title']}</td>                           
-                                    <td>{$item['type']}</td>                           
-                                    <td>{$item['item_count']}</td>                           
-                                    <td>{$item['sale']}</td>                           
+                                <tr id=\"product-{$order['id']}\">
+                                    <td>{$order['title']}</td>                           
+                                    <td>{$order['type']}</td>                           
+                                    <td>{$order['item_count']}</td>                           
+                                    <td>{$order['sale']}</td>                           
                                 </tr>
                                 ";
                             }
@@ -168,7 +169,6 @@ if (!$update_item_ok) {
         <div id="menu" class="tabcontent">
             <div class="admin-tab" id="admin-tab-menu">
                 <table>
-<!--                    <caption>Menu changes</caption>-->
                     <tr>
                         <th>Title</th>
                         <th>Type</th>
@@ -178,17 +178,17 @@ if (!$update_item_ok) {
                         <th>Update</th>
                     </tr>
                     <?php
-                    foreach ($all_menus as $item) {
+                    foreach ($all_menus as $order) {
                         echo "
-                        <tr id=\"form-item-{$item['id']}\">
+                        <tr id=\"form-item-{$order['id']}\">
                             <form action='admin.php?tab=menu' method='post'>
-                                <input type='hidden' value=\"{$item['id']}\" name='id'>
-                                <td><input type='text' id=\"title-{$item['id']}\" name='title' value=\"{$item['title']}\"></td>
-                                <td><input type='text' id=\"type-{$item['id']}\" name='type' value=\"{$item['type']}\"></td>
-                                <td><input type='number' id=\"price-{$item['id']}\" name='price' value=\"{$item['price']}\"></td>
-                                <td><input type='number' id=\"promoted_price-{$item['id']}\" name='promoted_price' value=\"{$item['promoted_price']}\"></td>
-                                <td><textarea id=\"desc-{$item['id']}\" name='desc'>{$item['desc']}</textarea></td>
-                                <td><input type='submit' class='button' name='change_item' value='Update' onclick=\"onsubmitItemChange({$item['id']})\"></td>
+                                <input type='hidden' value=\"{$order['id']}\" name='id'>
+                                <td><input type='text' id=\"title-{$order['id']}\" name='title' value=\"{$order['title']}\"></td>
+                                <td><input type='text' id=\"type-{$order['id']}\" name='type' value=\"{$order['type']}\"></td>
+                                <td><input type='number' id=\"price-{$order['id']}\" name='price' value=\"{$order['price']}\"></td>
+                                <td><input type='number' id=\"promoted_price-{$order['id']}\" name='promoted_price' value=\"{$order['promoted_price']}\"></td>
+                                <td><textarea id=\"desc-{$order['id']}\" name='desc'>{$order['desc']}</textarea></td>
+                                <td><input type='submit' class='button' name='change_item' value='Update' onclick=\"onsubmitItemChange({$order['id']})\"></td>
                             </form>
                         </tr>
                         ";
@@ -198,6 +198,53 @@ if (!$update_item_ok) {
             </div>
         </div>
 
+        <div class="tabcontent" id="carts">
+            <div class="admin-tab" id="admin-tab-menu">
+                <table>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total ($)</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                    <?php
+                    foreach ($all_carts as $cart) {
+                        $items_templates = array();
+                        foreach ($cart['order_items'] as $order) {
+                            array_push($items_templates, "
+                            <tr>
+                                <td>{$order['item']['title']}</td>
+                                <td>{$order['quantity']}</td>
+                                <td>{$order['comment']}</td>
+                            </tr>
+                            ");
+                        }
+                        $all_items_template = implode(" ", $items_templates);
+                        $template = "
+                        <tr>
+                            <td>{$cart['pay_name']}</td>
+                            <td>
+                                <table class='admin-order-items'>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                        <th>Comment</th>
+                                    </tr>
+                                    {$all_items_template}
+                                </table>
+                            </td>
+                            <td>{$cart['total']}</td>
+                            <td>{$cart['dev_address']}</td>
+                            <td>{$cart['dev_phone']}</td>
+                        </tr>
+                        ";
+                        echo $template;
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -210,7 +257,7 @@ include "footer.php"
 <script type="text/javascript" src="js/admin.js"></script>
 
 <?php
-if (isset($_GET['tab']) && in_array($_GET['tab'], ['default', 'menu'])) {
+if (isset($_GET['tab']) && in_array($_GET['tab'], ['default', 'menu', 'carts'])) {
     echo "<script>document.getElementById(\"{$_GET['tab']}-tab\").click();</script>";
 }
 ?>
