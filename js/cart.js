@@ -183,25 +183,47 @@ function componentCartInfo(where_id, cart) {
 
 
 function confirmModalTemplate(cart) {
-    template = `
+    let user = rootData.user;
+    let credit_card = (rootData.credit_cards.length > 0) ? rootData.credit_cards[rootData.credit_cards.length - 1] : {
+        pay_name: "", pay_card_num: "", pay_card_expire: ""
+    };
+    let address = (rootData.addresses.length > 0) ? rootData.addresses[rootData.addresses.length - 1] : {
+        dev_name: "", dev_phone: "", dev_address: ""
+    };
+    console.log(credit_card);
+
+    let template = `
     <div id="confirm" class="modal" style="display: block;">
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close" id="confirm_close">&times;</span>
-            <div class="modal-content-inside">
+            <div class="modal-content-inside confirm">
                 <h2>Payment: $${cart.total}</h2>
                 <form id="payment" class="payment" onsubmit="function() return false;">
                     <div class="row">
                         <label for="pay_name">Full Name</label>
-                        <input type="text" id="pay_name" name="pay_name" placeholder="Your full name on card" required>
+                        <input type="text" 
+                                id="pay_name" 
+                                name="pay_name" 
+                                placeholder="Your full name on card" 
+                                value="${credit_card.pay_name}"
+                                required>
                     </div>
                     <div class="row">
                         <label for="pay_card_num">Card Number</label>
-                        <input type="number" id="pay_card_num" name="pay_card_num" placeholder="e.g: 12345678" required>
+                        <input type="number" 
+                                id="pay_card_num" 
+                                name="pay_card_num" 
+                                placeholder="e.g: 12345678"
+                                value="${credit_card.pay_card_num}"
+                                required>
                     </div>
                     <div class="row">
                         <label for="pay_card_expire">Card Expiry Day</label>
-                        <input type="date" id="pay_card_expire" name="pay_card_expire" required>
+                        <input type="date" id="pay_card_expire" 
+                                name="pay_card_expire"
+                                value="${credit_card.pay_card_expire}" 
+                                required>
                     </div>
                     <div class="row">
                         <label for="cv2">CV2</label>
@@ -210,7 +232,45 @@ function confirmModalTemplate(cart) {
                     <div class="row">
                         <button type="button" class="button" id="place_order" disabled>Place Order</button>
                     </div>
-                    
+                </form>
+            </div>
+            <div class="modal-content-inside confirm">
+                <h2>Delivery</h2>
+                <form id="delivery" class="dev">
+                    <div class="row">
+                        <label for="dev_name">Name</label>
+                        <input type="text"
+                               id="dev_name"
+                               name="dev_name"
+                               onkeyup="deliveryKeyup('dev_name')"
+                               value="${address.dev_name}"
+                               placeholder="Your name"
+                        >
+                    </div>
+                    <div class="row">
+                        <label for="dev_phone">Phone</label>
+                        <input type="number"
+                               id="dev_phone"
+                               name="dev_phone"
+                               onkeyup="deliveryKeyup('dev_phone')"
+                               value="${address.dev_phone}"
+                               placeholder="e.g: 12345678"
+                        >
+                    </div>
+                    <div class="row">
+                        <label for="dev_address">Address</label>
+                        <input type="text" 
+                                id="dev_address" 
+                                name="dev_address" 
+                                onkeyup="deliveryKeyup('dev_address')" 
+                                placeholder="e.g: Block 39, NTU"
+                                value="${address.dev_address}"
+                        >
+                    </div>
+                    <div class="row">
+                        <label for="postal">Postal</label>
+                        <input type="text" id="postal" name="postal" onkeyup="deliveryKeyup('postal')" placeholder="e.g: 637717">
+                    </div>
                 </form>
             </div>
         </div>
@@ -367,7 +427,6 @@ function deliveryKeyup(form_name) {
 }
 
 function init() {
-
     componentCartInfo(`cart-wrapper`, rootData.cart);
     itemBannersSlideShows('item-slideshow-wrapper', rootData.menu, onAddToCart);
 

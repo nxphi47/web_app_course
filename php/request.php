@@ -301,6 +301,17 @@ class AccessDB
             return false;
         }
     }
+
+    public function removeById($id) {
+        $sql = "DELETE FROM {$this->tableName} WHERE id={$id};";
+        $result = mysqli_query($GLOBALS['conn'], $sql);
+        if ($result) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 

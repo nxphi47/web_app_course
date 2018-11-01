@@ -57,6 +57,20 @@ if (isset($_POST['new_card'])) {
         echo "<script> alert('Unable to add new card');</script>";
     }
 }
+else if (isset($_POST['card_remove'])) {
+    $user_id = $user['id'];
+    $card_id = (int) $_POST['card_id'];
+    $card = $accessCards->getAllById($card_id);
+    if ($card['user_id'] == $user_id) {
+        // remove the card
+        $accessCards->removeById($card['id']);
+        header("Location: {$_SERVER['PHP_SELF']}");
+        exit();
+    }
+    else {
+        echo "<script> alert('Unable to remove card');</script>";
+    }
+}
 
 
 
@@ -147,14 +161,6 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             <div class="user-info-tab" id="user-tab-credit_cards">
             </div>
         </div>
-
-<!--        <div id="carts" class="tabcontent">-->
-<!--            <div class="user-info-tab" id="user-tab-carts">-->
-<!---->
-<!--            </div>-->
-<!--        </div>-->
-
-
     </div>
 </div>
 

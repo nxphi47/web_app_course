@@ -1,5 +1,14 @@
 /* General CSS */
 
+/*
+color management
+header foot:
+    background: floralwhite
+    link: black
+
+highlight: #008CBA
+*/
+
 div.content {
     /*margin-top: 80px;*/
     margin-top: 7em;
@@ -85,8 +94,7 @@ nav ul.nav {
     padding: 0;
     padding-top: 2em;
     overflow: hidden;
-    background-color: #333;
-    /*height: 70px;*/
+    background-color: floralwhite;
     height: 4em;
     /*to on top*/
     /*position: fixed;*/
@@ -104,7 +112,7 @@ nav ul.nav li {
 
 nav ul.nav li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -149,12 +157,18 @@ nav ul.nav li a.logo {
 }
 
 nav ul.nav li a:hover:not(.active) {
-    background-color: #111;
+    background-color: #008CBA;
+    color: white;
 }
 
 .active {
     /*background-color: #4CAF50;*/
-    background-color: #008CBA;;
+    background-color: #008CBA;
+    color: white;
+}
+
+nav ul.nav li a.active {
+    color: white;
 }
 
 nav ul.nav li.icon {
@@ -220,20 +234,195 @@ nav ul.nav .link-right {
 footer {
     text-align: center;
     display: block;
-    background-color: #333;
-    color: white;
+    background-color: floralwhite;
+    color: black;
     padding: 14px 12px;
     text-decoration: none;
 
-    /*width: 100%;*/
-    /*position: absolute;*/
-    /*left: 0;*/
-
+    /*fixed footer*/
     width: 100%;
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    padding: 0;
+    margin: 0;
+    border-top: 2px solid red;
 }
+
+
+.generic-anchor {
+    color: #57739a;
+}
+
+.generic-anchor:visited {
+    color: #57739a;
+}
+
+.generic-anchor:hover {
+    color: #57739a;
+}
+
+.footer-list-anchor {
+    font: 1.3em "Open Sans", sans-serif
+}
+
+
+.footer-list {
+    display: inline-block;
+    width: 19%;
+    padding-right: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+    vertical-align: top;
+    margin-top: 5px;
+}
+
+.footer-list li {
+    text-align: center;
+    padding-bottom: 10px
+}
+
+.footer-list h4 {
+    padding: 10px 0 5px 0;
+    color: black;
+    font: 2.3vw "Oswald", sans-serif;
+    margin-top: 0.6em;
+}
+
+.footer-list a {
+    text-decoration: none
+}
+
+.footer-list.info {
+    width: 40%;
+}
+
+.footer-list.info * {
+    text-align: left;
+}
+
+.footer-list.info img {
+    width: 30px;
+    height: 30px;
+    display: inline;
+}
+
+.footer-list.info p {
+    display: inline-block;
+}
+
+.footer-list.info .contact-info p, .footer-list.info .contact-info a {
+    margin-bottom: 0.5em;
+    vertical-align: top;
+    margin-top: 0.3em;
+    margin-left: 0.5em;
+    text-decoration: none
+}
+
+.footer-list.info .contact-info a {
+    color: #57739a;
+    margin-left: 0;
+}
+
+.footer-list.info .contact-info a:visited {
+    color: #57739a;
+}
+
+.footer-list.info .contact-info a:hover {
+    color: #57739a;
+}
+
+
+
+.footer-list.info h4 {
+    margin-bottom: 0.5em;
+}
+
+
+.contact-info {
+    display: block;
+    width: 100%;
+}
+
+/*$primary-light-blue: #8DB9ED;*/
+/*$primary-line-color: #ccc;*/
+
+/*.flex-rw {*/
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+/*}*/
+
+/*.footer-list-top {*/
+    /*width: 33.333%*/
+/*}*/
+/*.footer-list-top > li {*/
+    /*text-align: center;*/
+    /*padding-bottom: 10px*/
+/*}*/
+/*.footer-list-header {*/
+    /*padding: 10px 0 5px 0;*/
+    /*color: #fff;*/
+    /*font: 2.3vw "Oswald", sans-serif*/
+/*}*/
+/*.footer-list-anchor {*/
+    /*font: 1.3em "Open Sans", sans-serif*/
+/*}*/
+/*.footer-social-section {*/
+    /*width: 100%;*/
+    /*align-items: center;*/
+    /*justify-content: space-around;*/
+    /*position: relative;*/
+    /*margin-top: 5px;*/
+/*}*/
+/*.footer-social-section::after {*/
+    /*content: "";*/
+    /*position: absolute;*/
+    /*z-index: 1;*/
+    /*top: 50%;*/
+    /*left: 10px;*/
+    /*border-top: 1px solid #8DB9ED;*/
+    /*width: calc(100% - 20px)*/
+/*}*/
+/*.footer-social-overlap {*/
+    /*position: relative;*/
+    /*z-index: 2;*/
+    /*background: rgb(55,55,55);*/
+    /*padding: 0 20px*/
+/*}*/
+/*.footer-social-connect {*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*font: 3.5em "Oswald", sans-serif;*/
+    /*color: #fff*/
+/*}*/
+/*.footer-social-small {*/
+    /*font-size: 0.6em;*/
+    /*padding: 0px 20px*/
+/*}*/
+/*.footer-social-overlap > a {*/
+    /*font-size: 3em*/
+/*}*/
+/*.footer-social-overlap > a:not(:first-child) {*/
+    /*margin-left: 0.38em*/
+/*}*/
+/*.footer-bottom-section {*/
+    /*width: 100%;*/
+    /*padding: 10px;*/
+    /*border-top: 1px solid #ccc;*/
+    /*margin-top: 10px*/
+/*}*/
+/*.footer-bottom-section > div:first-child {*/
+    /*margin-right: auto*/
+/*}*/
+/*.footer-bottom-wrapper {*/
+    /*font-size: 1.5em;*/
+    /*color: #fff*/
+/*}*/
+/*.footer-address {*/
+    /*display: inline;*/
+    /*font-style: normal*/
+/*}*/
+
 
 /* -------------------- TABS -------------------------------*/
 /* Style the tab */
@@ -650,6 +839,11 @@ div.modal.display {
 
 div.modal-content-inside {
     margin-top: 10px;
+}
+
+div.modal-content-inside.confirm {
+    display: inline-block;
+    width: 45%;
 }
 
 div.modal-content-inside div.image {

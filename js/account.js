@@ -63,16 +63,26 @@ function generateUserInfo() {
 
 }
 
+function onRemoveCreditCard(card_id) {
+    return confirm("Are you sure to delete this card?");
+}
+
 
 function generateCreditCards() {
 
     let rows = rootData.credit_cards.map((card) => {
-        let {pay_name, pay_card_expire, pay_card_num} = card;
+        let {id, pay_name, pay_card_expire, pay_card_num} = card;
         return `
        <tr>
             <td>${pay_name}</td>
             <td>${pay_card_num}</td>
             <td>${pay_card_expire}</td>
+            <td>
+                <form action="account.php" method="post" onsubmit="return onRemoveCreditCard(${id})">
+                    <input type="hidden" name="card_id" value="${id}">
+                    <button type="submit" name="card_remove" class="button">Remove</button>
+                </form>
+            </td>
         </tr>
         `;
     }).join(" ");
@@ -83,6 +93,7 @@ function generateCreditCards() {
             <th>Card Name</th>
             <th>Card Number</th>
             <th>Expiry Date</th>
+            <th>Delete</th>
         </tr>
         ${rows}
     </table>
