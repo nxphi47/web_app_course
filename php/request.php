@@ -52,7 +52,8 @@ function sendSignupConfirmEmail($user)
     $md_email = md5($user['email']);
     $md_uname = md5($user['uname']);
 
-    $url = "confirm.php?id={$user['id']}&email={$md_email}&uname=" . $md_uname;
+    $base_url = $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+    $url = "{$base_url}/confirm.php?id={$user['id']}&email={$md_email}&uname=" . $md_uname;
     $content = "Thank you for signing up with Pizzarino. Please click on the following link to confirm your account!\n
     {$url}\n
     \n

@@ -103,8 +103,15 @@ if (isset($_GET['id'])) {
     $success = $success && ($user != null);
     $success = $success && (md5($user['uname']) == $uname);
     $success = $success && (md5($user['email']) == $email);
+
     if (!$success) {
         header("Location: 404.php");
+    }
+    else {
+        $user['confirm'] = 1;
+//        $accessUser->attrs = $user;
+        $user_id = $user['id'];
+        $accessUser->updateById($user_id, array('confirm'=>1));
     }
 }
 else {
