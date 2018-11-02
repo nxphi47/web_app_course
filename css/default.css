@@ -9,10 +9,16 @@ header foot:
 highlight: #008CBA
 */
 
+body {
+    height: 100%;
+    margin: 0;
+}
+
 div.content {
     /*margin-top: 80px;*/
     margin-top: 7em;
-    margin-bottom: 110px;
+    /*margin-bottom: 110px;*/
+    margin-bottom: 5em;
 }
 
 *:focus {

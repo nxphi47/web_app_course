@@ -56,6 +56,7 @@ function validate($uname, $password) {
 }
 
 $sucesss = false;
+var_dump($_POST);
 if (isset($_POST['login'])) {
     $uname = mysqli_real_escape_string($GLOBALS['conn'], $_POST['uname']);
     $password = mysqli_real_escape_string($GLOBALS['conn'], $_POST['password']);
@@ -70,9 +71,10 @@ if (isset($_POST['login'])) {
         }
     }
 }
-else {
-    session_reset();
-}
+//else {
+//    session_unset();
+//    session_destroy();
+//}
 
 
 $root_data = array(//    "menu"=>$all_menus
@@ -138,6 +140,7 @@ $template_login = '
 <?php
 include "footer.php"
 ?>
+
 <!--JS-->
 <script type="text/javascript" src="js/login.js"></script>
 </html>

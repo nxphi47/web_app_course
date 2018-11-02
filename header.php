@@ -6,7 +6,13 @@
  * Time: 8:52 PM
  */
 
-$user = $GLOBALS['user'];
+if (isset($GLOBALS['user'])) {
+
+    $user = $GLOBALS['user'];
+}
+else {
+    $user = null;
+}
 
 
 if ($user != null) {

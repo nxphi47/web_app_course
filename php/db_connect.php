@@ -8,12 +8,13 @@
 
 $DB_HOST = "localhost"; // MySQL server hostname
 $DB_PORT = "3306";      // MySQL server port number (default 3306)
-$DB_NAME = "pizza"; // MySQL database name
 
+$DB_NAME = "pizza"; // MySQL database name
 $DB_USER = "root";
 $DB_PASS = "";
 
 
+//$DB_NAME = "f38ee"; // MySQL database name
 //$DB_USER = "f38ee";
 //$DB_PASS = "f38ee";
 $EMAIL_SENDER= "f38ee@localhost";

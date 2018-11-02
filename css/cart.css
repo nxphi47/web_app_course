@@ -203,6 +203,11 @@ div.item-banner div.desc {
     vertical-align: top;
 }
 
+div.item-banner .button {
+    padding: 2px 4px;
+    font-size: smaller;
+}
+
 span.desc span.title {
     font-size: medium;
     white-space: nowrap;
@@ -222,6 +227,7 @@ span.desc span.price.minus {
 span.desc span.promoted-price {
     font-size: medium;
 }
+
 
 span.desc span.note {
     display: inline;
