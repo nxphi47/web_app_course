@@ -90,9 +90,6 @@ if (isset($_POST['signup'])) {
     }
 
 }
-else {
-    session_reset();
-}
 
 if (isset($_GET['success'])) {
     $success = true;

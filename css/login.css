@@ -53,3 +53,8 @@ footer {
     left: 0;
     bottom: 0;
 }
+
+
+div.content {
+    margin-bottom: 20em;
+}
