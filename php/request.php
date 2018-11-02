@@ -367,7 +367,7 @@ class AccessUsers extends AccessDB
         $this->hiddenKeys = ['password'];
         $this->allKeys = [
             'fname', 'lname', 'uname', 'email', 'password',
-            'notes', 'admin'
+            'notes', 'admin', 'confirm'
         ];
         $this->addressKeys = ['dev_name', 'dev_phone', 'dev_address', 'postal'];
         $this->cardKeys = ['pay_name', 'pay_card_num', 'pay_card_expire', 'cv2'];

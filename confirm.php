@@ -37,62 +37,6 @@ include "session_init.php";
 <?php
 
 include "header.php";
-//$accessUser = new AccessUsers();
-
-//$root_data = array(//    "menu"=>$all_menus
-//);
-//$json = json_encode($root_data);
-//
-////echo $all_menus;
-//echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
-
-//function validate($data) {
-//    $errors = [];
-//    if (strlen($data['uname']) <= 4) {
-//        array_push($errors, "Username must be >= 4 characters");
-//    }
-//    if (strlen($data['password']) <= 6) {
-//        array_push($errors, "Password must be >= 6 characters");
-//    }
-//    return $errors;
-//}
-
-//$error = "";
-//$user = null;
-//$success = false;
-//if (isset($_POST['signup'])) {
-//
-//    $data = array();
-//    foreach ($_POST as $key=>$value) {
-//        $data[$key] = mysqli_real_escape_string($GLOBALS['conn'], $value);
-//    }
-//
-//    $val_errors = validate($data);
-//
-//    if (count($val_errors) == 0) {
-//        // valid
-//        $accessUser->attrs = $data;
-//        if ($accessUser->insert()) {
-//            $user = $accessUser->getAllById($accessUser->insertedID);
-////            $accessUser->loginWithData($user);
-//            sendSignupConfirmEmail($user);
-//            $success = true;
-//            header("Location: {$_SERVER['PHP_SELF']}?success=1");
-//            exit();
-//        }
-//        else {
-//            // server error!
-//            $error = "Internal Server Error.";
-//        }
-//    }
-//    else {
-//        $error = implode(", ", $val_errors);
-//    }
-//
-//}
-//else {
-//    session_reset();
-//}
 
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
