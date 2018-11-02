@@ -120,8 +120,11 @@ nav ul.nav li a {
     border-radius: 10px;
 }
 
-nav ul.nav li a img {
+nav ul.nav li a.logo.main-logo img {
     /*display: block;*/
+    width: 150px;
+    height: 70px;
+    margin-top: -20px;
 }
 
 div.cart-label-info {
@@ -151,11 +154,6 @@ nav ul.nav li a div.acc-info {
 
 
 
-
-nav ul.nav li a.logo {
-    padding: 2px 2px;
-}
-
 nav ul.nav li a:hover:not(.active) {
     background-color: #008CBA;
     color: white;
@@ -178,6 +176,17 @@ nav ul.nav li.icon {
 nav ul.nav .link-right {
     float: right;
 }
+
+nav ul.nav li a.logo {
+    padding: 2px 2px;
+}
+
+nav ul.nav li a.logo.main-logo:hover {
+    background-color: transparent;
+}
+
+
+
 
 @media screen and (max-width: 900px) {
     nav.navbar ul.nav li:not(:first-child) {

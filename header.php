@@ -43,7 +43,7 @@ if ($user != null) {
 <header>
     <nav class="navbar" id="navbar">
         <ul class="nav">
-            <li class="nav-link"><a href="index.php" class="logo"><img style="width: 41px;" src="imgs/logo.png"></a></li>
+            <li class="nav-link"><a href="index.php" class="logo main-logo"><img src="imgs/logo.png"></a></li>
             <li class="nav-link"><a id="link-index" href="index.php">Home</a></li>
             <li class="nav-link"><a id="link-menu" href="menu.php">Menu</a></li>
 <!--            <li class="nav-link"><a id="link-promotions" href="promotions.php">Promotions</a></li>-->
