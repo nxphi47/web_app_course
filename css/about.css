@@ -3,6 +3,32 @@
     border: #717171 solid;
 
     width: 90%;
-    margin: 20px auto auto;
     min-height: 500px;
+    text-align:center;
+    font: 1.3em "Open Sans", sans-serif;
+    margin: auto;
+    margin-top: 10px;
+    /* margin-bottom:0px; Huge space at the bottom even with this.*/
+}
+.faqcontent{
+    text-align: left;
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding:0 30 0 30;
+    background-color: rgb(233, 233, 233);
+    width: 90%;
+    box-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
+p.question{
+    font-weight: bold;
+    color: #6b6868;
+}
+
+/* -------------------------------------------Contact us------------------------------------------------------- */
+.terms{
+    color: grey;
+    font: 13px Arial;
+
 }
