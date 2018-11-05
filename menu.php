@@ -63,6 +63,7 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             <button class="tablinks" onclick="openTab(event, 'pizza')" id="pizza-tab">Pizza</button>
             <button class="tablinks" onclick="openTab(event, 'pasta')" id="pasta-tab">Pasta</button>
             <button class="tablinks" onclick="openTab(event, 'beverage')" id="beverage-tab">Beverage</button>
+            <button class="tablinks" onclick="openTab(event, 'promotion')" id="beverage-tab">Promotions</button>
 
             <form class="search" onsubmit="return false;">
                 <input type="text" id="search_input" placeholder="Search.." name="search"
@@ -90,6 +91,10 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             <div class="item-list-wrapper" id="item-list-wrapper-beverage"></div>
         </div>
 
+        <div id="promotion" class="tabcontent">
+            <div class="item-list-wrapper" id="item-list-wrapper-promotion"></div>
+        </div>
+
     </div>
 
 
@@ -102,7 +107,7 @@ include "footer.php"
 <script type="text/javascript" src="js/menu.js"></script>
 
 <?php
-if (isset($_GET['tab']) && in_array($_GET['tab'], ['default', 'pizza', 'pasta', 'beverage'])) {
+if (isset($_GET['tab']) && in_array($_GET['tab'], ['default', 'pizza', 'pasta', 'beverage', 'promotion'])) {
     echo "<script>document.getElementById(\"{$_GET['tab']}-tab\").click();</script>";
 }
 ?>

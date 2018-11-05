@@ -19,12 +19,14 @@ let all_menu = rootData.menu;
 let pizza_menu = all_menu.filter((x) => x.type.toLowerCase() == 'pizza');
 let pasta_menu = all_menu.filter((x) => x.type.toLowerCase() == 'pasta');
 let drink_menu = all_menu.filter((x) => x.type.toLowerCase() == 'beverage');
+let promotion_menu = all_menu.filter((x) => x.type.toLowerCase() == 'promotion');
 
 
 componentItemList(`item-list-wrapper-all`, all_menu);
 componentItemList(`item-list-wrapper-pizza`, pizza_menu);
 componentItemList(`item-list-wrapper-pasta`, pasta_menu);
 componentItemList(`item-list-wrapper-beverage`, drink_menu, false);
+componentItemList(`item-list-wrapper-promotion`, promotion_menu, false);
 
 
 function onSearch() {
