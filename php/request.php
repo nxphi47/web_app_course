@@ -99,14 +99,6 @@ class AccessDB
     }
 
 
-    // clear all data
-    public function clear()
-    {
-        foreach ($this->attrs as $item) {
-            $item = "";
-        }
-    }
-
     public function normalize_key($key)
     {
         return "`$key`";

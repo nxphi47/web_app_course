@@ -30,21 +30,13 @@ function initUserInfo() {
 
 function validateUserInfo() {
     let updateInfo = getUserInfo();
-    if (updateInfo.fname.length <= 0) {
-        alert("Invalid first name");
-        return false;
-    }
-    if (updateInfo.lname.length <= 0) {
-        alert("Invalid Last name");
-        return false;
-    }
-    var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
-    if (!emailRegex.test(updateInfo.email)) {
-        alert("Invalid Last name");
-        return false;
-    }
 
-    return true;
+    let valid = true;
+    valid = valid && validateRealName(updateInfo.fname);
+    valid = valid && validateRealName(updateInfo.lname);
+    valid = valid && validateEmail(updateInfo.email);
+
+    return valid;
 }
 
 function updateUserInfo() {
@@ -58,10 +50,6 @@ function updateUserInfo() {
     }
 }
 
-
-function generateUserInfo() {
-
-}
 
 function onRemoveCreditCard(card_id) {
     return confirm("Are you sure to delete this card?");

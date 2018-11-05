@@ -302,12 +302,8 @@ function confirmModalTemplate(cart) {
     function validate() {
         let valid = true;
         form_keys.forEach((k) => {
-            if (k === "pay_card_expire") {
-                valid = valid && (cart[k] !== "0000-00-00");
-                valid = valid && (new Date(cart[k]) > new Date());
-            }
+            valid = valid && validateDateFuture(k);
         });
-        console.log(`valid ${valid}`);
         document.getElementById("place_order").disabled = !valid;
     }
 
@@ -349,74 +345,6 @@ function openModal(cart) {
 }
 
 
-// Testing
-function generateFakeItemDataForCart(size, type = 'Pizza') {
-    let dataList = [];
-    let quantity = [];
-    let orderList = [];
-    for (let i = 0; i < size; i++) {
-        let item = {
-            id: i,
-            title: `${type} ${i}`,
-            price: i * 10 + 1,
-            note: `per piece`,
-            desc: `This is the ${type} of the best of the best This is the ${type} of 
-            the best of the best This is the ${type} of the best of the best 
-            This is the ${type} of the best of the best This is the pizza 
-            of the best of the best This is the ${type} of the best of 
-            the best This is the ${type} of the best of the best This is 
-            the ${type} of the best of the best This is the ${type} of the best of the best
-             This is the ${type} of the best of the best
-             This is the ${type} of the best of the best `,
-            img_url: `imgs/pizza_test.jpg`,
-            thumbnail: `imgs/pizza_test.jpg`,
-        };
-
-        // dataList.push(item);
-        // quantity.push()
-        orderList.push({
-            item: item,
-            quantity: i + 1
-        })
-    }
-
-    return orderList;
-}
-
-function generateFakeItemData(size) {
-    let dataList = [];
-    for (let i = 0; i < size; i++) {
-        let item = {
-            id: i,
-            title: `Pizza ${i}`,
-            price: i * 10 + 1,
-            note: `per piece`,
-            desc: `This is the pizza of the best of the best This is the pizza of 
-            the best of the best This is the pizza of the best of the best 
-            This is the pizza of the best of the best This is the pizza 
-            of the best of the best This is the pizza of the best of 
-            the best This is the pizza of the best of the best This is 
-            the pizza of the best of the best This is the pizza of the best of the best
-             This is the pizza of the best of the best This is the pizza of the best of the best `,
-            img_url: `imgs/pizza_test.jpg`,
-            thumbnail: `imgs/pizza_test.jpg`,
-        };
-
-        dataList.push(item);
-    }
-
-    return dataList;
-}
-
-
-// let fakeCart = {
-//     cart_id: 1,
-//     order_items: rootData.menu.map((x) => {return {item: x, quantity: 1}}),
-//     total: 0,
-//     delivery_subtotal: 1.2,
-//     orders_subtotal: 0,
-// };
-// console.log(fakeCart);
 
 function onAddToCart(cart) {
     componentCartInfo(`cart-wrapper`, cart);

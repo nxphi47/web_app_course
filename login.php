@@ -43,7 +43,8 @@ include "header.php";
 
 $errors = array();
 
-function validate($uname, $password) {
+function validate($uname, $password)
+{
 //    $error = "";
     $errors = array();
     if (strlen($uname) < 4) {
@@ -71,10 +72,6 @@ if (isset($_POST['login'])) {
         }
     }
 }
-//else {
-//    session_unset();
-//    session_destroy();
-//}
 
 
 $root_data = array(//    "menu"=>$all_menus
@@ -96,7 +93,7 @@ $template_login = '
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Password" required  onkeyup="validateLogin()">
     </div>
-    '.$error.'
+    ' . $error . '
     <div class="row">
         <input type="submit" class="button" name="login" id="login_button" value="Login">
     </div>
@@ -117,17 +114,15 @@ $template_login = '
         <div class="tab-wrapper">
             <div class="tab-up-banner">
                 <div class="tab">
-<!--                    <button class="tablinks" onclick="openTab(event, 'login')" id="default-tab">Login</button>-->
-<!--                    <button class="tablinks" onclick="openTab(event, 'signup')">Sign up</button>-->
                     <a href="login.php" class="tablinks active">Login</a>
-                    <a href="signup.php" class="tablinks" >Sign up</a>
+                    <a href="signup.php" class="tablinks">Sign up</a>
                 </div>
             </div>
 
             <div class="tabcontent" id="tabcontent">
                 <div class="banner" id="banner">
                     <?php
-                        echo $template_login;
+                    echo $template_login;
                     ?>
                 </div
             </div>

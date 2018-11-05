@@ -65,11 +65,9 @@ function generateFakeSlideQuotes(size) {
 
 
 
-const itemListWrapperId = `item-list-wrapper`;
 
 let main_menu = rootData.menu;
 
-// componentItemList(itemListWrapperId, main_menu);
 
 
 let auto_slide = templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));

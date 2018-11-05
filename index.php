@@ -69,8 +69,6 @@ echo "
 
     <div class="item-slideshow-wrapper" id="item-slideshow-wrapper"></div>
 
-    <div class="item-list-wrapper" id="item-list-wrapper"></div>
-
 </div>
 
 <?php

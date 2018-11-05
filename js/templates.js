@@ -8,7 +8,6 @@ function templateQuantitySpinner(id_temp, quantity) {
             <div class="quantity-button quantity-down" id="quantity-down-${id_temp}">-</div>
         </div>
     </div>
-
     <button class="button remove-button" id="remove-button-${id_temp}">Remove</button>
     `;
 
@@ -129,9 +128,6 @@ function templateItemBanner(
     
     </div>
     `;
-    // let templates = [....];
-    // all_templates = templates.join(" ");
-    // document.getElementById("slideshow-wrapper").innerHTML = template;
     return template
 }
 
@@ -210,17 +206,11 @@ function bindHandlersItemBanner(
 ) {
     let onClickImg = function () {
         let modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
-        // document.getElementsByTagName("body")[0].classList.add("modal-open");
-        // document.getElementsByTagName("html")[0].classList.add("modal-open");
-        // modal.style.display = "block";
         modal.classList.add("display");
     };
 
     let onModalClose = function () {
         let modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
-        // document.getElementsByTagName("body")[0].classList.remove("modal-open");
-        // document.getElementsByTagName("html")[0].classList.remove("modal-open");
-        // modal.style.display = "none";
         modal.classList.remove("display");
     };
 
@@ -584,7 +574,6 @@ function itemBannersSlideShows(where_id, highlightItems, on_add_cart=null) {
             itemSetSlides.push(currentSlide);
             currentSlide = [];
         }
-
     });
     if (currentSlide.length !== 0) {
         itemSetSlides.push(currentSlide);

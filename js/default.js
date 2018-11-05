@@ -12,15 +12,10 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
     callback_error = callback_error || function (x) {console.log(`ERROR: ${x}`)};
 
     const requestObject = {
-        // request type
         request: request,
-        // request user
-
-        // request data
         data: obj
     };
 
-    console.log(requestObject);
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -32,7 +27,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
                     callback(responseObject.data);
                 }
                 else {
-                    // console.log(`ERROR: ${responseObject.message}`);
                     callback_error(responseObject.message);
                 }
             } catch (e) {
@@ -52,7 +46,8 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 
 
 function validateEmail(email) {
-    var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
+    // var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
+    var emailRegex = /^[\w-.]+@[A-Za-z]+/;
     return emailRegex.test(email);
 }
 
@@ -74,7 +69,12 @@ function validateRealName(name) {
 }
 
 function validateDateFuture(date) {
-    return new Date(date) > new Date();
+    if (date !== "0000-00-00") {
+        return new Date(date) > new Date();
+    }
+    else {
+        return false;
+    }
 }
 
 function validatePhone(phone) {
