@@ -77,14 +77,19 @@ CREATE TABLE `feedbacks` (
   `user_id` int(11) NOT NULL,
   `stars` int(11) NOT NULL,
   `note` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `feedbacks`
 --
 
 INSERT INTO `feedbacks` (`id`, `user_id`, `stars`, `note`) VALUES
-(1, 1, 4, 'The website presents lots of nice food and beverage and the service is wonderful. Nice!');
+(1, 1, 4, 'The website presents lots of nice food and beverage and the service is wonderful. Nice!'),
+(2, 2, 5, 'This restaurant serves the best pizza locally like no other. Would really recommend their pizzas to everyone visiting Singapore.'),
+(3, 3, 5, 'Their service is great! My child was on my lap when a waitress came and brought a baby chair for me. I was really surprised and grateful for that action. Cheerios to that staff!'),
+(4, 4, 4, 'I ordered a delivery to my office when it was Christmas. The food came in after 30 mins. It was understandable though because it was seasonal period. However, I still received the $10 vouchers for my next order! It was great that Pizzarino honour their word and it shows how committed they are.');
 
 -- --------------------------------------------------------
 
@@ -290,8 +295,9 @@ CREATE TABLE `users` (
   `postal` int(11) DEFAULT NULL,
   `notes` int(11) DEFAULT NULL,
   `admin` int(11) NOT NULL,
-  `confirm` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `confirm` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
@@ -299,7 +305,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `uname`, `password`, `email`, `pay_name`, `pay_card_num`, `pay_card_expire`, `cv2`, `dev_name`, `dev_phone`, `dev_address`, `postal`, `notes`, `admin`, `confirm`) VALUES
 (0, 'placeholder', 'placeholder', 'admin_place_holder_do_not_use_this', 'placeholder', 'placeholder@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
-(1, 'Phi', 'Nguyen', 'nxphi47', 'e10adc3949ba59abbe56e057f20f883e', 'nxphi47@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
+(1, 'Phi', 'Nguyen', 'nxphi47', 'e10adc3949ba59abbe56e057f20f883e', 'nxphi47@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 'John', 'Parsons', 'JPson', '12345', 'johnparsons@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
+(3, 'Megan', 'Fox', 'Megan', '12345', 'megan@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0),
+(4, 'Pearly', 'Lee', 'Pearly Lee', '12345', 'pearly@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0);
 
 --
 -- Indexes for dumped tables
