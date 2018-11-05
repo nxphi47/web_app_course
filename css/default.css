@@ -1227,7 +1227,7 @@ div.item-slideshow-wrapper {
 
 
 /* ------------------------------------Forms ------------------------------------------------*/
-form label {
+form label, select {
     float: left;
     width: 25%;
     margin-top: 6px;
@@ -1238,7 +1238,7 @@ form label {
     display: inline-block;
 }
 
-form input, textarea, td input {
+form input, textarea, td input, select {
     float: left;
     width: 74%;
     margin-top: 6px;
@@ -1255,7 +1255,8 @@ form input, textarea, td input {
 
 form .button {
     display: inline;
-    float: left;
+    /* float: left; */
+    margin-top: 20px;
 }
 
 
