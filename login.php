@@ -42,7 +42,7 @@ function validate($uname, $password)
         array_push($errors, "User name must be >= 4 character");
     }
     if (strlen($password) < 6) {
-        array_push($errors, "Password must be > 6");
+        array_push($errors, "Password must be >= 6");
     }
     return $errors;
 }
@@ -54,9 +54,10 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($GLOBALS['conn'], $_POST['password']);
 
     if (!get_magic_quotes_gpc()) {
-        $uname = addcslashes($uname);
-        $password = addcslashes($password);
+        $uname = addslashes($uname);
+        $password = addslashes($password);
     }
+    echo "uname {$uname} - {$password}";
 
     $errors = validate($uname, $password);
     if (count($errors) == 0) {

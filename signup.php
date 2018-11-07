@@ -56,7 +56,7 @@ if (isset($_POST['signup'])) {
     $data = array();
     foreach ($_POST as $key=>$value) {
         if (!get_magic_quotes_gpc()) {
-            $value = addcslashes($value);
+            $value = addslashes($value);
         }
         $data[$key] = mysqli_real_escape_string($GLOBALS['conn'], $value);
     }
