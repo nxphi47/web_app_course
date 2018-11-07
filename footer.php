@@ -17,7 +17,7 @@
     <div class="footer-list info">
         <h4 class="info">Pizzarino</h4>
         <p class="info">
-            We are the best pizza store in the world asdmaf ask fklsa fasklf saklf aslk falsk fkl asklf as.
+            We serve the best pizzas locally. Come try our dishes a la carte or as a set. Do check out our promotions for some great deals!
         </p>
         <div class="contact-info-wrapper">
             <div class="contact-info">
