@@ -12,8 +12,6 @@ function getPlaceHolder(item) {
 
 function templateOrderItem(
     cart_id,
-    // item,
-    // quantity,
     order_item,
     onQuantityChange,
     onRemove,

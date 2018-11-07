@@ -67,38 +67,6 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
     <div class="cart-wrapper">
         <div class="cart-content" id="cart-content-wrapper"></div>
         <div class="cart-summary" id="cart-summary">
-<!--            <div class="info" id="deliver">-->
-<!--                <h3>Delivery</h3>-->
-<!--                <form id="delivery" class="dev">-->
-<!--                    <div class="row">-->
-<!--                        <label for="dev_name">Name</label>-->
-<!--                        <input type="text"-->
-<!--                               id="dev_name"-->
-<!--                               name="dev_name"-->
-<!--                               onkeyup="deliveryKeyup('dev_name')"-->
-<!--                               placeholder="Your name"-->
-<!--                        >-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <label for="dev_phone">Phone</label>-->
-<!--                        <input type="number"-->
-<!--                               id="dev_phone"-->
-<!--                               name="dev_phone"-->
-<!--                               onkeyup="deliveryKeyup('dev_phone')"-->
-<!--                               placeholder="e.g: 12345678"-->
-<!--                        >-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <label for="dev_address">Address</label>-->
-<!--                        <input type="text" id="dev_address" name="dev_address" onkeyup="deliveryKeyup('dev_address')" placeholder="e.g: Block 39, NTU">-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <label for="postal">Postal</label>-->
-<!--                        <input type="text" id="postal" name="postal" onkeyup="deliveryKeyup('postal')" placeholder="e.g: 637717">-->
-<!--                    </div>-->
-<!--                </form>-->
-<!---->
-<!--            </div>-->
             <div class="info" id="order">
                 <h3>Order Summary</h3>
                 <table>

@@ -11,9 +11,6 @@
     <img src="imgs/up.png" alt="Top" width="30">
 </button>
 <footer>
-<!--    <hr>-->
-<!--    <br>-->
-<!--    © Pizzarino<br>-->
     <div class="footer-list info">
         <h4 class="info">Pizzarino</h4>
         <p class="info">
@@ -64,8 +61,6 @@
         ?>
         <li><a class="generic-anchor footer-list-anchor" href="cart.php">Cart</a></li>
     </ul>
-
-r
 </footer>
 
 

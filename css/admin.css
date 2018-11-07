@@ -10,8 +10,15 @@ table.admin-order-items tr:nth-child(odd) {
     background-color: #eeeeee;
 }
 
+table tr.total {
+    background-color: #9ed8ee;
+}
+
 
 table.admin-order-items th {
     background-color: #00b5ec;
     color: white;
 }
+
+
+

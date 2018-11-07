@@ -43,13 +43,6 @@ $accessCards = new AccessCreditCard();
 
 $update_item_ok = true;
 if (isset($_POST['change_item'])) {
-//    <input type='hidden' value=\"{$item['id']}\" name='id'>
-//    <td><input type='text' id=\"title-{$item['id']}\" name='title' value=\"{$item['title']}\"></td>
-//    <td><input type='text' id=\"type-{$item['id']}\" name='type' value=\"{$item['type']}\"></td>
-//    <td><input type='number' id=\"price-{$item['id']}\" name='price' value=\"{$item['price']}\"></td>
-//    <td><input type='number' id=\"promoted_price-{$item['id']}\" name='promoted_price' value=\"{$item['promoted_price']}\"></td>
-//    <td><input type='text' id=\"desc-{$item['id']}\" name='desc' value=\"{$item['desc']}\"></td>
-//    <td><input type='submit' class='button' value='change_item' onclick=\"onsubmitItemChange({$item['id']})\"></td>
     $data = $_POST;
     $item_id = $_POST['id'];
     $new_item = array(
@@ -129,7 +122,7 @@ if (!$update_item_ok) {
                                 ";
                             }
                             echo "
-                                <tr>
+                                <tr class=\"total\">
                                     <td>All types</td>                           
                                     <td>{$report['total_report'][0]['item_count']}</td>                           
                                     <td>{$report['total_report'][0]['sale']}</td>                           

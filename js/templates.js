@@ -506,7 +506,6 @@ function templateSlideShow(where_id, slideShows) {
 
     let dots = document.getElementsByClassName("dot");
     for (let i = 0; i < dots.length; i++) {
-        // console.log(dots[i]);
         dots[i].onclick = function () {
             currentSlide(i);
         };
@@ -640,7 +639,6 @@ function slideItemBanner(item, where_id) {
 }
 
 function bindHandlersSlideItemBanner(item, where_id, on_add_cart = null) {
-    // console.log(item);
     return bindHandlersItemBanner(
         item, where_id, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
         slide_modal_temp, slide_modal_close_temp, slide_modal_add_cart_temp, on_add_cart
