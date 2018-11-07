@@ -52,6 +52,12 @@ var_dump($_POST);
 if (isset($_POST['login'])) {
     $uname = mysqli_real_escape_string($GLOBALS['conn'], $_POST['uname']);
     $password = mysqli_real_escape_string($GLOBALS['conn'], $_POST['password']);
+
+    if (!get_magic_quotes_gpc()) {
+        $uname = addcslashes($uname);
+        $password = addcslashes($password);
+    }
+
     $errors = validate($uname, $password);
     if (count($errors) == 0) {
         if ($accessUser->loginWithUnamePass($uname, $password)) {
