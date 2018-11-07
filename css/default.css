@@ -1,13 +1,3 @@
-/* General CSS */
-
-/*
-color management
-header foot:
-    background: floralwhite
-    link: black
-
-highlight: #008CBA
-*/
 
 body {
     height: 100%;
@@ -26,10 +16,8 @@ div.content {
     background-color: #008CBA; /* Green */
     color: white;
 
-    /*border: none;*/
     border: 2px solid #008CBA;
 
-    /*padding: 16px 32px;*/
     padding: 8px 16px;
     text-align: center;
     text-decoration: none;
@@ -42,7 +30,6 @@ div.content {
 
     box-sizing: border-box;
 
-    /*border-radius: 5%;*/
     border-radius: 10px;
 }
 
@@ -52,12 +39,10 @@ div.content {
 }
 
 .button:disabled {
-    /*background-color: #4CAF50;*/
     opacity: 0.6;
 }
 
 .button:disabled:hover {
-    /*background-color: #4CAF50;*/
     opacity: 0.6;
     background-color: #008CBA; /* Green */
     color: white;
@@ -83,7 +68,6 @@ div.content {
 /* Header footer CSS*/
 
 header {
-    /*to on top*/
     position: fixed;
     top: 0;
     left: 0;
@@ -94,15 +78,10 @@ header {
 nav ul.nav {
     list-style-type: none;
     margin: 0;
-    padding: 0;
-    padding-top: 2em;
+    padding: 2em 0 0;
     overflow: hidden;
     background-color: floralwhite;
     height: 4em;
-    /*to on top*/
-    /*position: fixed;*/
-    /*top: 0;*/
-    /*width: 100%;*/
     border-bottom: 2px solid red;
 }
 
@@ -124,7 +103,6 @@ nav ul.nav li a {
 }
 
 nav ul.nav li a.logo.main-logo img {
-    /*display: block;*/
     width: 150px;
     height: 70px;
     margin-top: -20px;
@@ -137,11 +115,9 @@ div.cart-label-info {
 }
 
 nav ul.nav li a span.num-items {
-    /*vertical-align: top;*/
 }
 
 nav ul.nav li a span.total-price {
-    /*vertical-align: bottom;*/
 }
 
 nav ul.nav li a .acc-info {
@@ -163,7 +139,6 @@ nav ul.nav li a:hover:not(.active) {
 }
 
 .active {
-    /*background-color: #4CAF50;*/
     background-color: #008CBA;
     color: white;
 }
@@ -196,15 +171,12 @@ nav ul.nav li a.logo.main-logo:hover {
     nav.navbar ul.nav li.icon {
         float: right;
         display: block;
-        /*margin-top: 0.5em;*/
 
     }
     nav.navbar ul.nav li.icon a {
         padding: 5px 5px;
     }
-/*}*/
 
-/*@media screen and (max-width: 900px) {*/
     nav.navbar.nav-responsive {
         position: relative;
     }
@@ -246,14 +218,9 @@ footer {
     display: block;
     background-color: floralwhite;
     color: black;
-    padding: 14px 12px;
     text-decoration: none;
 
-    /*fixed footer*/
     width: 100%;
-    /*position: fixed;*/
-    /*left: 0;*/
-    /*bottom: 0;*/
     padding: 0;
     margin: 0;
     border-top: 2px solid red;
@@ -355,84 +322,6 @@ footer {
     width: 100%;
 }
 
-/*$primary-light-blue: #8DB9ED;*/
-/*$primary-line-color: #ccc;*/
-
-/*.flex-rw {*/
-    /*display: flex;*/
-    /*flex-flow: row wrap;*/
-/*}*/
-
-/*.footer-list-top {*/
-    /*width: 33.333%*/
-/*}*/
-/*.footer-list-top > li {*/
-    /*text-align: center;*/
-    /*padding-bottom: 10px*/
-/*}*/
-/*.footer-list-header {*/
-    /*padding: 10px 0 5px 0;*/
-    /*color: #fff;*/
-    /*font: 2.3vw "Oswald", sans-serif*/
-/*}*/
-/*.footer-list-anchor {*/
-    /*font: 1.3em "Open Sans", sans-serif*/
-/*}*/
-/*.footer-social-section {*/
-    /*width: 100%;*/
-    /*align-items: center;*/
-    /*justify-content: space-around;*/
-    /*position: relative;*/
-    /*margin-top: 5px;*/
-/*}*/
-/*.footer-social-section::after {*/
-    /*content: "";*/
-    /*position: absolute;*/
-    /*z-index: 1;*/
-    /*top: 50%;*/
-    /*left: 10px;*/
-    /*border-top: 1px solid #8DB9ED;*/
-    /*width: calc(100% - 20px)*/
-/*}*/
-/*.footer-social-overlap {*/
-    /*position: relative;*/
-    /*z-index: 2;*/
-    /*background: rgb(55,55,55);*/
-    /*padding: 0 20px*/
-/*}*/
-/*.footer-social-connect {*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*font: 3.5em "Oswald", sans-serif;*/
-    /*color: #fff*/
-/*}*/
-/*.footer-social-small {*/
-    /*font-size: 0.6em;*/
-    /*padding: 0px 20px*/
-/*}*/
-/*.footer-social-overlap > a {*/
-    /*font-size: 3em*/
-/*}*/
-/*.footer-social-overlap > a:not(:first-child) {*/
-    /*margin-left: 0.38em*/
-/*}*/
-/*.footer-bottom-section {*/
-    /*width: 100%;*/
-    /*padding: 10px;*/
-    /*border-top: 1px solid #ccc;*/
-    /*margin-top: 10px*/
-/*}*/
-/*.footer-bottom-section > div:first-child {*/
-    /*margin-right: auto*/
-/*}*/
-/*.footer-bottom-wrapper {*/
-    /*font-size: 1.5em;*/
-    /*color: #fff*/
-/*}*/
-/*.footer-address {*/
-    /*display: inline;*/
-    /*font-style: normal*/
-/*}*/
 
 
 /* -------------------- TABS -------------------------------*/
@@ -501,23 +390,15 @@ form.search button {
     height: auto;
     margin: 0;
     padding: 5px;
-    /*background: #2196F3;*/
-    /*color: white;*/
     font-size: 17px;
     border: 1px solid grey;
     border-left: none;
     cursor: pointer;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0px;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 0px 10px 10px 0;
 }
 form.search button img {
     height: auto;
 }
-/*form.search button:hover {*/
-    /*background: #0b7dda;*/
-/*}*/
 
 form.search::after {
     content: "";
@@ -546,7 +427,6 @@ div.quantity {
 }
 
 .quantity input {
-    /*width: 45px;*/
     width: 100%;
     height: 42px;
     line-height: 1.65;
@@ -607,7 +487,6 @@ div.quantity {
 div.responsive {
     padding: 3px 6px;
     float: left;
-    /*width: 24.99999%;*/
     margin-bottom: 30px;
     margin-left: 1%;
     margin-right: 1%;
@@ -622,7 +501,6 @@ div.responsive {
 @media only screen and (max-width: 700px) {
     div.responsive {
         width: 47.99999%;
-        /*margin: 6px 0;*/
     }
     .dot-line {
         display: none;
@@ -681,14 +559,12 @@ div.item-banner {
 }
 
 div.responsive, div.item-banner {
-    /*box-sizing: border-box*/
     box-sizing: border-box;
 }
 
 div.desc {
     display: block;
     text-align: center;
-    /*overflow: auto;*/
     width: 100%;
 }
 
@@ -700,9 +576,6 @@ span.desc {
     margin-bottom: 10px;
     margin-top: 10px;
     width: 100%;
-    /*border: 2px solid transparent;*/
-    /*padding: 8px 16px;*/
-    /*margin: 4px 2px;*/
 }
 
 
@@ -748,7 +621,6 @@ span.desc span.note {
 
 button.button.desc {
     display: block;
-    /*float: right;*/
     width: 100%;
     margin: 0;
 }
@@ -794,12 +666,9 @@ div.modal {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    /*overflow: hidden; !* Enable scroll if needed *!*/
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
-    /*-webkit-transition-duration: 0.4s; !* Safari *!*/
-    /*transition-duration: 0.4s;*/
 
     -webkit-animation-name: fade;
     -webkit-animation-duration: 0.2s;
@@ -809,8 +678,6 @@ div.modal {
 
 div.modal.display {
     display: block;
-    /*overflow: auto;/*/
-    /*position: fixed;*/
 }
 
 .modal-open {
@@ -824,19 +691,12 @@ div.modal.display {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    /*margin: 15% auto; !* 15% from the top and centered *!*/
-    margin-top: 10em;
-    margin-bottom: 10em;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 10em auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-    /*width: 51%; !* Could be more or less, depending on screen size *!*/
     border-radius: 20px;
 
-    /*-webkit-transition-duration: 0.4s; !* Safari *!*/
-    /*transition-duration: 0.4s;*/
 }
 
 /* The Close Button */
@@ -947,7 +807,6 @@ div.slideshow-wrapper {
 
 /* Slideshow container */
 div.slideshow {
-    /*max-width: 1000px;*/
     position: relative;
     margin: auto;
     height: 400px;
@@ -994,7 +853,6 @@ a.prev:hover, a.next:hover {
 
 /* Caption text */
 div.caption {
-    /*color: #f2f2f2;*/
     color: #008CBA;
     font-size: 5em;
     font-weight: bold;
@@ -1239,9 +1097,7 @@ form label, select {
     width: 25%;
     margin-top: 6px;
 
-
-    padding: 12px 12px 12px 0;
-    padding-right: 2px;
+    padding: 12px 2px 12px 0;
     display: inline-block;
 }
 
@@ -1252,9 +1108,7 @@ form input, textarea, td input, select {
 
 
     /*width: 100%;*/
-    padding: 12px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 12px 5px;
     border: 1px solid #ccc;
     border-radius: 10px;
     resize: vertical;
@@ -1267,8 +1121,6 @@ form .button {
 }
 
 
-/* Clear floats after the columns */
-/* FIXME: what is this!*/
 form .row:after {
     content: "";
     display: table;

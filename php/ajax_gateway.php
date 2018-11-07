@@ -1,13 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 9:32 PM
- */
-
-//require_once "php/db_connect.php";
-//require_once "php/request.php";
 
 require_once "db_connect.php";
 require_once "request.php";

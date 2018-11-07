@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/24/18
- * Time: 10:48 PM
- */
 
 $GLOBALS['response'] = new stdClass();
 $GLOBALS['response']->isSuccess = true;

@@ -5,7 +5,7 @@ Support functions.....
 
 function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_gateway.php", async=false) {
     /*
-    Usuall php/ajax_gateway.php
+    used with php/ajax_gateway.php
      */
     const xmlhttp = new XMLHttpRequest();
 
@@ -22,7 +22,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
             let responseObject = null;
             try {
                 responseObject = JSON.parse(this.responseText);
-                console.log(responseObject);
                 if (responseObject.isSuccess) {
                     callback(responseObject.data);
                 }
@@ -46,7 +45,6 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 
 
 function validateEmail(string) {
-    // var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
     var emailRegex = /^[\w-.]+@[A-Za-z]+/;
     return (typeof string === 'string' || string instanceof String) && emailRegex.test(string);
 }

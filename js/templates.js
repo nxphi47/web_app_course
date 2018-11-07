@@ -54,7 +54,6 @@ function templateItemBanner(
     modal_close_temp = "item_modal_close",
     modal_add_cart_temp = "add_cart_modal",
 ) {
-    // item.id, item.title, item.price, item.note, item.desc, item.thumbnail, item.images,
     let {id, title, price, desc, unit, thumbnail, images, promoted_price, diet} = item;
 
     thumbnail = `thumbnails/${thumbnail}`;
@@ -360,8 +359,6 @@ function autoSlide(nextSlide, interval = 5000) {
 
 // Slide show for promotions
 function templateSlide(index, slide, totalSlides) {
-    // let {id, caption, link, img_url} = slide;
-    // let {id, title, } = slide;
     let {id, title, price, desc, unit, thumbnail, images, promoted_price, diet} = slide;
     let img_url = "images/" + images;
     const where_id = "slide-show";
@@ -402,7 +399,6 @@ function templateSlide(index, slide, totalSlides) {
     </div>
     </div>
     `;
-// <a target="_blank" href="${link}"><img class="slide-img" src="${img_url}"></a>
 
     return template
 }
@@ -512,17 +508,11 @@ function templateSlideShow(where_id, slideShows) {
     }
 
     showSlides(currentIndex);
-    // let auto_slide = autoSlide(() => {
-    //     plusSlides(1)
-    // }, 5000);
-    let auto_slide = null;
-    return auto_slide;
+    return null;
 }
 
 // Slide show for Quotes
 function templateQuoteSlide(index, slide, totalSlides) {
-    // let {id, author, quote} = slide;
-    // let {id, user_id, }
     let {id, user_id, stars, note} = slide;
 
     let template = `

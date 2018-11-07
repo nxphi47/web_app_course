@@ -1,58 +1,9 @@
 
-
-// Testing
-console.log("testing");
-
-console.log("testing item list");
-
-
-function generateFakeItemData(size) {
-    let dataList = [];
-    for (let i =0; i < size; i++) {
-        let item = {
-            id: i,
-            title: `Pizza ${i}`,
-            price: i * 10 + 1,
-            note: `per piece`,
-            desc: `This is the pizza of the best of the best This is the pizza of 
-            the best of the best This is the pizza of the best of the best 
-            This is the pizza of the best of the best This is the pizza 
-            of the best of the best This is the pizza of the best of 
-            the best This is the pizza of the best of the best This is 
-            the pizza of the best of the best This is the pizza of the best of the best
-             This is the pizza of the best of the best This is the pizza of the best of the best `,
-            img_url: `imgs/pizza_test.jpg`,
-            thumbnail: `imgs/pizza_test.jpg`,
-        };
-
-        dataList.push(item);
-    }
-
-    return dataList;
-}
-
-function generateFakeSlideData(size) {
-    let dataList = [];
-    for (let i =0; i < size; i++) {
-        let item = {
-            id: i,
-            caption: `Pizza Caption ${i} good good!`,
-            price: i * 10 + 1,
-            img_url: (i % 2 === 0?`imgs/pizza_test.jpg`:`imgs/pizza_test_2.jpeg`),
-            link: `www.google.com`
-        };
-
-        dataList.push(item);
-    }
-
-    return dataList;
-}
-
-
 let main_menu = rootData.menu;
 
+let promotions = main_menu.filter((x) => x.type.toLowerCase() === 'promotion');
 
-let auto_slide = templateSlideShow(`slideshow-wrapper`, main_menu);
+let auto_slide = templateSlideShow(`slideshow-wrapper`, promotions);
 
 
 quoteSlideShows(`quote-slideshow-wrapper`, rootData.feedback);

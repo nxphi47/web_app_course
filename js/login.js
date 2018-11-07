@@ -156,10 +156,3 @@ function openTab(event, tabName) {
     html_obj.bindHandler();
 }
 
-// document.getElementById("default-tab").click();
-
-// validateLogin();/*
-// validateSignup();*/
-
-
-

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
- */
 
 // include libraries
 require_once "php/db_connect.php";
@@ -37,13 +31,10 @@ include "session_init.php";
 <?php
 
 include "header.php";
-//$accessUser = new AccessUsers();
 
-$root_data = array(//    "menu"=>$all_menus
-);
+$root_data = array();
 $json = json_encode($root_data);
 
-//echo $all_menus;
 echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
 
 function validate($data) {
@@ -74,7 +65,6 @@ if (isset($_POST['signup'])) {
         $accessUser->attrs = $data;
         if ($accessUser->insert()) {
             $user = $accessUser->getAllById($accessUser->insertedID);
-//            $accessUser->loginWithData($user);
             sendSignupConfirmEmail($user);
             $success = true;
             header("Location: {$_SERVER['PHP_SELF']}?success=1");

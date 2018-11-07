@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:53 PM
- */
+
 ?>
 
 <button onclick="topFunction()" class="button to-top" id="toTop" title="Go to top">

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/4/18
- * Time: 6:07 PM
- */
 
 require_once "php/db_connect.php";
 require_once "php/request.php";
@@ -51,7 +45,6 @@ $root_data = array(
     "cart"=>$GLOBALS['cart']
 );
 $json = json_encode($root_data);
-//echo $all_menus;
 echo "<script> var rootData = JSON.parse('". $json. "');</script>";
 
 ?>
