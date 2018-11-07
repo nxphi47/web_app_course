@@ -14,16 +14,18 @@ function templateQuantitySpinner(id_temp, quantity) {
     return template;
 }
 
-function quantitySpinnerHandler(id_temp, onQuantityChange=null, onRemove=null) {
+function quantitySpinnerHandler(id_temp, onQuantityChange = null, onRemove = null) {
     const quantity_up = document.getElementById(`quantity-up-${id_temp}`);
     const quantity_down = document.getElementById(`quantity-down-${id_temp}`);
     const quantity_input = document.getElementById(`quantity-input-${id_temp}`);
     const remove_button = document.getElementById(`remove-button-${id_temp}`);
     if (!onQuantityChange) {
-        onQuantityChange = function (x) {}
+        onQuantityChange = function (x) {
+        }
     }
     if (!onRemove) {
-        onRemove = function (x) {}
+        onRemove = function (x) {
+        }
     }
 
     quantity_up.onclick = function () {
@@ -90,7 +92,7 @@ function templateItemBanner(
                         ${dietTemp}
                     </span>
                     <div class="price-tag">
-                        <span class="price${promoted_price > 0 ? ' minus': ''}">$${price}</span>
+                        <span class="price${promoted_price > 0 ? ' minus' : ''}">$${price}</span>
                         <span class="promoted-price" style="display: ${promoted_price > 0 ? 'inline-block' : 'none'};">$${promoted_price}</span>
                     </div>
                     
@@ -147,7 +149,7 @@ function updateCartLabel() {
     let currentCart = rootData.cart;
     let num_items = 0;
     currentCart.order_items.forEach((order, index) => {
-       num_items += order.quantity;
+        num_items += order.quantity;
     });
     updateCart(currentCart);
     document.getElementById("num_items").innerHTML = num_items.toString();
@@ -155,7 +157,7 @@ function updateCartLabel() {
 
 }
 
-function updateCurrentCart(cart=null, callback=null) {
+function updateCurrentCart(cart = null, callback = null) {
     updateCart(cart);
 
     ajax_post("add_to_cart", cart, function (new_cart) {
@@ -174,7 +176,7 @@ function displayCartUpdate() {
 }
 
 
-function addToCart(item, callback=null) {
+function addToCart(item, callback = null) {
     let currentCart = rootData.cart;
     let menu = rootData.menu;
     if (currentCart.order_items.map((x) => x.item.id).includes(item.id)) {
@@ -202,7 +204,7 @@ function bindHandlersItemBanner(
     modal_temp = "item_modal",
     modal_close_temp = "item_modal_close",
     modal_add_cart_temp = "add_cart_modal",
-    on_add_cart=null,
+    on_add_cart = null,
 ) {
     let onClickImg = function () {
         let modal = document.getElementById(`${where_id}_${modal_temp}_${item.id}`);
@@ -225,59 +227,105 @@ function bindHandlersItemBanner(
     document.getElementById(`${where_id}_${modal_close_temp}_${item.id}`).onclick = onModalClose;
 }
 
-function componentItemList(where_id, data_list, display_diet=true) {
+function componentItemList(where_id, data_list, display_diet = true) {
     let itemListTemplate = `
-    <div>
-    <div class="menu-filter" ${!display_diet ? 'style="display: none;"': ''}>
-        <span class="menu-filter-label">Filter:</span>
-        <button class="button button-menu-filter" id="${where_id}-filter-veg">
-            Vegetarian
-            <img src="imgs/vegan.jpeg" width="20" height="20">
-        </button>
-        <button class="button button-menu-filter" id="${where_id}-filter-halal">
-            Halal
-            <img src="imgs/halal.png" width="20" height="20">
-        </button>
-    </div>
+    <div class="menu-control">
+        <div class="menu-filter">
+            <span class="menu-filter-label">Sort:</span>
+            <button class="button button-menu-filter" id="${where_id}-sort_button_low_high">
+                Low to high
+            </button>
+            <button class="button button-menu-filter" id="${where_id}-sort_button_high_low">
+                High to Low
+            </button>
+            
+        </div>
+        <div class="menu-filter" ${!display_diet ? 'style="display: none;"' : ''}>
+            <span class="menu-filter-label">Filter:</span>
+            <button class="button button-menu-filter" id="${where_id}-filter-veg">
+                Vegetarian
+                <img src="imgs/vegan.jpeg" width="20" height="20">
+            </button>
+            <button class="button button-menu-filter" id="${where_id}-filter-halal">
+                Halal
+                <img src="imgs/halal.png" width="20" height="20">
+            </button>
+        </div>
     </div>
     
     <div id="${where_id}-item-list"></div>
     `;
-    let currentIndex = 0;
 
-    let bindFilterButton = function(element, filter_index, remove_active_elements) {
+    let currentDietIndex = 0;
+    let currentSortIndex = 0; //
+
+    let bindFilterButton = function (element, filter_index, remove_active_elements) {
         element.onclick = function () {
-            console.log(`filter: ${filter_index}, current = ${currentIndex}`);
-            if (currentIndex === filter_index) {
-                currentIndex = 0;
+            if (currentDietIndex === filter_index) {
+                currentDietIndex = 0;
                 element.classList.remove('active');
             }
             else {
-                currentIndex = filter_index;
+                currentDietIndex = filter_index;
                 element.classList.add('active');
                 remove_active_elements.forEach((x) => x.classList.remove('active'));
             }
-            generateItemList(currentIndex);
+            generateItemFilterList();
         };
     };
 
-    let filterHanlder = function() {
-        let veg_button = document.getElementById(`${where_id}-filter-veg`);
-        let halal_button = document.getElementById(`${where_id}-filter-halal`);
-        bindFilterButton(veg_button, 1, [halal_button]);
-        bindFilterButton(halal_button, 2, [veg_button]);
+    let bindSortButton = function (element, sort_index, remove_active_elements) {
+        element.onclick = function () {
+            if (currentSortIndex === sort_index) {
+                currentSortIndex = 0;
+                element.classList.remove('active');
+            }
+            else {
+                currentSortIndex = sort_index;
+                element.classList.add('active');
+                remove_active_elements.forEach((x) => x.classList.remove('active'));
+            }
+            generateItemFilterList();
+        }
     };
 
-    let generateItemList = function(filter_index) {
-        let filteredMenu;
-        if (filter_index === 0) {
-            filteredMenu = data_list;
+    let controlHandler = function () {
+        let veg_button = document.getElementById(`${where_id}-filter-veg`);
+        let halal_button = document.getElementById(`${where_id}-filter-halal`);
+        let high_low_button = document.getElementById(`${where_id}-sort_button_high_low`);
+        let low_high_button = document.getElementById(`${where_id}-sort_button_low_high`);
+        bindFilterButton(veg_button, 1, [halal_button]);
+        bindFilterButton(halal_button, 2, [veg_button]);
+
+        bindSortButton(low_high_button, 1, [high_low_button]);
+        bindSortButton(high_low_button, 2, [low_high_button]);
+    };
+
+    let generateItemFilterList = function () {
+        let filteredMenu = JSON.parse(JSON.stringify(data_list));
+        // let filteredMenu;
+        if (currentDietIndex !== 0) {
+            // filteredMenu = data_list;
+            filteredMenu = data_list.filter((x) => x.diet === currentDietIndex);
         }
-        else {
-            // veg
-            filteredMenu = data_list.filter((x) => x.diet === filter_index);
+
+        if (currentSortIndex === 1) {
+            // low to high
+            filteredMenu = filteredMenu.sort((a, b) =>
+                Math.min(a.price, a.promoted_price > 0 ? a.promoted_price : 100000) - Math.min(b.price, b.promoted_price > 0 ? b.promoted_price : 1000000))
         }
-        let itemHtmls = filteredMenu.map(function (item) {
+        else if (currentSortIndex === 2) {
+            // high to low
+            filteredMenu = filteredMenu.sort((a, b) =>
+                Math.min(b.price, b.promoted_price > 0 ? b.promoted_price : 100000) - Math.min(a.price, a.promoted_price > 0 ? a.promoted_price : 1000000))
+        }
+
+        generateItems(filteredMenu)
+    };
+
+
+    let generateItems = function (data) {
+        let itemHtmls = data.map(function (item) {
             return templateItemBanner(item, where_id);
         }).join("");
 
@@ -288,17 +336,18 @@ function componentItemList(where_id, data_list, display_diet=true) {
         <div class="clearfix"></div>
         `;
         document.getElementById(`${where_id}-item-list`).innerHTML = componentListTemplate;
-        filteredMenu.forEach(function (item) {return bindHandlersItemBanner(item, where_id)});
+        data.forEach(function (item) {
+            return bindHandlersItemBanner(item, where_id)
+        });
     };
 
 
     // actually binding
     document.getElementById(where_id).innerHTML = itemListTemplate;
     // functions
-    filterHanlder();
-    generateItemList(currentIndex);
+    controlHandler();
+    generateItemFilterList();
 
-    // return componentListTemplate;
 }
 
 
@@ -405,11 +454,15 @@ function templateSlideShow(where_id, slideShows) {
     let dots = document.getElementsByClassName("dot");
     for (let i = 0; i < dots.length; i++) {
         // console.log(dots[i]);
-        dots[i].onclick = function () {currentSlide(i);};
+        dots[i].onclick = function () {
+            currentSlide(i);
+        };
     }
 
     showSlides(currentIndex);
-    let auto_slide = autoSlide(() => {plusSlides(1)}, 5000);
+    let auto_slide = autoSlide(() => {
+        plusSlides(1)
+    }, 5000);
     return auto_slide;
 }
 
@@ -532,7 +585,7 @@ function slideItemBanner(item, where_id) {
     );
 }
 
-function bindHandlersSlideItemBanner(item, where_id, on_add_cart=null) {
+function bindHandlersSlideItemBanner(item, where_id, on_add_cart = null) {
     // console.log(item);
     return bindHandlersItemBanner(
         item, where_id, slide_banner_temp, slide_img_temp, slide_add_cart_temp,
@@ -543,7 +596,9 @@ function bindHandlersSlideItemBanner(item, where_id, on_add_cart=null) {
 function templateSlideItemBanner(where_id, index, itemList) {
 
     // console.log(itemList);
-    let itemBanners = itemList.map(function (item) {return slideItemBanner(item, where_id)}).join("");
+    let itemBanners = itemList.map(function (item) {
+        return slideItemBanner(item, where_id)
+    }).join("");
     // console.log(itemBanners);
     let template = `
     <div class="item-slide">
@@ -563,7 +618,7 @@ function templateSlideItemDot(where_id, index, slide) {
     return template;
 }
 
-function itemBannersSlideShows(where_id, highlightItems, on_add_cart=null) {
+function itemBannersSlideShows(where_id, highlightItems, on_add_cart = null) {
 
     let itemSetSlides = [];
     let currentSlide = [];
@@ -611,8 +666,12 @@ function itemBannersSlideShows(where_id, highlightItems, on_add_cart=null) {
         let dots = document.getElementsByClassName("item-slide-dot");
 
 
-        if (num > itemSetSlides.length - 1) {currentIndex = 0}
-        if (num < 0) {currentIndex = itemSetSlides.length - 1}
+        if (num > itemSetSlides.length - 1) {
+            currentIndex = 0
+        }
+        if (num < 0) {
+            currentIndex = itemSetSlides.length - 1
+        }
 
         for (let slide of slides) {
             slide.style.display = "none";
@@ -642,15 +701,23 @@ function itemBannersSlideShows(where_id, highlightItems, on_add_cart=null) {
 
 
     // bind events
-    document.getElementById(`item_prev_button`).onclick = function () {plusSlides(-1)};
-    document.getElementById(`item_next_button`).onclick = function () {plusSlides(1)};
+    document.getElementById(`item_prev_button`).onclick = function () {
+        plusSlides(-1)
+    };
+    document.getElementById(`item_next_button`).onclick = function () {
+        plusSlides(1)
+    };
 
     let dots = document.getElementsByClassName("item-slide-dot");
     for (let i = 0; i < dots.length; i++) {
-        dots[i].onclick = function () {openCurrentSlide(i)};
+        dots[i].onclick = function () {
+            openCurrentSlide(i)
+        };
     }
 
-    highlightItems.forEach(function (item) {return bindHandlersSlideItemBanner(item, where_id, on_add_cart)});
+    highlightItems.forEach(function (item) {
+        return bindHandlersSlideItemBanner(item, where_id, on_add_cart)
+    });
 }
 
 

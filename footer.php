@@ -49,6 +49,7 @@
         <li><a class="generic-anchor footer-list-anchor" href="menu.php?tab=pizza">Pizza</a></li>
         <li><a class="generic-anchor footer-list-anchor" href="menu.php?tab=pasta">Pasta</a></li>
         <li><a class="generic-anchor footer-list-anchor" href="menu.php?tab=beverage">Beverage</a></li>
+        <li><a class="generic-anchor footer-list-anchor" href="menu.php?tab=promotion">Promotions</a></li>
     </ul>
     <ul class="footer-list">
         <li><h4>Account</h4></li>

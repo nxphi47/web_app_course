@@ -1,11 +1,11 @@
 function getPlaceHolder(item) {
     switch (item.type.toLowerCase()) {
         case "pizza":
-            return "Thickness, add chili, ....";
+            return "Comment: Thickness, chili....";
         case 'beverage':
-            return "Hot or normal...";
+            return "Comment: Hot, cold...";
         default:
-            return "Comment...";
+            return "Comment: ...";
     }
 }
 
@@ -19,7 +19,7 @@ function templateOrderItem(
     onRemove,
 ) {
     let {item, quantity, comment} = order_item;
-    let {id, title, price, note, desc, thumbnail, images, promoted_price} = item;
+    let {id, title, price,unit, note, desc, thumbnail, images, promoted_price} = item;
 
     let id_temp = `cart_${cart_id}-id_${id}`;
 
@@ -27,6 +27,7 @@ function templateOrderItem(
     let description = desc.substring(0, max_char_len) + (desc.length <= max_char_len ? "" : "...");
 
     thumbnail = `thumbnails/${thumbnail}`;
+    let image = `images/${images}`;
     let quantitySpinner = templateQuantitySpinner(id_temp, quantity);
 
     let placeholder = getPlaceHolder(item);
@@ -52,7 +53,7 @@ function templateOrderItem(
     let template = `
     <li class="cart-item" id="item-${id_temp}">
         <div class="cart-item-content">
-            <img class="cart-item-img" src="${thumbnail}" alt="Not found" width="150" height="100">
+            <img class="cart-item-img" id="${cart_id}_${id_temp}_img" src="${thumbnail}" alt="Not found" width="150" height="100">
             <div class="cart-item-description">
                 <h2>${title}</h2>
                 <input type="text" 
@@ -62,8 +63,30 @@ function templateOrderItem(
                         value="${comment}" 
                         placeholder="${placeholder}">
             </div>
-            
         </div>
+        <div id="${cart_id}_${id_temp}_modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="${cart_id}_${id_temp}_modal_close">&times;</span>
+            <div class="modal-content-inside">
+                <div class="image">
+                    <img src="${image}" alt="Image Not found" width="600" height="400">
+                </div>
+                <div class="detail">
+                    <span class="title">${title}</span>
+                    <p>${desc}</p>
+                    <hr>
+                    <div class="control">
+                        <div class="pricing">
+                            <span class="price">$${price}</span>
+                            <span class="note">per ${unit}</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    
+    </div>
         <div class="cart-item-control">
             ${price_tag}
             ${quantitySpinner}
@@ -84,10 +107,23 @@ function templateOrderItem(
         }
     };
 
+    let onClickImg = function () {
+        let modal = document.getElementById(`${cart_id}_${id_temp}_modal`);
+        modal.classList.add("display");
+    };
+
+    let onModalClose = function () {
+        let modal = document.getElementById(`${cart_id}_${id_temp}_modal`);
+        modal.classList.remove("display");
+    };
+
     let bindingHandler = function () {
         quantitySpinnerHandler(id_temp, onQuantityChange, onRemove);
         document.getElementById(`comment-item-${id_temp}`).onkeyup = onKeyUpComment;
         document.getElementById(`comment-item-${id_temp}`).onkeypress = onKeyDownComment;
+        document.getElementById(`${cart_id}_${id_temp}_modal_close`).onclick = onModalClose;
+        document.getElementById(`${cart_id}_${id_temp}_img`).onclick = onClickImg;
+
     };
 
     return {
