@@ -63,7 +63,7 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
             <button class="tablinks" onclick="openTab(event, 'pizza')" id="pizza-tab">Pizza</button>
             <button class="tablinks" onclick="openTab(event, 'pasta')" id="pasta-tab">Pasta</button>
             <button class="tablinks" onclick="openTab(event, 'beverage')" id="beverage-tab">Beverage</button>
-            <button class="tablinks" onclick="openTab(event, 'promotion')" id="beverage-tab">Promotions</button>
+            <button class="tablinks" onclick="openTab(event, 'promotion')" id="promotion-tab">Promotions</button>
 
             <form class="search" onsubmit="return false;">
                 <input type="text" id="search_input" placeholder="Search.." name="search"

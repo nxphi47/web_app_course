@@ -48,29 +48,11 @@ function generateFakeSlideData(size) {
     return dataList;
 }
 
-function generateFakeSlideQuotes(size) {
-    let dataList = [];
-    for (let i =0; i < size; i++) {
-        let item = {
-            id: i,
-            author: `Xuan Phi ${i}`,
-            quote: `this is a very good product - ${i} !!!!!!`
-        };
-
-        dataList.push(item);
-    }
-
-    return dataList;
-}
-
-
-
 
 let main_menu = rootData.menu;
 
 
-
-let auto_slide = templateSlideShow(`slideshow-wrapper`, generateFakeSlideData(5));
+let auto_slide = templateSlideShow(`slideshow-wrapper`, main_menu);
 
 
 quoteSlideShows(`quote-slideshow-wrapper`, rootData.feedback);

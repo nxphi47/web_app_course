@@ -220,13 +220,24 @@ function componentCartInfo(where_id, cart) {
 
 function confirmModalTemplate(cart) {
     let user = rootData.user;
-    let credit_card = (rootData.credit_cards.length > 0) ? rootData.credit_cards[rootData.credit_cards.length - 1] : {
-        pay_name: "", pay_card_num: "", pay_card_expire: ""
-    };
-    let address = (rootData.addresses.length > 0) ? rootData.addresses[rootData.addresses.length - 1] : {
-        dev_name: "", dev_phone: "", dev_address: ""
-    };
-    console.log(credit_card);
+    let credit_card = {pay_name: "", pay_card_num: "", pay_card_expire: ""};
+    let address = {dev_name: "", dev_phone: "", dev_address: "", postal: ""};
+
+    if (rootData.credit_cards !== null && rootData.credit_cards.length > 0) {
+        credit_card = rootData.credit_cards[rootData.credit_cards.length - 1]
+    }
+    if (rootData.addresses !== null && rootData.addresses.length > 0) {
+        address = rootData.addresses[rootData.addresses.length - 1];
+    }
+
+    cart.pay_name = credit_card.pay_name;
+    cart.pay_card_num = credit_card.pay_card_num;
+    cart.pay_card_expire = credit_card.pay_card_expire;
+    cart.dev_name = address.dev_name;
+    cart.dev_address = address.dev_address;
+    cart.dev_phone = address.dev_phone;
+    cart.postal = address.postal;
+
 
     let template = `
     <div id="confirm" class="modal" style="display: block;">
@@ -305,7 +316,11 @@ function confirmModalTemplate(cart) {
                     </div>
                     <div class="row">
                         <label for="postal">Postal</label>
-                        <input type="text" id="postal" name="postal" onkeyup="deliveryKeyup('postal')" placeholder="e.g: 637717">
+                        <input type="text" 
+                                id="postal" 
+                                name="postal" 
+                                value="${address.postal}"
+                                onkeyup="deliveryKeyup('postal')" placeholder="e.g: 637717">
                     </div>
                 </form>
             </div>
@@ -313,7 +328,7 @@ function confirmModalTemplate(cart) {
     </div>
     `;
 
-    let form_keys = ['pay_name', 'pay_card_num', 'pay_card_expire', 'cv2'];
+    let form_keys = ['pay_name', 'pay_card_num', 'pay_card_expire', 'cv2', 'dev_name', 'dev_address', 'postal', 'dev_phone'];
 
     let onModalClose = function () {
         const modal = document.getElementById(`confirm`);
@@ -338,7 +353,35 @@ function confirmModalTemplate(cart) {
     function validate() {
         let valid = true;
         form_keys.forEach((k) => {
-            valid = valid && validateDateFuture(k);
+            // if (k === "pay_card_expire") {
+            //     valid = valid && validateDateFuture(k);
+            // } else
+            let value = cart[k];
+            switch (k) {
+                case "pay_card_expire":
+                    valid = valid && validateDateFuture(value);
+                    break;
+                case "cv2":
+                    valid = valid && validateCv2(value);
+                    break;
+                case "pay_name":
+                case "dev_name":
+                    valid = valid && validateRealName(value);
+                    break;
+                case 'pay_card_num':
+                    valid = valid && validateCardNum(value);
+                    break;
+                case "postal":
+                    valid = valid && validatePostal(value);
+                    break;
+                case "dev_phone":
+                    valid = valid && validatePhone(value);
+                    break;
+                case "dev_address":
+                    valid = valid && validateExperience(value);
+                    break;
+            }
+            console.log(`valid: ${k} - ${value} - ${valid}`);
         });
         document.getElementById("place_order").disabled = !valid;
     }
@@ -359,6 +402,7 @@ function confirmModalTemplate(cart) {
                 };
             }
             else {
+            // console.log(k);
                 document.getElementById(k).onkeyup = () => {
                     onKeyUp(k)
                 };

@@ -189,7 +189,7 @@ echo "<script> var rootData = JSON.parse('". $json. "');</script>";
                 </div>
                 <p class="terms">* Denotes required fields.<p>
                 <div class="row">
-                    <button class="button" type="submit" id="contact" name="career">Submit Question</button>
+                    <button class="button" type="submit" id="contact" name="contact">Submit Question</button>
                 </div>
             </form>
         </div>

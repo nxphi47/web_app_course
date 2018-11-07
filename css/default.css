@@ -947,7 +947,7 @@ div.slideshow-wrapper {
 
 /* Slideshow container */
 div.slideshow {
-    max-width: 1000px;
+    /*max-width: 1000px;*/
     position: relative;
     margin: auto;
     height: 400px;
@@ -963,6 +963,7 @@ img.slide-img {
     height: 400px;
     display: block;
     margin: auto;
+    width: 100%;
 }
 
 /* Next & previous buttons */
@@ -993,8 +994,10 @@ a.prev:hover, a.next:hover {
 
 /* Caption text */
 div.caption {
-    color: #f2f2f2;
-    font-size: 15px;
+    /*color: #f2f2f2;*/
+    color: #008CBA;
+    font-size: 5em;
+    font-weight: bold;
     padding: 8px 12px;
     position: absolute;
     bottom: 8px;

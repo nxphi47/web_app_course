@@ -40,7 +40,7 @@
         <li><h4>About</h4></li>
         <li><a class="generic-anchor footer-list-anchor" href="about.php">About us</a></li>
         <li><a class="generic-anchor footer-list-anchor" href="about.php?tab=faq">FAQ</a></li>
-        <li><a class="generic-anchor footer-list-anchor" href="about.php?tab=career">Careers</a></li>
+        <li><a class="generic-anchor footer-list-anchor" href="about.php?tab=careers">Careers</a></li>
         <li><a class="generic-anchor footer-list-anchor" href="about.php?tab=contact">Contact</a></li>
     </ul>
     <ul class="footer-list">
@@ -65,7 +65,7 @@
         <li><a class="generic-anchor footer-list-anchor" href="cart.php">Cart</a></li>
     </ul>
 
-
+r
 </footer>
 
 

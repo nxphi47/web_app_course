@@ -45,27 +45,29 @@ function ajax_post(request, obj, callback, callback_error=null, url="php/ajax_ga
 
 
 
-function validateEmail(email) {
+function validateEmail(string) {
     // var emailRegex = /^[\w-.]+@[A-Za-z]+(\.[A-za-z]+){0,2}\.[A-Za-z]{2,3}$/;
     var emailRegex = /^[\w-.]+@[A-Za-z]+/;
-    return emailRegex.test(email);
+    return (typeof string === 'string' || string instanceof String) && emailRegex.test(string);
 }
 
-function validateIc(ic) {
+function validateIc(string) {
     var regex = /^[STFG]\d{7}[A-Z]$/;
-    return regex.test(ic);
+    return (typeof string === 'string' || string instanceof String) && regex.test(string);
 }
 
-function validateUname(uname) {
-    return uname.length >= 4;
+function validateUname(string) {
+    let uname_regex = /^[A-Za-z0-9_]{1,100}$/;
+    return (typeof string === 'string' || string instanceof String) && string.length >= 4 && uname_regex.test(string);
 }
 
-function validatePassword(password) {
-    return password.length >= 6;
+function validatePassword(string) {
+    return (typeof string === 'string' || string instanceof String) && string.length >= 6;
 }
 
-function validateRealName(name) {
-    return name.length > 0;
+function validateRealName(string) {
+    let name_regex = /^[A-Za-z\s]{1,100}$/;
+    return (typeof string === 'string' || string instanceof String) && name_regex.test(string);
 }
 
 function validateDateFuture(date) {
@@ -78,11 +80,28 @@ function validateDateFuture(date) {
 }
 
 function validatePhone(phone) {
-    return phone.toString().length >= 8;
+    let phone_str = phone.toString();
+    return phone_str.length >= 8;
 }
 
-function validateExperience(exp) {
-    return exp.length > 1;
+function validatePostal(postal) {
+    let postal_str = postal.toString();
+    return postal_str.length === 6;
+}
+
+function validateCv2(string) {
+    let cv = string.toString();
+    return cv.length === 3;
+}
+
+function validateCardNum(string) {
+    let num = string.toString();
+    let regex = /^[0-9]{1,100}$/;
+    return regex.test(num);
+}
+
+function validateExperience(string) {
+    return (typeof string === 'string' || string instanceof String) && string.length > 1;
 }
 
 

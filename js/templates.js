@@ -360,15 +360,49 @@ function autoSlide(nextSlide, interval = 5000) {
 
 // Slide show for promotions
 function templateSlide(index, slide, totalSlides) {
-    let {id, caption, link, img_url} = slide;
+    // let {id, caption, link, img_url} = slide;
+    // let {id, title, } = slide;
+    let {id, title, price, desc, unit, thumbnail, images, promoted_price, diet} = slide;
+    let img_url = "images/" + images;
+    const where_id = "slide-show";
+    const modal_add_cart_temp = "slide-show-add";
+    const modal_close_temp = "slide-show-close";
+    const modal_temp = 'slide-show-modal';
 
     let template = `
     <div class="slide fade">
         <div class="number-text">${index + 1} / ${totalSlides}</div>
-        <a target="_blank" href="${link}"><img class="slide-img" src="${img_url}"></a>
-        <div class="caption">${caption}</div>
+        <a href="vascript:void(0);" id="slide-${id}"><img class="slide-img" src="${img_url}"></a>
+        <div class="caption">${title}</div>
+        <div id="${where_id}_${modal_temp}_${id}" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" id="${where_id}_${modal_close_temp}_${id}">&times;</span>
+            <div class="modal-content-inside">
+                <div class="image">
+                    <img src="${img_url}" alt="Image Not found" width="600" height="400">
+                </div>
+                <div class="detail">
+                    <span class="title">${title}</span>
+                    <p>${desc}</p>
+                    <hr>
+                    <div class="control">
+                        <div class="pricing">
+                            <span class="price">$${price}</span>
+                            <span class="note">per ${unit}</span>
+                        </div>
+                        <button class="button" id="${where_id}_${modal_add_cart_temp}_${id}">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    
+    </div>
     </div>
     `;
+// <a target="_blank" href="${link}"><img class="slide-img" src="${img_url}"></a>
 
     return template
 }
@@ -406,6 +440,11 @@ function templateSlideShow(where_id, slideShows) {
         ${slideDotHtmls}
     </div>
     `;
+
+    const _where_id_ = "slide-show";
+    const modal_add_cart_temp = "slide-show-add";
+    const modal_close_temp = "slide-show-close";
+    const modal_temp = 'slide-show-modal';
 
     let currentIndex = 0;
 
@@ -451,6 +490,20 @@ function templateSlideShow(where_id, slideShows) {
         plusSlides(1)
     };
 
+
+    slideShows.forEach((slide, index) => {
+        // slide-${id}
+        document.getElementById(`slide-${slide.id}`).onclick = function () {
+            document.getElementById(`${_where_id_}_${modal_temp}_${slide.id}`).classList.add("display");
+        };
+        document.getElementById(`${_where_id_}_${modal_close_temp}_${slide.id}`).onclick = function () {
+            document.getElementById(`${_where_id_}_${modal_temp}_${slide.id}`).classList.remove("display");
+        };
+        document.getElementById(`${_where_id_}_${modal_add_cart_temp}_${slide.id}`).onclick = function () {
+            addToCart(slide, onAddToCart);
+        }
+    });
+
     let dots = document.getElementsByClassName("dot");
     for (let i = 0; i < dots.length; i++) {
         // console.log(dots[i]);
@@ -460,9 +513,10 @@ function templateSlideShow(where_id, slideShows) {
     }
 
     showSlides(currentIndex);
-    let auto_slide = autoSlide(() => {
-        plusSlides(1)
-    }, 5000);
+    // let auto_slide = autoSlide(() => {
+    //     plusSlides(1)
+    // }, 5000);
+    let auto_slide = null;
     return auto_slide;
 }
 

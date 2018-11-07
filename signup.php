@@ -165,7 +165,7 @@ $template_signup = '
         <input type="number" id="postal" name="postal" placeholder="postal code"  onkeyup="validateSignup()">
     </div>
     <div class="row">
-        <button class="button" id="signup_button" name="signup">Sign up</button>
+        <button class="button" id="signup_button" name="signup" disabled>Sign up</button>
     </div>
 </form>
 '.$error;

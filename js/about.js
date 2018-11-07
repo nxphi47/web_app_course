@@ -41,13 +41,17 @@ function validateContact() {
     let email = document.getElementById('user_email').value;
     let question = document.getElementById('question').value;
 
+    console.log(`${name} - ${email} - ${question}`);
     let valid = true;
     valid = valid && validateRealName(name);
+    console.log(valid);
     valid = valid && validateEmail(email);
+    console.log(valid);
     valid = valid && validateExperience(question);
+    console.log(valid);
 
     if (!valid) {
-        alert(`Invalid inputs:`);
+        alert(`Invalid inputs`);
     }
 
     return valid;

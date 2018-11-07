@@ -943,7 +943,7 @@ class AccessQuestions extends AccessDB
         // INSERT INTO 'questions'('id', 'user_id', 'name', 'question') VALUES ([value-1],[value-2],[value-3],[value-4])
         $this->idName = "id";
         $this->tableName = 'questions';
-        $this->allKeys = ['question'];
+        $this->allKeys = ['user_email', 'name', 'question'];
         $this->requiredKeys = ['user_email', 'name', 'question'];
     }
 
