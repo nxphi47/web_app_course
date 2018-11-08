@@ -370,7 +370,9 @@ function templateSlide(index, slide, totalSlides) {
     <div class="slide fade">
         <div class="number-text">${index + 1} / ${totalSlides}</div>
         <a href="vascript:void(0);" id="slide-${id}"><img class="slide-img" src="${img_url}"></a>
-        <div class="caption">${title}</div>
+        <div class= "bordercaption">
+            <div class="caption">${title}</div>
+        </div>
         <div id="${where_id}_${modal_temp}_${id}" class="modal">
 
         <!-- Modal content -->
