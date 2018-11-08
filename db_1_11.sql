@@ -42,9 +42,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `dev_name`, `dev_phone`, `dev_address`, `postal`) VALUES
-(1, 1, 'Xuan Phi', 12345678, '30 Nanyang Link', 637717),
-(2, 5, '', 0, '', 0),
-(3, 6, '', 0, '', 0);
+(1, 1, 'Xuan Phi', 12345678, '30 Nanyang Link', 637717);
 
 -- --------------------------------------------------------
 
@@ -68,9 +66,7 @@ CREATE TABLE IF NOT EXISTS `credit_cards` (
 --
 
 INSERT INTO `credit_cards` (`id`, `user_id`, `pay_name`, `pay_card_num`, `pay_card_expire`, `cv2`) VALUES
-(17, 1, 'xuan phi nguyen', 2147483647, '2018-10-30', 0),
-(18, 5, '', 0, '0000-00-00', 0),
-(19, 6, 'wer', 0, '0000-00-00', 0);
+(17, 1, 'xuan phi nguyen', 2147483647, '2018-10-30', 0);
 
 -- --------------------------------------------------------
 
