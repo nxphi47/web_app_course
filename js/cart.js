@@ -160,7 +160,6 @@ function componentOrderItemList(where_id, cart, updateTotal) {
                 componentCartInfo(`cart-wrapper`, cart)
             });
         };
-        // return templateOrderItem(cart_id, item, quantity, onQuantityChange, onRemove);
         return templateOrderItem(cart_id, order_item, onQuantityChange, onRemove);
     });
 
@@ -333,7 +332,6 @@ function confirmModalTemplate(cart) {
         modal.style.display = "none";
     };
     let onBuy = function () {
-        // alert(`You have placed the order: ${JSON.stringify(cart)}`);
         if (confirm("Are you sure to place this order?")) {
             ajax_post("checkout", cart,
                 function (out_cart) {
@@ -400,7 +398,6 @@ function confirmModalTemplate(cart) {
                 };
             }
             else {
-            // console.log(k);
                 document.getElementById(k).onkeyup = () => {
                     onKeyUp(k)
                 };

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/24/18
- * Time: 10:49 PM
- */
+
 
 $DB_HOST = "localhost"; // MySQL server hostname
 $DB_PORT = "3306";      // MySQL server port number (default 3306)

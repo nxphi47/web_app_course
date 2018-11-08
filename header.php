@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:52 PM
- */
 
 if (isset($GLOBALS['user'])) {
 
@@ -72,7 +66,6 @@ if ($user != null) {
 
             <li class="icon">
                 <a href="javascript:void(0);" class="icon" onclick="responsiveNavBar()">
-                    <!--                    <i class="fa fa-bars"></i>-->
                     <img style="width: 41px;" src="imgs/bars.png">
                 </a>
             </li>

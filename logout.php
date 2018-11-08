@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/25/18
- * Time: 12:49 PM
- */
 
 
 // include libraries

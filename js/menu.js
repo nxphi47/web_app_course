@@ -31,10 +31,8 @@ componentItemList(`item-list-wrapper-promotion`, promotion_menu, false);
 
 function onSearch() {
     const string = document.getElementById("search_input").value;
-    // console.log("perform search");
     let items;
     if (string === "") {
-        // componentItemList(`item-list-wrapper-all`, all_menu);
         items = all_menu;
     }
     else {

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
- */
 
 // include libraries
 require_once "php/db_connect.php";

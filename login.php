@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
- */
 
 // include libraries
 require_once "php/db_connect.php";
 require_once "php/request.php";
 
-//session_destroy();
 
 session_start();
 
@@ -19,7 +12,6 @@ if (!isset($_POST['login'])) {
     session_destroy();
 }
 
-//include "session_init.php";
 
 $accessUser = new AccessUsers();
 
@@ -45,13 +37,12 @@ $errors = array();
 
 function validate($uname, $password)
 {
-//    $error = "";
     $errors = array();
     if (strlen($uname) < 4) {
         array_push($errors, "User name must be >= 4 character");
     }
     if (strlen($password) < 6) {
-        array_push($errors, "Password must be > 6");
+        array_push($errors, "Password must be >= 6");
     }
     return $errors;
 }
@@ -61,6 +52,13 @@ var_dump($_POST);
 if (isset($_POST['login'])) {
     $uname = mysqli_real_escape_string($GLOBALS['conn'], $_POST['uname']);
     $password = mysqli_real_escape_string($GLOBALS['conn'], $_POST['password']);
+
+    if (!get_magic_quotes_gpc()) {
+        $uname = addslashes($uname);
+        $password = addslashes($password);
+    }
+    echo "uname {$uname} - {$password}";
+
     $errors = validate($uname, $password);
     if (count($errors) == 0) {
         if ($accessUser->loginWithUnamePass($uname, $password)) {
@@ -78,7 +76,6 @@ $root_data = array(//    "menu"=>$all_menus
 );
 $json = json_encode($root_data);
 
-//echo $all_menus;
 echo "<script> var rootData = JSON.parse('" . $json . "');</script>";
 
 $error = implode(", ", $errors);

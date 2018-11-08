@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
- */
 
 // include libraries
 require_once "php/db_connect.php";
@@ -44,8 +38,6 @@ $root_data = array(
 );
 $json = json_encode($root_data);
 
-//$all_menus['wwwwwww'] = 10;
-//var_dump($all_menus);
 echo "
 <script>
     var rootData = JSON.parse('{$json}');

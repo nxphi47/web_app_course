@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nxphi47
- * Date: 10/3/18
- * Time: 8:44 PM
- */
+
 
 // include libraries
 require_once "php/db_connect.php";
@@ -53,7 +48,6 @@ if (isset($_GET['id'])) {
     }
     else {
         $user['confirm'] = 1;
-//        $accessUser->attrs = $user;
         $user_id = $user['id'];
         $accessUser->updateById($user_id, array('confirm'=>1));
     }
@@ -75,7 +69,5 @@ else {
 <?php
 include "footer.php"
 ?>
-<!--JS-->
-<!--<script type="text/javascript" src="js/login.js"></script>-->
 </html>
 
